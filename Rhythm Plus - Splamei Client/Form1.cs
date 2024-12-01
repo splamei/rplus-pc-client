@@ -129,7 +129,7 @@ namespace Rhythm_Plus___Splamei_Client
                 Console.WriteLine("New update!");
                 if (MessageBox.Show("Theres a new update to the client! Press 'Yes' to close close the client and open the GitHub page to install the new update.\n\nYou don't neet to do this if your using SplameiPlay so just press 'No' and wait for it to realise the update exists", "New Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 {
-                    Process.Start("https://veemo.uk");
+                    Process.Start("https://github.com/splamei/rplus-pc-client/releases");
                     Application.Exit();
                 }
                 else
