@@ -207,7 +207,7 @@ namespace Rhythm_Plus___Splamei_Client
         private void AboutOption_Click(object sender, EventArgs e)
         {
             AboutBox1 about = new AboutBox1();
-            about.Show();
+            about.ShowDialog();
         }
 
         private void Close_Click(object sender, EventArgs e)
