@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Rhythm Plus - Splamei Client")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Play the Rythm Plus Web Game in a custom client thanks to WebView2!")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Splamei")]
 [assembly: AssemblyProduct("Rhythm Plus - Splamei Client")]
-[assembly: AssemblyCopyright("Copyright ©  2024")]
+[assembly: AssemblyCopyright("Copyright © Splamei 2024 (MIT Licence)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
