@@ -48,6 +48,7 @@ namespace Rhythm_Plus___Splamei_Client
             this.Hide();
 
             webView21.Source = new Uri("https://rhythm-plus.com");
+            //webView21.Source = new Uri("https://google.com");
 
             this.Hide();
 
@@ -206,8 +207,11 @@ namespace Rhythm_Plus___Splamei_Client
 
         private void AboutOption_Click(object sender, EventArgs e)
         {
-            AboutBox1 about = new AboutBox1();
-            about.ShowDialog();
+            //AboutBox1 about = new AboutBox1();
+            //about.ShowDialog();
+
+            AboutNew aboutNew = new AboutNew();
+            aboutNew.ShowDialog();
         }
 
         private void Close_Click(object sender, EventArgs e)
