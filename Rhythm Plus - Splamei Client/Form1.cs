@@ -89,8 +89,8 @@ namespace Rhythm_Plus___Splamei_Client
 
                 this.Hide();
 
-                //webView21.Source = new Uri("https://rhythm-plus.com");
-                webView21.Source = new Uri("https://google.com");
+                webView21.Source = new Uri("https://rhythm-plus.com");
+                //webView21.Source = new Uri("https://google.com");
 
                 this.Hide();
 
