@@ -14,11 +14,13 @@ using System.Security.Policy;
 using System.Diagnostics;
 using System.Net;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace Rhythm_Plus___Splamei_Client
 {
     public partial class Form1 : Form
     {
+
         public Splash splash;
 
         private bool closeSplash = false;
@@ -38,6 +40,11 @@ namespace Rhythm_Plus___Splamei_Client
 
             splash = new Splash();
             splash.Show();
+
+            if (!System.IO.Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client"))
+            {
+                System.IO.Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client");
+            }
 
             if (System.IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeState.dat"))
             {
@@ -72,20 +79,31 @@ namespace Rhythm_Plus___Splamei_Client
                 this.WindowState = FormWindowState.Maximized;
             }
 
-            var webView2Environment = await CoreWebView2Environment.CreateAsync(null, Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client");
+            try
+            {
+                var webView2Environment = await CoreWebView2Environment.CreateAsync(null, Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client");
 
-            this.Hide();
+                this.Hide();
 
-            await webView21.EnsureCoreWebView2Async(webView2Environment);
+                await webView21.EnsureCoreWebView2Async(webView2Environment);
 
-            this.Hide();
+                this.Hide();
 
-            webView21.Source = new Uri("https://rhythm-plus.com");
-            //webView21.Source = new Uri("https://google.com");
+                //webView21.Source = new Uri("https://rhythm-plus.com");
+                webView21.Source = new Uri("https://google.com");
 
-            this.Hide();
+                this.Hide();
 
-            closeSplash = true;
+                closeSplash = true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+                if (MessageBox.Show($"Something went wrong when running the client. The client will now close. We are sorry for the issue\n\nError Code: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
+                {
+                    Application.Exit();
+                }
+            }
 
             if (!System.IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/played.dat"))
             {
