@@ -102,6 +102,12 @@
     <Compile Include="AboutNew.Designer.cs">
       <DependentUpon>AboutNew.cs</DependentUpon>
     </Compile>
+    <Compile Include="Egg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Egg.Designer.cs">
+      <DependentUpon>Egg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +127,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AboutNew.resx">
       <DependentUpon>AboutNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Egg.resx">
+      <DependentUpon>Egg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -171,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ic_launcher-playstore.ico" />
+    <None Include="Resources\site icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Web.WebView2.1.0.2849.39\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\packages\Microsoft.Web.WebView2.1.0.2849.39\build\Microsoft.Web.WebView2.targets')" />

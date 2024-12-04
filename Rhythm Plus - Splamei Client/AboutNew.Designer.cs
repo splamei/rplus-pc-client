@@ -103,6 +103,7 @@
             this.label5.Size = new System.Drawing.Size(203, 36);
             this.label5.TabIndex = 6;
             this.label5.Text = "Thank you for using my client!\r\nIt means alot!";
+            this.label5.Click += new System.EventHandler(this.label5_Click_1);
             // 
             // AboutNew
             // 
