@@ -86,5 +86,10 @@ namespace Rhythm_Plus___Splamei_Client
             Egg egg = new Egg();
             egg.ShowDialog();
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

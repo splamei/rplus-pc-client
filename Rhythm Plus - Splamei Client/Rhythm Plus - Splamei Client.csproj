@@ -180,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ic_launcher-playstore.ico" />
+    <None Include="Resources\R-Plus Logo.png" />
     <None Include="Resources\site icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
