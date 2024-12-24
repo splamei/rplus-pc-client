@@ -262,8 +262,10 @@ namespace Rhythm_Plus___Splamei_Client
             //about.ShowDialog();
 
             AboutNew aboutNew = new AboutNew();
+            aboutNew.form = this;
             aboutNew.ShowDialog();
         }
+
 
         private void Close_Click(object sender, EventArgs e)
         {

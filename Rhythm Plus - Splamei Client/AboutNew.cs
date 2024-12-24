@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace Rhythm_Plus___Splamei_Client
 {
@@ -17,6 +18,8 @@ namespace Rhythm_Plus___Splamei_Client
 
         private List<string> messages = new List<string>();
         private List<int> times = new List<int>();
+
+        public Form1 form;
 
         public AboutNew()
         {
@@ -38,7 +41,7 @@ namespace Rhythm_Plus___Splamei_Client
             label4.Text = "Version - " + Application.ProductVersion;
 
             messages.Add("CRASH");
-            times.Add(32);
+            times.Add(1);//(32);
             messages.Add("Yeah. I lied again. But I will crash you game if you continue");
             times.Add(31);
             messages.Add("Ok now it has :3");
@@ -68,7 +71,19 @@ namespace Rhythm_Plus___Splamei_Client
 
         private void label5_Click_1(object sender, EventArgs e)
         {
+            
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
             timesPressed++;
+
+            bool showingEgg = false;
 
             for (int i = 0; i < times.Count; i++)
             {
@@ -76,20 +91,22 @@ namespace Rhythm_Plus___Splamei_Client
                 {
                     if (messages[i] == "CRASH")
                     {
+                        form.Hide();
+                        Thread.Sleep(60_000);
+                        MessageBox.Show("An unknown error has occured. The client will now close", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         Application.Exit();
                     }
                     MessageBox.Show(messages[i], "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    showingEgg = true;
                     break;
                 }
             }
 
-            Egg egg = new Egg();
-            egg.ShowDialog();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
+            if (!showingEgg)
+            {
+                Egg egg = new Egg();
+                egg.ShowDialog();
+            }
         }
     }
 }
