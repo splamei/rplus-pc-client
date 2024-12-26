@@ -274,21 +274,24 @@ namespace Rhythm_Plus___Splamei_Client
 
         private void GetHelp_Click(object sender, EventArgs e)
         {
-            DialogResult dialog = MessageBox.Show("Is the issue your having releating to the Rhythm Plus game and not the client? This will help us direct you to the best place to get help", "Get Help", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-            if (dialog == DialogResult.Yes)
-            {
-                if (MessageBox.Show("The Rhythm Plus Comunity Discord link is now going to open to get help on the game. You will need a Discord account to join", "Get Help", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
-                {
-                    Process.Start("https://discord.gg/ZGhnKp4");
-                }
-            }
-            else if (dialog == DialogResult.No)
-            {
-                if (MessageBox.Show("The SplameiPlay Discord link is now going to open to get help on the client. You will need a Discord account to join", "Get Help", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
-                {
-                    Process.Start("https://discord.gg/g2KTP5X9At");
-                }
-            }
+            //DialogResult dialog = MessageBox.Show("Is the issue your having releating to the Rhythm Plus game and not the client? This will help us direct you to the best place to get help", "Get Help", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            //if (dialog == DialogResult.Yes)
+            //{
+            //    if (MessageBox.Show("The Rhythm Plus Comunity Discord link is now going to open to get help on the game. You will need a Discord account to join", "Get Help", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
+            //    {
+            //        Process.Start("https://discord.gg/ZGhnKp4");
+            //    }
+            //}
+            //else if (dialog == DialogResult.No)
+            //{
+            //    if (MessageBox.Show("The SplameiPlay Discord link is now going to open to get help on the client. You will need a Discord account to join", "Get Help", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
+            //    {
+            //        Process.Start("https://discord.gg/g2KTP5X9At");
+            //    }
+            //}
+
+            HelpBox help = new HelpBox();
+            help.ShowDialog();
         }
 
         private void Maximise_Click(object sender, EventArgs e)
