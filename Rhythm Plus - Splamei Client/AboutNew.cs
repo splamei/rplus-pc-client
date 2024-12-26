@@ -41,7 +41,7 @@ namespace Rhythm_Plus___Splamei_Client
             label4.Text = "Version - " + Application.ProductVersion;
 
             messages.Add("CRASH");
-            times.Add(1);//(32);
+            times.Add(32);
             messages.Add("Yeah. I lied again. But I will crash you game if you continue");
             times.Add(31);
             messages.Add("Ok now it has :3");
