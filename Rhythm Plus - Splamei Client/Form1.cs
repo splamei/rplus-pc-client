@@ -1,20 +1,12 @@
 ﻿using Microsoft.Web.WebView2.Core;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Security.Policy;
 using System.Diagnostics;
 using System.Net;
-using System.Threading;
-using System.Runtime.InteropServices;
+using DiscordRPC;
+using DiscordRPC.Logging;
 
 namespace Rhythm_Plus___Splamei_Client
 {
@@ -29,13 +21,127 @@ namespace Rhythm_Plus___Splamei_Client
 
         public int myVerCode = 1000;
 
+        public DiscordRpcClient client;
+
+        public DiscordRPC.Button playButton = new DiscordRPC.Button();
+
+        public DateTime start;
+
         public Form1()
         {
             InitializeComponent();
         }
 
+        public void setUpRP()
+        {
+            client = new DiscordRpcClient("1331684607199936552");
+
+            //Set the logger
+            client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
+
+            //Subscribe to events
+            client.OnReady += (sender, e) =>
+            {
+                Console.WriteLine("Received Ready from user {0}", e.User.Username);
+            };
+
+            client.OnPresenceUpdate += (sender, e) =>
+            {
+                Console.WriteLine("Received Update! {0}", e.Presence);
+            };
+
+            //Connect to the RPC
+            client.Initialize();
+
+            start = DateTime.Now;
+
+            playButton = new DiscordRPC.Button();
+            playButton.Label = "Play Rhythm Plus";
+            playButton.Url = "https://rhythm-plus.com";
+
+            setPresence();
+        }
+
+        public void setPresence()
+        {
+            try
+            {
+                if (webView21.Source.ToString() != null)
+                {
+                    string point = "Playing Rhythm Plus";
+                    string uri = webView21.Source.ToString();
+
+                    if (uri.Equals("https://rhythm-plus.com"))
+                    {
+                        point = "On the into screen";
+                    }
+                    else if (uri.StartsWith("https://rhythm-plus.com/menu/"))
+                    {
+                        point = "Looking at songs";
+                    }
+                    else if (uri.Equals("https://rhythm-plus.com/studio/") || uri.StartsWith("https://rhythm-plus.com/editor/"))
+                    {
+                        point = "Creating a map";
+                    }
+                    else if (uri.Equals("https://rhythm-plus.com/account/"))
+                    {
+                        point = "Changing settings";
+                    }
+                    else if (uri.Equals("https://rhythm-plus.com/tutorial/"))
+                    {
+                        point = "Playing the tutorial";
+                    }
+                    else if (uri.StartsWith("https://rhythm-plus.com/game/"))
+                    {
+                        string songName = webView21.CoreWebView2.DocumentTitle.Split(new string[] { " - Rhythm+ Music" }, StringSplitOptions.None)[0];
+                        if (songName == "Game")
+                        {
+                            point = "Loading a song";
+                        }
+                        else
+                        {
+                            point = $"Playing '{songName}'";
+                        }
+                    }
+
+                    client.SetPresence(new RichPresence()
+                    {
+                        Details = point,
+                        State = "Playing",
+                        Party = new Party()
+                        {
+                            Max = 1,
+                            Size = 1,
+                            ID = "room123"
+                        },
+                        Timestamps = new Timestamps()
+                        {
+                            Start = start
+                        },
+                        Assets = new Assets()
+                        {
+                            LargeImageKey = "logo",
+                            LargeImageText = "Rhythm Plus - Splamei Client",
+                            SmallImageKey = "icon",
+                            SmallImageText = "Client by Splamei"
+                        },
+                        Buttons = new DiscordRPC.Button[]
+                        {
+                            playButton
+                        }
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
+
         private async void Form1_Load(object sender, EventArgs e)
         {
+            setUpRP();
+
             this.Hide();
 
             splash = new Splash();
@@ -176,7 +282,7 @@ namespace Rhythm_Plus___Splamei_Client
         private void checkVer()
         {
             var task = MakeAsyncRequest("https://www.veemo.uk/net/r-plus/pc/ver", "text/html");
-            Console.WriteLine("Got response of {0}", task.Result);
+            Console.WriteLine("Got response of ", task.Result);
 
             if (Int32.Parse(task.Result) > myVerCode)
             {
@@ -357,13 +463,12 @@ namespace Rhythm_Plus___Splamei_Client
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (webView21.Source.ToString().StartsWith("https://rhythm-plus.com/game"))
-            {
-                if (MessageBox.Show("By quitting out of the client, you will loose the data of the current game your in. It's best to finish the game your in then quit\n\nDo you still want to quit?", "Quit the client?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
-                {
-                    e.Cancel = true;
-                }
-            }
+            client.Dispose();
+        }
+
+        private void timer3_Tick(object sender, EventArgs e)
+        {
+            setPresence();
         }
     }
 }
