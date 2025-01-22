@@ -8,6 +8,7 @@ using System.Net;
 using DiscordRPC;
 using DiscordRPC.Logging;
 using DiscordRPC.Message;
+using System.Security.Policy;
 
 namespace Rhythm_Plus___Splamei_Client
 {
@@ -28,7 +29,9 @@ namespace Rhythm_Plus___Splamei_Client
 
         public DateTime start;
 
-        bool enabledRP = true;
+        public bool enabledRP = true;
+        public bool showTitleOfMaps = true;
+        public bool directLinkRP = false;
 
         public Form1()
         {
@@ -63,6 +66,11 @@ namespace Rhythm_Plus___Splamei_Client
             playButton = new DiscordRPC.Button();
             playButton.Label = "Play Rhythm Plus";
             playButton.Url = "https://rhythm-plus.com";
+
+            if (directLinkRP)
+            {
+                playButton.Label = "Play with me";
+            }
 
             setPresence();
         }
@@ -107,6 +115,11 @@ namespace Rhythm_Plus___Splamei_Client
                         {
                             point = $"Playing '{songName}'";
                         }
+                    }
+
+                    if (directLinkRP)
+                    {
+                        playButton.Url = uri;
                     }
 
                     client.SetPresence(new RichPresence()
@@ -154,8 +167,6 @@ namespace Rhythm_Plus___Splamei_Client
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            setUpRP();
-
             this.Hide();
 
             splash = new Splash();
@@ -198,6 +209,44 @@ namespace Rhythm_Plus___Splamei_Client
                 System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationY.dat", "0");
                 this.WindowState = FormWindowState.Maximized;
             }
+
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enabledRP.dat"))
+            {
+                if (File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enabledRP.dat") == "0")
+                {
+                    enabledRP = false;
+                }
+            }
+            else
+            {
+                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enabledRP.dat", "1");
+            }
+
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showTitleOfMapsRP.dat"))
+            {
+                if (File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showTitleOfMapsRP.dat") == "0")
+                {
+                    showTitleOfMaps = false;
+                }
+            }
+            else
+            {
+                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showTitleOfMapsRP.dat", "1");
+            }
+
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/directLinkRP.dat"))
+            {
+                if (File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/directLinkRP.dat") == "1")
+                {
+                    directLinkRP = true;
+                }
+            }
+            else
+            {
+                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/directLinkRP.dat", "0");
+            }
+
+            setUpRP();
 
             try
             {
@@ -376,44 +425,6 @@ namespace Rhythm_Plus___Splamei_Client
             }
         }
 
-        private void AboutOption_Click(object sender, EventArgs e)
-        {
-            //AboutBox1 about = new AboutBox1();
-            //about.ShowDialog();
-
-            AboutNew aboutNew = new AboutNew();
-            aboutNew.form = this;
-            aboutNew.ShowDialog();
-        }
-
-
-        private void Close_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void GetHelp_Click(object sender, EventArgs e)
-        {
-            //DialogResult dialog = MessageBox.Show("Is the issue your having releating to the Rhythm Plus game and not the client? This will help us direct you to the best place to get help", "Get Help", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-            //if (dialog == DialogResult.Yes)
-            //{
-            //    if (MessageBox.Show("The Rhythm Plus Comunity Discord link is now going to open to get help on the game. You will need a Discord account to join", "Get Help", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
-            //    {
-            //        Process.Start("https://discord.gg/ZGhnKp4");
-            //    }
-            //}
-            //else if (dialog == DialogResult.No)
-            //{
-            //    if (MessageBox.Show("The SplameiPlay Discord link is now going to open to get help on the client. You will need a Discord account to join", "Get Help", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
-            //    {
-            //        Process.Start("https://discord.gg/g2KTP5X9At");
-            //    }
-            //}
-
-            HelpBox help = new HelpBox();
-            help.ShowDialog();
-        }
-
         private void Maximise_Click(object sender, EventArgs e)
         {
             
@@ -485,6 +496,78 @@ namespace Rhythm_Plus___Splamei_Client
             if (enabledRP)
             {
                 setPresence();
+            }
+        }
+
+        private void QuitMenu_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void getHelpMenu_Click(object sender, EventArgs e)
+        {
+            //DialogResult dialog = MessageBox.Show("Is the issue your having releating to the Rhythm Plus game and not the client? This will help us direct you to the best place to get help", "Get Help", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            //if (dialog == DialogResult.Yes)
+            //{
+            //    if (MessageBox.Show("The Rhythm Plus Comunity Discord link is now going to open to get help on the game. You will need a Discord account to join", "Get Help", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
+            //    {
+            //        Process.Start("https://discord.gg/ZGhnKp4");
+            //    }
+            //}
+            //else if (dialog == DialogResult.No)
+            //{
+            //    if (MessageBox.Show("The SplameiPlay Discord link is now going to open to get help on the client. You will need a Discord account to join", "Get Help", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
+            //    {
+            //        Process.Start("https://discord.gg/g2KTP5X9At");
+            //    }
+            //}
+
+            HelpBox help = new HelpBox();
+            help.ShowDialog();
+        }
+
+        private void aboutMenu_Click(object sender, EventArgs e)
+        {
+            //AboutBox1 about = new AboutBox1();
+            //about.ShowDialog();
+
+            AboutNew aboutNew = new AboutNew();
+            aboutNew.form = this;
+            aboutNew.ShowDialog();
+        }
+
+        private void settingsMenu_Click(object sender, EventArgs e)
+        {
+            Settings settings = new Settings();
+            settings.form = this;
+
+            settings.ShowDialog();
+        }
+
+        public void setSettings(bool LenableRP, bool LshowTitleMaps, bool LdirectLinkRP)
+        {
+            enabledRP = LenableRP;
+            showTitleOfMaps = LshowTitleMaps;
+            directLinkRP = LdirectLinkRP;
+
+            if (enabledRP)
+            { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enabledRP.dat", "1"); }
+            else
+            { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enabledRP.dat", "0"); }
+
+            if (showTitleOfMaps)
+            { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showTitleOfMapsRP.dat", "1"); }
+            else
+            { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showTitleOfMapsRP.dat", "0"); }
+
+            if (directLinkRP)
+            { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/directLinkRP.dat", "1"); }
+            else
+            { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/directLinkRP.dat", "0"); }
+
+            if (directLinkRP)
+            {
+                playButton.Label = "Play with me";
             }
         }
     }
