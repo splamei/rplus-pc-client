@@ -33,6 +33,7 @@ namespace Rhythm_Plus___Splamei_Client
         public bool showTitleOfMaps = true;
         public bool directLinkRP = false;
 
+        public string prevDataRP = "";
         public Form1()
         {
             InitializeComponent();
@@ -122,32 +123,37 @@ namespace Rhythm_Plus___Splamei_Client
                         playButton.Url = uri;
                     }
 
-                    client.SetPresence(new RichPresence()
+                    if (prevDataRP != point)
                     {
-                        Details = point,
-                        State = "Playing",
-                        Party = new Party()
+                        client.SetPresence(new RichPresence()
                         {
-                            Max = 1,
-                            Size = 1,
-                            ID = "room123"
-                        },
-                        Timestamps = new Timestamps()
-                        {
-                            Start = start
-                        },
-                        Assets = new Assets()
-                        {
-                            LargeImageKey = "logo",
-                            LargeImageText = "Rhythm Plus - Splamei Client",
-                            SmallImageKey = "icon",
-                            SmallImageText = "Client by Splamei"
-                        },
-                        Buttons = new DiscordRPC.Button[]
-                        {
+                            Details = point,
+                            State = "Playing",
+                            Party = new Party()
+                            {
+                                Max = 1,
+                                Size = 1,
+                                ID = "room123"
+                            },
+                            Timestamps = new Timestamps()
+                            {
+                                Start = start
+                            },
+                            Assets = new Assets()
+                            {
+                                LargeImageKey = "logo",
+                                LargeImageText = "Rhythm Plus - Splamei Client",
+                                SmallImageKey = "icon",
+                                SmallImageText = "Client by Splamei"
+                            },
+                            Buttons = new DiscordRPC.Button[]
+                            {
                             playButton
-                        }
-                    });
+                            }
+                        });
+
+                        prevDataRP = point;
+                    }
                 }
             }
             catch (Exception ex)
