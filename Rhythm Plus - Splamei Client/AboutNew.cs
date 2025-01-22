@@ -108,5 +108,11 @@ namespace Rhythm_Plus___Splamei_Client
                 egg.ShowDialog();
             }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Licences licences = new Licences();
+            licences.ShowDialog();
+        }
     }
 }
