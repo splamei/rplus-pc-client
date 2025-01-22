@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Net;
 using DiscordRPC;
 using DiscordRPC.Logging;
+using DiscordRPC.Message;
 
 namespace Rhythm_Plus___Splamei_Client
 {
@@ -27,6 +28,8 @@ namespace Rhythm_Plus___Splamei_Client
 
         public DateTime start;
 
+        bool enabledRP = true;
+
         public Form1()
         {
             InitializeComponent();
@@ -35,6 +38,8 @@ namespace Rhythm_Plus___Splamei_Client
         public void setUpRP()
         {
             client = new DiscordRpcClient("1331684607199936552");
+
+            client.OnConnectionFailed += errorSettingRP;
 
             //Set the logger
             client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
@@ -134,8 +139,17 @@ namespace Rhythm_Plus___Splamei_Client
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine("Error! - " + ex.ToString());
             }
+        }
+
+        private void errorSettingRP(object sender, ConnectionFailedMessage args)
+        {
+            enabledRP = false;
+
+            Console.WriteLine("Error with RP! - " + args);
+
+            client.Dispose();
         }
 
         private async void Form1_Load(object sender, EventArgs e)
@@ -468,7 +482,10 @@ namespace Rhythm_Plus___Splamei_Client
 
         private void timer3_Tick(object sender, EventArgs e)
         {
-            setPresence();
+            if (enabledRP)
+            {
+                setPresence();
+            }
         }
     }
 }
