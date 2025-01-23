@@ -298,6 +298,7 @@ namespace Rhythm_Plus___Splamei_Client
                 try
                 {
                     discordRpRefresh = int.Parse(File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/discordRpRefresh.dat"));
+                    timer3.Interval = discordRpRefresh * 1000;
                 }
                 catch (Exception ex)
                 {
@@ -615,13 +616,15 @@ namespace Rhythm_Plus___Splamei_Client
             settings.ShowDialog();
         }
 
-        public void setSettings(bool LenableRP, bool LshowTitleMaps, bool LdirectLinkRP, bool LretainWinSize)
+        public void setSettings(bool LenableRP, bool LshowTitleMaps, bool LdirectLinkRP, bool LretainWinSize, int LdiscordRefesh)
         {
             enabledRP = LenableRP;
             showTitleOfMaps = LshowTitleMaps;
             directLinkRP = LdirectLinkRP;
 
             retainWinSize = LretainWinSize;
+
+            discordRpRefresh = LdiscordRefesh;
 
             if (enabledRP)
             { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enabledRP.dat", "1"); }

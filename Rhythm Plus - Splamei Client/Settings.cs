@@ -31,6 +31,10 @@ namespace Rhythm_Plus___Splamei_Client
             checkBox4.Checked = form.retainWinSize;
             checkBox5.Checked = form.fullscreen;
 
+            trackBar1.Value = form.discordRpRefresh;
+
+            label5.Text = $"Discord RP Refresh Time ({trackBar1.Value}s)";
+
             starting = false;
         }
 
@@ -46,7 +50,9 @@ namespace Rhythm_Plus___Splamei_Client
             else
             { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/playFullScreen.dat", "0"); }
 
-            form.setSettings(checkBox1.Checked, checkBox2.Checked, checkBox3.Checked, checkBox4.Checked);
+            File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/discordRpRefresh.dat", trackBar1.Value.ToString());
+
+            form.setSettings(checkBox1.Checked, checkBox2.Checked, checkBox3.Checked, checkBox4.Checked, trackBar1.Value);
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -72,6 +78,11 @@ namespace Rhythm_Plus___Splamei_Client
                     checkBox5.Checked = false;
                 }
             }
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            label5.Text = $"Discord RP Refresh Time ({trackBar1.Value}s)";
         }
     }
 }
