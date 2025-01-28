@@ -47,7 +47,7 @@ namespace Rhythm_Plus___Splamei_Client
 
         private void webView21_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
         {
-            this.Text = "Get Help > Rhythm Plus - Splamei Client";
+            this.Text = "Get Help -> Rhythm Plus - Splamei Client";
         }
     }
 }
