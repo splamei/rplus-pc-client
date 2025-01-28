@@ -114,5 +114,10 @@ namespace Rhythm_Plus___Splamei_Client
             Licences licences = new Licences();
             licences.ShowDialog();
         }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

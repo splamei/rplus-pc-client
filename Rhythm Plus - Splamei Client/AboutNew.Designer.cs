@@ -83,9 +83,10 @@
             this.label4.ForeColor = System.Drawing.Color.Black;
             this.label4.Location = new System.Drawing.Point(14, 197);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(115, 18);
+            this.label4.Size = new System.Drawing.Size(135, 18);
             this.label4.TabIndex = 3;
-            this.label4.Text = "Version - 1.0.0.0";
+            this.label4.Text = "Version - Loading...";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // button1
             // 
