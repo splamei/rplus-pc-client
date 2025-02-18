@@ -564,7 +564,10 @@ namespace Rhythm_Plus___Splamei_Client
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            client.Dispose();
+            if (client != null)
+            {
+                client.Dispose();
+            }
         }
 
         private void timer3_Tick(object sender, EventArgs e)
