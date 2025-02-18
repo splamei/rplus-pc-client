@@ -332,7 +332,7 @@ namespace Rhythm_Plus___Splamei_Client
 
                 this.Hide();
 
-                webView21.Source = new Uri("https://rhythm-plus2.com");
+                webView21.Source = new Uri("https://rhythm-plus.com");
 
                 webView21.CoreWebView2.DocumentTitleChanged += titleChanged;
                 //webView21.Source = new Uri("https://google.com");
@@ -680,6 +680,18 @@ namespace Rhythm_Plus___Splamei_Client
 
                 settings.ShowDialog();
             }
+        }
+
+        private void uRLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            URL_Select uRL_Select = new URL_Select();
+            uRL_Select.action = newUrlToGo;
+            uRL_Select.ShowDialog();
+        }
+
+        public void newUrlToGo(string url)
+        {
+            webView21.Source = new Uri(url);
         }
     }
 }
