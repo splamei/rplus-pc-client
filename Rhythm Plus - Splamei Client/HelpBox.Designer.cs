@@ -43,6 +43,7 @@
             this.webView21.Name = "webView21";
             this.webView21.Size = new System.Drawing.Size(1319, 782);
             this.webView21.TabIndex = 0;
+            this.webView21.UseWaitCursor = true;
             this.webView21.ZoomFactor = 1D;
             this.webView21.NavigationCompleted += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs>(this.webView21_NavigationCompleted);
             // 
@@ -59,6 +60,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Loading... Please wait";
+            this.UseWaitCursor = true;
             this.Load += new System.EventHandler(this.HelpBox_Load);
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).EndInit();
             this.ResumeLayout(false);
