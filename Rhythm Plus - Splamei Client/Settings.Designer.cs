@@ -120,6 +120,7 @@
             // 
             // trackBar1
             // 
+            this.trackBar1.LargeChange = 1;
             this.trackBar1.Location = new System.Drawing.Point(8, 366);
             this.trackBar1.Minimum = 1;
             this.trackBar1.Name = "trackBar1";
