@@ -24,7 +24,7 @@ namespace Rhythm_Plus___Splamei_Client
 
         private bool showingError = false;
 
-        public int myVerCode = 1000;
+        public int myVerCode = 1001;
 
         public DiscordRpcClient client;
 
@@ -243,7 +243,10 @@ namespace Rhythm_Plus___Splamei_Client
                         this.WindowState = FormWindowState.Maximized;
                         this.Location = new System.Drawing.Point(0, 0);
                         Console.WriteLine(ex);
-                        MessageBox.Show($"Something went wrong while setting the window of the client up. It's been reset and we are sorry for the issue.\n\nError Code: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        Error errorD = new Error();
+                        errorD.errorDebug = ex.ToString();
+                        errorD.ShowDialog();
                     }
                 }
             }
@@ -305,7 +308,11 @@ namespace Rhythm_Plus___Splamei_Client
                     Console.WriteLine("Error! " + ex);
                     discordRpRefresh = 5;
                     File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/discordRpRefresh.dat", "5");
-                    MessageBox.Show($"Something went wrong when running the client. The client will continue to run and the issue should now be resolved. We are sorry for the issue\n\nError Code: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    Error errorD = new Error();
+                    errorD.errorDebug = ex.ToString();
+                    errorD.shouldClose = false;
+                    errorD.ShowDialog();
                 }
             }
             else
@@ -325,7 +332,7 @@ namespace Rhythm_Plus___Splamei_Client
 
                 this.Hide();
 
-                webView21.Source = new Uri("https://rhythm-plus.com");
+                webView21.Source = new Uri("https://rhythm-plus2.com");
 
                 webView21.CoreWebView2.DocumentTitleChanged += titleChanged;
                 //webView21.Source = new Uri("https://google.com");
@@ -337,10 +344,10 @@ namespace Rhythm_Plus___Splamei_Client
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.ToString());
-                if (MessageBox.Show($"Something went wrong when running the client. The client will now close. We are sorry for the issue\n\nError Code: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
-                {
-                    Application.Exit();
-                }
+
+                Error errorD = new Error();
+                errorD.errorDebug = ex.ToString();
+                errorD.ShowDialog();
             }
 
             if (!System.IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/played.dat"))
@@ -378,10 +385,9 @@ namespace Rhythm_Plus___Splamei_Client
                 {
                     Console.WriteLine("Error getting notices or ver! - " + ex);
 
-                    if (MessageBox.Show($"Something went wrong when running the client. The client will now close. We are sorry for the issue\n\nResult Code: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
-                    {
-                        Application.Exit();
-                    }
+                    Error errorD = new Error();
+                    errorD.errorDebug = ex.ToString();
+                    errorD.ShowDialog();
                 }
             }
         }
@@ -404,10 +410,9 @@ namespace Rhythm_Plus___Splamei_Client
 
                 Console.WriteLine("Error! " + e.WebErrorStatus);
 
-                if (MessageBox.Show($"Something went wrong when running the client. The client will now close. We are sorry for the issue\n\nResult Code: {e.WebErrorStatus}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
-                {
-                    Application.Exit();
-                }
+                Error errorD = new Error();
+                errorD.errorDebug = "WebView2 error status code - " + e.WebErrorStatus.ToString();
+                errorD.ShowDialog();
             }
         }
 
@@ -487,10 +492,9 @@ namespace Rhythm_Plus___Splamei_Client
             {
                 Console.WriteLine("Error decoding notices - " + ex);
 
-                if (MessageBox.Show($"Something went wrong when running the client. The client will now close. We are sorry for the issue\n\nResult Code: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
-                {
-                    Application.Exit();
-                }
+                Error errorD = new Error();
+                errorD.errorDebug = ex.ToString();
+                errorD.ShowDialog();
             }
         }
 

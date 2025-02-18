@@ -130,6 +130,12 @@
     <Compile Include="Egg.Designer.cs">
       <DependentUpon>Egg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Error.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Error.Designer.cs">
+      <DependentUpon>Error.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,6 +177,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Egg.resx">
       <DependentUpon>Egg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Error.resx">
+      <DependentUpon>Error.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -230,6 +239,7 @@
   <ItemGroup>
     <Content Include="ic_launcher-playstore.ico" />
     <Content Include="ic_launcher.ico" />
+    <None Include="Resources\Error.png" />
     <None Include="Resources\R-Plus Logo.png" />
     <None Include="Resources\site icon.png" />
   </ItemGroup>
