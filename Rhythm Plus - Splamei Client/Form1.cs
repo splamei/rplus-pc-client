@@ -87,7 +87,7 @@ namespace Rhythm_Plus___Splamei_Client
         {
             try
             {
-                if (webView21.Source.ToString() != null)
+                if (webView21.Source != null)
                 {
                     string point = "Playing Rhythm Plus";
                     string uri = webView21.Source.ToString();
