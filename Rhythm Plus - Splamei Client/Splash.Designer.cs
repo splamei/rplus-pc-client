@@ -104,7 +104,6 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Splash";
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rhythm Plus - Splamei Client";
             this.UseWaitCursor = true;
