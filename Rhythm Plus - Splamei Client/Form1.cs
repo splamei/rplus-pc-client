@@ -732,13 +732,6 @@ namespace Rhythm_Plus___Splamei_Client
             }
         }
 
-        private void uRLToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            URL_Select uRL_Select = new URL_Select();
-            uRL_Select.action = newUrlToGo;
-            uRL_Select.ShowDialog();
-        }
-
         public void newUrlToGo(string url)
         {
             webView21.Source = new Uri(url);
@@ -752,6 +745,20 @@ namespace Rhythm_Plus___Splamei_Client
         private void notifyIcon1_Click(object sender, EventArgs e)
         {
             
+        }
+
+        private void goToToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            URL_Select uRL_Select = new URL_Select();
+            uRL_Select.action = newUrlToGo;
+            uRL_Select.ShowDialog();
+        }
+
+        private void copyLinkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetData(DataFormats.Text, (Object)webView21.Source.ToString());
+
+            MessageBox.Show("The URL has been copied to the clipboard", "Copied - Splamei Client", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

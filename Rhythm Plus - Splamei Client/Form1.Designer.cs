@@ -38,11 +38,13 @@
             this.settingsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.QuitMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.uRLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.getHelpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.linkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.goToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyLinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.timer4 = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
@@ -52,10 +54,10 @@
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.discordRPstatus = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.discordRPstatus = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -92,7 +94,7 @@
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileMenu,
-            this.uRLToolStripMenuItem,
+            this.linkToolStripMenuItem,
             this.HelpMenu});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -115,28 +117,21 @@
             // settingsMenu
             // 
             this.settingsMenu.Name = "settingsMenu";
-            this.settingsMenu.Size = new System.Drawing.Size(180, 22);
+            this.settingsMenu.Size = new System.Drawing.Size(116, 22);
             this.settingsMenu.Text = "Settings";
             this.settingsMenu.Click += new System.EventHandler(this.settingsMenu_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(113, 6);
             // 
             // QuitMenu
             // 
             this.QuitMenu.Name = "QuitMenu";
-            this.QuitMenu.Size = new System.Drawing.Size(180, 22);
+            this.QuitMenu.Size = new System.Drawing.Size(116, 22);
             this.QuitMenu.Text = "Quit";
             this.QuitMenu.Click += new System.EventHandler(this.QuitMenu_Click);
-            // 
-            // uRLToolStripMenuItem
-            // 
-            this.uRLToolStripMenuItem.Name = "uRLToolStripMenuItem";
-            this.uRLToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
-            this.uRLToolStripMenuItem.Text = "URL";
-            this.uRLToolStripMenuItem.Click += new System.EventHandler(this.uRLToolStripMenuItem_Click);
             // 
             // HelpMenu
             // 
@@ -167,6 +162,29 @@
             this.aboutMenu.Size = new System.Drawing.Size(120, 22);
             this.aboutMenu.Text = "About";
             this.aboutMenu.Click += new System.EventHandler(this.aboutMenu_Click);
+            // 
+            // linkToolStripMenuItem
+            // 
+            this.linkToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.goToToolStripMenuItem,
+            this.copyLinkToolStripMenuItem});
+            this.linkToolStripMenuItem.Name = "linkToolStripMenuItem";
+            this.linkToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.linkToolStripMenuItem.Text = "Link";
+            // 
+            // goToToolStripMenuItem
+            // 
+            this.goToToolStripMenuItem.Name = "goToToolStripMenuItem";
+            this.goToToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.goToToolStripMenuItem.Text = "To Link";
+            this.goToToolStripMenuItem.Click += new System.EventHandler(this.goToToolStripMenuItem_Click);
+            // 
+            // copyLinkToolStripMenuItem
+            // 
+            this.copyLinkToolStripMenuItem.Name = "copyLinkToolStripMenuItem";
+            this.copyLinkToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.copyLinkToolStripMenuItem.Text = "Copy Link";
+            this.copyLinkToolStripMenuItem.Click += new System.EventHandler(this.copyLinkToolStripMenuItem_Click);
             // 
             // timer3
             // 
@@ -201,7 +219,7 @@
             this.toolStripSeparator3,
             this.toolStripMenuItem3});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(229, 176);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(229, 154);
             // 
             // rhythmPlusSplameiClientToolStripMenuItem
             // 
@@ -231,6 +249,12 @@
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(225, 6);
             // 
+            // discordRPstatus
+            // 
+            this.discordRPstatus.Name = "discordRPstatus";
+            this.discordRPstatus.Size = new System.Drawing.Size(228, 22);
+            this.discordRPstatus.Text = "Discord RP Status: Unknown";
+            // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
@@ -248,12 +272,6 @@
             this.toolStripMenuItem3.Size = new System.Drawing.Size(228, 22);
             this.toolStripMenuItem3.Text = "Quit";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
-            // 
-            // discordRPstatus
-            // 
-            this.discordRPstatus.Name = "discordRPstatus";
-            this.discordRPstatus.Size = new System.Drawing.Size(228, 22);
-            this.discordRPstatus.Text = "Discord RP Status: Unknown";
             // 
             // Form1
             // 
@@ -298,7 +316,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem aboutMenu;
         private System.Windows.Forms.Timer timer4;
-        private System.Windows.Forms.ToolStripMenuItem uRLToolStripMenuItem;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
@@ -310,6 +327,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem discordRPstatus;
+        private System.Windows.Forms.ToolStripMenuItem linkToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem goToToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyLinkToolStripMenuItem;
     }
 }
 
