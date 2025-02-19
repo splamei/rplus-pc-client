@@ -121,6 +121,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Location Switcher - Splamei Client";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.URL_Select_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

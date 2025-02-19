@@ -134,6 +134,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Error";
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Error_FormClosing);
             this.Load += new System.EventHandler(this.Error_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
