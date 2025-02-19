@@ -60,7 +60,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Loading... Please wait";
-            this.TopMost = true;
             this.UseWaitCursor = true;
             this.Load += new System.EventHandler(this.HelpBox_Load);
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).EndInit();
