@@ -248,6 +248,7 @@
   <ItemGroup>
     <Content Include="ic_launcher-playstore.ico" />
     <Content Include="ic_launcher.ico" />
+    <None Include="Resources\Question.png" />
     <None Include="Resources\Error.png" />
     <None Include="Resources\R-Plus Logo.png" />
     <None Include="Resources\site icon.png" />
