@@ -47,12 +47,15 @@
             this.timer4 = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.rhythmPlusSplameiClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.rhythmPlusSplameiClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.discordRPstatus = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -112,19 +115,19 @@
             // settingsMenu
             // 
             this.settingsMenu.Name = "settingsMenu";
-            this.settingsMenu.Size = new System.Drawing.Size(116, 22);
+            this.settingsMenu.Size = new System.Drawing.Size(180, 22);
             this.settingsMenu.Text = "Settings";
             this.settingsMenu.Click += new System.EventHandler(this.settingsMenu_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(113, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // QuitMenu
             // 
             this.QuitMenu.Name = "QuitMenu";
-            this.QuitMenu.Size = new System.Drawing.Size(116, 22);
+            this.QuitMenu.Size = new System.Drawing.Size(180, 22);
             this.QuitMenu.Text = "Quit";
             this.QuitMenu.Click += new System.EventHandler(this.QuitMenu_Click);
             // 
@@ -190,26 +193,49 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rhythmPlusSplameiClientToolStripMenuItem,
             this.toolStripSeparator4,
+            this.toolStripMenuItem4,
             this.toolStripMenuItem1,
+            this.toolStripSeparator5,
+            this.discordRPstatus,
             this.toolStripMenuItem2,
             this.toolStripSeparator3,
             this.toolStripMenuItem3});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(229, 104);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(229, 176);
+            // 
+            // rhythmPlusSplameiClientToolStripMenuItem
+            // 
+            this.rhythmPlusSplameiClientToolStripMenuItem.Name = "rhythmPlusSplameiClientToolStripMenuItem";
+            this.rhythmPlusSplameiClientToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.rhythmPlusSplameiClientToolStripMenuItem.Text = "Rhythm Plus - Splamei Client";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(225, 6);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(228, 22);
+            this.toolStripMenuItem4.Text = "Client By Splamei";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(228, 22);
-            this.toolStripMenuItem1.Text = "Settings";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            this.toolStripMenuItem1.Text = "Game by format.z";
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(225, 6);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(228, 22);
-            this.toolStripMenuItem2.Text = "About";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            this.toolStripMenuItem2.Text = "Left CTRL + S for settings";
             // 
             // toolStripSeparator3
             // 
@@ -223,16 +249,11 @@
             this.toolStripMenuItem3.Text = "Quit";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
-            // rhythmPlusSplameiClientToolStripMenuItem
+            // discordRPstatus
             // 
-            this.rhythmPlusSplameiClientToolStripMenuItem.Name = "rhythmPlusSplameiClientToolStripMenuItem";
-            this.rhythmPlusSplameiClientToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.rhythmPlusSplameiClientToolStripMenuItem.Text = "Rhythm Plus - Splamei Client";
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(225, 6);
+            this.discordRPstatus.Name = "discordRPstatus";
+            this.discordRPstatus.Size = new System.Drawing.Size(228, 22);
+            this.discordRPstatus.Text = "Discord RP Status: Unknown";
             // 
             // Form1
             // 
@@ -280,12 +301,15 @@
         private System.Windows.Forms.ToolStripMenuItem uRLToolStripMenuItem;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem rhythmPlusSplameiClientToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem discordRPstatus;
     }
 }
 

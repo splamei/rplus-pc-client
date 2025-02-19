@@ -45,12 +45,22 @@ namespace Rhythm_Plus___Splamei_Client
         public string prevDataRP = "";
 
         public static NotifyIcon notify;
+        public static ToolStripMenuItem discordRPstate;
 
         public Form1()
         {
             InitializeComponent();
 
             notify = notifyIcon1;
+            discordRPstate = discordRPstatus;
+        }
+
+        public static void updateRPstate(string state)
+        {
+            discordRPstate.Text = "DiscordRP Status: " + state;
+            if (state == "Connected") { discordRPstate.Checked = true; }
+            else if (state == "Connecting") { discordRPstate.CheckState = CheckState.Indeterminate; }
+            else { discordRPstate.Checked = false; }
         }
 
         public void setUpRP()
@@ -66,11 +76,25 @@ namespace Rhythm_Plus___Splamei_Client
             client.OnReady += (sender, e) =>
             {
                 Console.WriteLine("Received Ready from user {0}", e.User.Username);
+
+                updateRPstate("Connected");
             };
 
             client.OnPresenceUpdate += (sender, e) =>
             {
                 Console.WriteLine("Received Update! {0}", e.Presence);
+            };
+
+            client.OnConnectionFailed += (sender, e) =>
+            {
+                Console.WriteLine("Failed to connect to discord - " + e.Type);
+                updateRPstate("Failed");
+            };
+
+            client.OnClose += (sender, e) =>
+            {
+                Console.WriteLine("Connection closed to discord - " + e.Reason);
+                updateRPstate("Closed");
             };
 
             //Connect to the RPC
@@ -279,11 +303,13 @@ namespace Rhythm_Plus___Splamei_Client
                 this.WindowState = FormWindowState.Maximized;
             }
 
+            updateRPstate("Connecting");
             if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enabledRP.dat"))
             {
                 if (File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enabledRP.dat") == "0")
                 {
                     enabledRP = false;
+                    updateRPstate("Disabled");
                 }
             }
             else
@@ -339,7 +365,10 @@ namespace Rhythm_Plus___Splamei_Client
                 File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/discordRpRefresh.dat", "5");
             }
 
-            setUpRP();
+            if (enabledRP)
+            {
+                setUpRP();
+            }
 
             try
             {
@@ -713,21 +742,6 @@ namespace Rhythm_Plus___Splamei_Client
         public void newUrlToGo(string url)
         {
             webView21.Source = new Uri(url);
-        }
-
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            Settings settings = new Settings();
-            settings.form = this;
-
-            settings.ShowDialog();
-        }
-
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            AboutNew aboutNew = new AboutNew();
-            aboutNew.form = this;
-            aboutNew.ShowDialog();
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
