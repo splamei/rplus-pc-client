@@ -40,10 +40,17 @@ namespace Rhythm_Plus___Splamei_Client
         public bool retainWinSize = true;
         public bool fullscreen = false;
 
+        public bool debugMode = false;
+
         public string prevDataRP = "";
+
+        public static NotifyIcon notify;
+
         public Form1()
         {
             InitializeComponent();
+
+            notify = notifyIcon1;
         }
 
         public void setUpRP()
@@ -200,6 +207,18 @@ namespace Rhythm_Plus___Splamei_Client
             else
             {
                 File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/retainWindowSize.dat", "1");
+            }
+
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/debugMode.dat"))
+            {
+                if (File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/debugMode.dat") == "1")
+                {
+                    debugMode = true;
+                }
+            }
+            else
+            {
+                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/debugMode.dat", "0");
             }
 
             if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/playFullScreen.dat"))
@@ -403,6 +422,8 @@ namespace Rhythm_Plus___Splamei_Client
                 this.Show();
 
                 splash = null;
+
+                notifyIcon1.Visible = true;
             }
             else if (!showingError && !e.IsSuccess)
             {
@@ -692,6 +713,31 @@ namespace Rhythm_Plus___Splamei_Client
         public void newUrlToGo(string url)
         {
             webView21.Source = new Uri(url);
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Settings settings = new Settings();
+            settings.form = this;
+
+            settings.ShowDialog();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            AboutNew aboutNew = new AboutNew();
+            aboutNew.form = this;
+            aboutNew.ShowDialog();
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void notifyIcon1_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
