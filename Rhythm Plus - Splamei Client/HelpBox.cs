@@ -20,6 +20,8 @@ namespace Rhythm_Plus___Splamei_Client
 {
     public partial class HelpBox : Form
     {
+        private WaitDialog waitDialog;
+
         public HelpBox()
         {
             InitializeComponent();
@@ -50,6 +52,19 @@ namespace Rhythm_Plus___Splamei_Client
             this.Text = "Get Help -> Rhythm Plus - Splamei Client";
 
             this.UseWaitCursor = false;
+
+            if (waitDialog != null)
+            {
+                waitDialog.Close();
+                waitDialog.Dispose();
+            }
+        }
+
+        private void HelpBox_Shown(object sender, EventArgs e)
+        {
+            waitDialog = new WaitDialog();
+            waitDialog.updateText("Please wait while the help page loads");
+            waitDialog.ShowDialog();
         }
     }
 }

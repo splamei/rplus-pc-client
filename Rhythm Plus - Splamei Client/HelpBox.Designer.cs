@@ -62,6 +62,7 @@
             this.Text = "Loading... Please wait";
             this.UseWaitCursor = true;
             this.Load += new System.EventHandler(this.HelpBox_Load);
+            this.Shown += new System.EventHandler(this.HelpBox_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).EndInit();
             this.ResumeLayout(false);
 
