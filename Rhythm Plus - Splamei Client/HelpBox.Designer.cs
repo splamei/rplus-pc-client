@@ -61,6 +61,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Loading... Please wait";
             this.UseWaitCursor = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.HelpBox_FormClosing);
             this.Load += new System.EventHandler(this.HelpBox_Load);
             this.Shown += new System.EventHandler(this.HelpBox_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).EndInit();

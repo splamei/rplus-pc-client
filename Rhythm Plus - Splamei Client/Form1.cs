@@ -625,6 +625,8 @@ namespace Rhythm_Plus___Splamei_Client
             {
                 client.Dispose();
             }
+
+            webView21.Dispose();
         }
 
         private void timer3_Tick(object sender, EventArgs e)

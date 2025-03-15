@@ -66,5 +66,10 @@ namespace Rhythm_Plus___Splamei_Client
             waitDialog.updateText("Please wait while the help page loads");
             waitDialog.ShowDialog();
         }
+
+        private void HelpBox_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            webView21.Dispose();
+        }
     }
 }
