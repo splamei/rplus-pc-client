@@ -469,7 +469,7 @@ namespace Rhythm_Plus___Splamei_Client
         {
             var task = MakeAsyncRequest("https://www.veemo.uk/net/r-plus/pc/ver", "text/html");
 
-            if (task.IsCompleted)
+            if (!task.IsFaulted)
             {
 
                 if (Int32.Parse(task.Result) > myVerCode)
@@ -498,9 +498,9 @@ namespace Rhythm_Plus___Splamei_Client
 
         private void checkNotices()
         {
-            var task = MakeAsyncRequest("https://www.veemo.uk/net/r-plus/pc/notices", "text/html");
+            var task = MakeAsyncRequest("https://www.veemo.uk/net/r-plus/pc/client-notices", "text/html");
 
-            if (task.IsCompleted)
+            if (!task.IsFaulted)
             {
                 try
                 {
@@ -514,13 +514,13 @@ namespace Rhythm_Plus___Splamei_Client
 
                             Console.WriteLine("New notice!");
 
-                            if (notices[2] == "NONE" && notices[0] != "NONE")
+                            if (notices[2].Contains("NONE"))
                             {
                                 MessageBox.Show(notices[1], notices[0], MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
-                            else if (notices[0] != "NONE")
+                            else
                             {
-                                if (MessageBox.Show(notices[1] + "\n\n\nThis notice has a URL added to it. Do you want to open it?", notices[0], MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                                if (MessageBox.Show(notices[1] + "\n\n\nDo you want to open the URL added for the notice?", notices[0], MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                                 {
                                     Process.Start(notices[2]);
                                 }
@@ -533,13 +533,13 @@ namespace Rhythm_Plus___Splamei_Client
 
                         Console.WriteLine("New notice!");
 
-                        if (notices[2] == "" && notices[0] != "NONE")
+                        if (notices[2].Contains("NONE"))
                         {
                             MessageBox.Show(notices[1], notices[0], MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-                        else if (notices[0] != "NONE")
+                        else
                         {
-                            if (MessageBox.Show(notices[1] + "\n\n\nThis notice has a URL added to it. Do you want to open it?", notices[0], MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                            if (MessageBox.Show(notices[1] + "\n\n\nDo you want to open the URL added for the notice?", notices[0], MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                             {
                                 Process.Start(notices[2]);
                             }
