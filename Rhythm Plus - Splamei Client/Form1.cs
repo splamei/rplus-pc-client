@@ -9,7 +9,6 @@ using System.Net;
 using DiscordRPC;
 using DiscordRPC.Logging;
 using DiscordRPC.Message;
-using System.Security.Policy;
 
 namespace Rhythm_Plus___Splamei_Client
 {
@@ -469,15 +468,22 @@ namespace Rhythm_Plus___Splamei_Client
         private void checkVer()
         {
             var task = MakeAsyncRequest("https://www.veemo.uk/net/r-plus/pc/ver", "text/html");
-            Console.WriteLine("Got response of ", task.Result);
 
-            if (Int32.Parse(task.Result) > myVerCode)
+            if (task.IsCompleted)
             {
-                Console.WriteLine("New update!");
-                if (MessageBox.Show("Theres a new update to the client! Press 'Yes' to close close the client and open the GitHub page to install the new update.\n\nYou don't neet to do this if your using SplameiPlay so just press 'No' and wait for it to realise the update exists", "New Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+
+                if (Int32.Parse(task.Result) > myVerCode)
                 {
-                    Process.Start("https://github.com/splamei/rplus-pc-client/releases");
-                    Application.Exit();
+                    Console.WriteLine("New update!");
+                    if (MessageBox.Show("Theres a new update to the client! Press 'Yes' to close close the client and open the GitHub page to install the new update.\n\nYou don't neet to do this if your using SplameiPlay so just press 'No' and wait for it to realise the update exists", "New Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    {
+                        Process.Start("https://github.com/splamei/rplus-pc-client/releases");
+                        Application.Exit();
+                    }
+                    else
+                    {
+                        checkNotices();
+                    }
                 }
                 else
                 {
@@ -486,7 +492,7 @@ namespace Rhythm_Plus___Splamei_Client
             }
             else
             {
-                checkNotices();
+                Debug.WriteLine("Error getting ver");
             }
         }
 
@@ -494,19 +500,40 @@ namespace Rhythm_Plus___Splamei_Client
         {
             var task = MakeAsyncRequest("https://www.veemo.uk/net/r-plus/pc/notices", "text/html");
 
-            try
+            if (task.IsCompleted)
             {
-                string[] notices = task.Result.ToString().Split(';');
-
-                if (System.IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/notice.dat"))
+                try
                 {
-                    if (notices[3] != System.IO.File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/notice.dat"))
+                    string[] notices = task.Result.ToString().Split(';');
+
+                    if (System.IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/notice.dat"))
+                    {
+                        if (notices[3] != System.IO.File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/notice.dat"))
+                        {
+                            System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/notice.dat", notices[3]);
+
+                            Console.WriteLine("New notice!");
+
+                            if (notices[2] == "NONE" && notices[0] != "NONE")
+                            {
+                                MessageBox.Show(notices[1], notices[0], MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else if (notices[0] != "NONE")
+                            {
+                                if (MessageBox.Show(notices[1] + "\n\n\nThis notice has a URL added to it. Do you want to open it?", notices[0], MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                                {
+                                    Process.Start(notices[2]);
+                                }
+                            }
+                        }
+                    }
+                    else
                     {
                         System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/notice.dat", notices[3]);
 
                         Console.WriteLine("New notice!");
 
-                        if (notices[2] == "NONE" && notices[0] != "NONE")
+                        if (notices[2] == "" && notices[0] != "NONE")
                         {
                             MessageBox.Show(notices[1], notices[0], MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
@@ -519,33 +546,16 @@ namespace Rhythm_Plus___Splamei_Client
                         }
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/notice.dat", notices[3]);
+                    Console.WriteLine("Error decoding notices - " + ex);
 
-                    Console.WriteLine("New notice!");
-
-                    if (notices[2] == "" && notices[0] != "NONE")
-                    {
-                        MessageBox.Show(notices[1], notices[0], MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else if (notices[0] != "NONE")
-                    {
-                        if (MessageBox.Show(notices[1] + "\n\n\nThis notice has a URL added to it. Do you want to open it?", notices[0], MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                        {
-                            Process.Start(notices[2]);
-                        }
-                    }
+                    Error errorD = new Error();
+                    errorD.errorDebug = ex.ToString();
+                    errorD.ShowDialog();
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error decoding notices - " + ex);
-
-                Error errorD = new Error();
-                errorD.errorDebug = ex.ToString();
-                errorD.ShowDialog();
-            }
+            else { Debug.WriteLine("Error getting notices"); }
         }
 
         private void Maximise_Click(object sender, EventArgs e)
@@ -559,12 +569,26 @@ namespace Rhythm_Plus___Splamei_Client
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.ContentType = contentType;
             request.Method = WebRequestMethods.Http.Get;
-            request.Timeout = 20000;
+            request.Timeout = 5000;
             request.Proxy = null;
 
             Task<WebResponse> task = Task.Factory.FromAsync(
                 request.BeginGetResponse,
-                asyncResult => request.EndGetResponse(asyncResult),
+                asyncResult =>
+                {
+                    try
+                    {
+                        return request.EndGetResponse(asyncResult);
+                    }
+                    catch (WebException ex)
+                    {
+                        if (ex.Response != null)
+                        {
+                            return ex.Response;
+                        }
+                        throw;
+                    }
+                },
                 (object)null);
 
             return task.ContinueWith(t => ReadStreamFromResponse(t.Result));
