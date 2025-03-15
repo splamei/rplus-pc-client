@@ -43,23 +43,11 @@ namespace Rhythm_Plus___Splamei_Client
 
         public string prevDataRP = "";
 
-        public static NotifyIcon notify;
         public static ToolStripMenuItem discordRPstate;
 
         public Form1()
         {
             InitializeComponent();
-
-            notify = notifyIcon1;
-            discordRPstate = discordRPstatus;
-        }
-
-        public static void updateRPstate(string state)
-        {
-            discordRPstate.Text = "DiscordRP Status: " + state;
-            if (state == "Connected") { discordRPstate.Checked = true; }
-            else if (state == "Connecting") { discordRPstate.CheckState = CheckState.Indeterminate; }
-            else { discordRPstate.Checked = false; }
         }
 
         public void setUpRP()
@@ -75,8 +63,6 @@ namespace Rhythm_Plus___Splamei_Client
             client.OnReady += (sender, e) =>
             {
                 Console.WriteLine("Received Ready from user {0}", e.User.Username);
-
-                updateRPstate("Connected");
             };
 
             client.OnPresenceUpdate += (sender, e) =>
@@ -87,13 +73,11 @@ namespace Rhythm_Plus___Splamei_Client
             client.OnConnectionFailed += (sender, e) =>
             {
                 Console.WriteLine("Failed to connect to discord - " + e.Type);
-                updateRPstate("Failed");
             };
 
             client.OnClose += (sender, e) =>
             {
                 Console.WriteLine("Connection closed to discord - " + e.Reason);
-                updateRPstate("Closed");
             };
 
             //Connect to the RPC
@@ -302,13 +286,11 @@ namespace Rhythm_Plus___Splamei_Client
                 this.WindowState = FormWindowState.Maximized;
             }
 
-            updateRPstate("Connecting");
             if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enabledRP.dat"))
             {
                 if (File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enabledRP.dat") == "0")
                 {
                     enabledRP = false;
-                    updateRPstate("Disabled");
                 }
             }
             else
