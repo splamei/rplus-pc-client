@@ -22,6 +22,7 @@ namespace Rhythm_Plus___Splamei_Client
         private bool closeSplash = false;
 
         private bool showingError = false;
+        private Settings settingsBox;
 
         public int myVerCode = 1002;
 
@@ -731,10 +732,19 @@ namespace Rhythm_Plus___Splamei_Client
         {
             if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.S))
             {
-                Settings settings = new Settings();
-                settings.form = this;
+                if (settingsBox == null)
+                {
+                    settingsBox = new Settings();
+                    settingsBox.form = this;
 
-                settings.ShowDialog();
+                    settingsBox.ShowDialog();
+                }
+                else if (settingsBox.IsDisposed)
+                {
+                    settingsBox = new Settings();
+                    settingsBox.form = this;
+                    settingsBox.ShowDialog();
+                }
             }
         }
 

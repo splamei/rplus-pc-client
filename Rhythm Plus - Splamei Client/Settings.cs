@@ -84,5 +84,10 @@ namespace Rhythm_Plus___Splamei_Client
         {
             label5.Text = $"Discord RP Refresh Time ({trackBar1.Value}s)";
         }
+
+        private void Settings_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Dispose();
+        }
     }
 }

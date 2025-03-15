@@ -119,5 +119,10 @@ namespace Rhythm_Plus___Splamei_Client
         {
 
         }
+
+        private void AboutNew_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Dispose();
+        }
     }
 }

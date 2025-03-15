@@ -215,6 +215,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Settings - Splamei Client";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Settings_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Settings_FormClosed);
             this.Load += new System.EventHandler(this.Settings_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);

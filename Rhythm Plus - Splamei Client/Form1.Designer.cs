@@ -193,7 +193,8 @@
             // 
             // timer4
             // 
-            this.timer4.Interval = 500;
+            this.timer4.Enabled = true;
+            this.timer4.Interval = 50;
             this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
             // 
             // notifyIcon1
@@ -218,7 +219,7 @@
             this.toolStripSeparator3,
             this.toolStripMenuItem3});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(229, 154);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(229, 132);
             // 
             // rhythmPlusSplameiClientToolStripMenuItem
             // 

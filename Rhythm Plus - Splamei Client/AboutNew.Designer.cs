@@ -156,6 +156,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AboutNew_FormClosed);
             this.Load += new System.EventHandler(this.AboutNew_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
