@@ -750,7 +750,16 @@ namespace Rhythm_Plus___Splamei_Client
 
         public void newUrlToGo(string url)
         {
-            webView21.Source = new Uri(url);
+            if (webView21.Source == new Uri(url))
+            {
+                MsgBox msgBox = new MsgBox();
+                msgBox.setData(null, "Unable to navigate", "We can't go to that URL since it's the current URL you're on\n\nIf you really want to go to this URL, go to a different page then try again", "Unable to navigate - Splamei Client", "OK", "");
+                msgBox.ShowDialog();
+            }
+            else
+            {
+                webView21.Source = new Uri(url);
+            }
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
