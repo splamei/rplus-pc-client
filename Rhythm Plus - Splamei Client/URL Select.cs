@@ -34,7 +34,10 @@ namespace Rhythm_Plus___Splamei_Client
             else
             {
                 textBox1.Text = "https://rhythm-plus.com";
-                MessageBox.Show("The URL you provided isn't a valid Rhythm Plus URL. Please insert a URL starting with 'https://rhythm-plus.com'", "Invalid URL", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                MsgBox msgBox = new MsgBox();
+                msgBox.setData(null, "Unable to navigate", "We can't go to that URL since it's not a Rhythm Plus URL\n\nPlease make sure the URL you're trying to go to starts with https://rhythm-plus.com then try again", "Unable to navigate - Splamei Client", "OK", "");
+                msgBox.ShowDialog();
             }
         }
 
