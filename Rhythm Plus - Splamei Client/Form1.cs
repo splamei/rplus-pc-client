@@ -753,7 +753,7 @@ namespace Rhythm_Plus___Splamei_Client
             if (webView21.Source == new Uri(url))
             {
                 MsgBox msgBox = new MsgBox();
-                msgBox.setData(null, "Unable to navigate", "We can't go to that URL since it's the current URL you're on\n\nIf you really want to go to this URL, go to a different page then try again", "Unable to navigate - Splamei Client", "OK", "");
+                msgBox.setData(null, "Unable to navigate", "We can't go to that URL since it's the current URL you're on\n\nIf you really want to go to this URL, go to a different page then try\nagain", "Unable to navigate - Splamei Client", "OK", "");
                 msgBox.ShowDialog();
             }
             else
