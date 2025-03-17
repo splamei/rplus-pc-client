@@ -71,9 +71,9 @@
             this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(14, 136);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(212, 20);
+            this.label3.Size = new System.Drawing.Size(250, 20);
             this.label3.TabIndex = 2;
-            this.label3.Text = "(c) Splamei 2024 - MIT Licence";
+            this.label3.Text = "(c) Splamei 2024-2025 - MIT Licence";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
