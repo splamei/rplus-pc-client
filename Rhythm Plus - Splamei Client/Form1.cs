@@ -150,13 +150,7 @@ namespace Rhythm_Plus___Splamei_Client
                         client.SetPresence(new RichPresence()
                         {
                             Details = point,
-                            State = "Playing",
-                            Party = new Party()
-                            {
-                                Max = 1,
-                                Size = 1,
-                                ID = "room123"
-                            },
+                            //State = "Playing",
                             Timestamps = new Timestamps()
                             {
                                 Start = start
