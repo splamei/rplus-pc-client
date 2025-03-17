@@ -127,6 +127,10 @@ namespace Rhythm_Plus___Splamei_Client
                     {
                         point = "Playing the tutorial";
                     }
+                    else if (uri.StartsWith("https://rhythm-plus.com/result/"))
+                    {
+                        point = "Looking at results";
+                    }
                     else if (uri.StartsWith("https://rhythm-plus.com/game/"))
                     {
                         string songName = webView21.CoreWebView2.DocumentTitle.Split(new string[] { " - Rhythm+ Music" }, StringSplitOptions.None)[0];
@@ -770,7 +774,9 @@ namespace Rhythm_Plus___Splamei_Client
         {
             Clipboard.SetData(DataFormats.Text, (Object)webView21.Source.ToString());
 
-            MessageBox.Show("The URL has been copied to the clipboard", "Copied - Splamei Client", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MsgBox msgBox = new MsgBox();
+            msgBox.setData(null, "Copied", "The URL has been copied to the clipboard", "Copied - Splamei Client", "OK", "");
+            msgBox.ShowDialog();
         }
     }
 }
