@@ -131,6 +131,10 @@ namespace Rhythm_Plus___Splamei_Client
                     {
                         point = "Looking at results";
                     }
+                    else if (uri.StartsWith("https://rhythm-plus.com/game-over/"))
+                    {
+                        point = "Failed a map";
+                    }
                     else if (uri.StartsWith("https://rhythm-plus.com/game/"))
                     {
                         string songName = webView21.CoreWebView2.DocumentTitle.Split(new string[] { " - Rhythm+ Music" }, StringSplitOptions.None)[0];
