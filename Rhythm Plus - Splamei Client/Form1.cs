@@ -787,9 +787,14 @@ namespace Rhythm_Plus___Splamei_Client
         {
             Clipboard.SetData(DataFormats.Text, (Object)webView21.Source.ToString());
 
-            MsgBox msgBox = new MsgBox();
-            msgBox.setData(null, "Copied", "The URL has been copied to the clipboard", "Copied - Splamei Client", "OK", "");
-            msgBox.ShowDialog();
+            //MsgBox msgBox = new MsgBox();
+            //msgBox.setData(null, "Copied", "The URL has been copied to the clipboard", "Copied - Splamei Client", "OK", "");
+            //msgBox.ShowDialog();
+
+            notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
+            notifyIcon1.BalloonTipTitle = "Copied";
+            notifyIcon1.BalloonTipText = "The URL has been copied to the clipboard";
+            notifyIcon1.ShowBalloonTip(500);
         }
     }
 }
