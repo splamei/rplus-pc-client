@@ -138,20 +138,20 @@
             this.goToToolStripMenuItem,
             this.copyLinkToolStripMenuItem});
             this.linkToolStripMenuItem.Name = "linkToolStripMenuItem";
-            this.linkToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.linkToolStripMenuItem.Text = "Link";
+            this.linkToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.linkToolStripMenuItem.Text = "View";
             // 
             // goToToolStripMenuItem
             // 
             this.goToToolStripMenuItem.Name = "goToToolStripMenuItem";
-            this.goToToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.goToToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.goToToolStripMenuItem.Text = "To Link";
             this.goToToolStripMenuItem.Click += new System.EventHandler(this.goToToolStripMenuItem_Click);
             // 
             // copyLinkToolStripMenuItem
             // 
             this.copyLinkToolStripMenuItem.Name = "copyLinkToolStripMenuItem";
-            this.copyLinkToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.copyLinkToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.copyLinkToolStripMenuItem.Text = "Copy Link";
             this.copyLinkToolStripMenuItem.Click += new System.EventHandler(this.copyLinkToolStripMenuItem_Click);
             // 
