@@ -364,10 +364,15 @@ namespace Rhythm_Plus___Splamei_Client
 
                 this.Hide();
 
-                webView21.Source = new Uri("https://rhythm-plus.com");
+                webView21.Source = new Uri("https://veemo.uk/test"); //new Uri("https://rhythm-plus.com");
 
                 webView21.CoreWebView2.DocumentTitleChanged += titleChanged;
                 //webView21.Source = new Uri("https://google.com");
+
+                webView21.CoreWebView2.Profile.PreferredColorScheme = CoreWebView2PreferredColorScheme.Auto;
+                webView21.CoreWebView2.Profile.DefaultDownloadFolderPath = $"C:/Users/{Environment.UserName}/Downloads/";
+                webView21.CoreWebView2.Profile.IsGeneralAutofillEnabled = false;
+                webView21.CoreWebView2.Profile.IsPasswordAutosaveEnabled = false;
 
                 this.Hide();
 
