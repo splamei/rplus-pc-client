@@ -640,9 +640,16 @@ namespace Rhythm_Plus___Splamei_Client
         private void timer1_Tick(object sender, EventArgs e)
         {
             timer1.Stop();
-            Console.WriteLine("Size changed!");
-            System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeWidth.dat", this.Size.Width.ToString());
-            System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeHeight.dat", this.Size.Height.ToString());
+            if (this.Size.Height > 200 && this.Size.Width > 200)
+            {
+                Console.WriteLine("Size changed!");
+                System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeWidth.dat", this.Size.Width.ToString());
+                System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeHeight.dat", this.Size.Height.ToString());
+            }
+            else
+            {
+                Console.WriteLine("Not saving size since too small");
+            }
         }
 
         private void Form1_LocationChanged(object sender, EventArgs e)
@@ -654,9 +661,13 @@ namespace Rhythm_Plus___Splamei_Client
         private void timer2_Tick(object sender, EventArgs e)
         {
             timer2.Stop();
-            Console.WriteLine("Location changed!");
-            System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationX.dat", this.Location.X.ToString());
-            System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationY.dat", this.Location.Y.ToString());
+            if (this.Location.X > 0 && this.Location.Y > 0)
+            {
+                Console.WriteLine("Location changed!");
+                System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationX.dat", this.Location.X.ToString());
+                System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationY.dat", this.Location.Y.ToString());
+            }
+            else { Console.WriteLine("Not saving location since off screen"); }
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

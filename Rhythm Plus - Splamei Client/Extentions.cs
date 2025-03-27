@@ -49,7 +49,7 @@ namespace Rhythm_Plus___Splamei_Client
         {
             try
             {
-                if (openFileDialog1.FileName != "")
+                if (openFileDialog1.FileName != "" && openFileDialog1.FileName.EndsWith("manifest.json"))
                 {
                     if (MessageBox.Show("Do you want to continue to install the extension? By installing it, you allow the extension to modify and see data about Rhythm Plus which could get you banned or hacked. When installing, the unpacked folder will be moved to the extension directory.\n\nDo you wish to continue?", "Add extension", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
@@ -65,7 +65,7 @@ namespace Rhythm_Plus___Splamei_Client
                         {
                             MessageBox.Show("The extension has been added. To remove it, go into the extensions page and select it when in 'remove' mode.", "Added extension", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                            //this.Close();
+                            this.Close();
 
                             form.WindowState = FormWindowState.Maximized;
                             form.Focus();
