@@ -40,9 +40,10 @@ namespace Rhythm_Plus___Splamei_Client
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.ToString());
-                if (MessageBox.Show($"Something went wrong when running the client. The client will now close. We are sorry for the issue\n\nError Code: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
+                if (MessageBox.Show($"Something went wrong when running the client. The help page will now close. We are sorry for the issue\n\nError Code: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
                 {
-                    Application.Exit();
+                    waitDialog.Close();
+                    this.Close();
                 }
             }
         }
