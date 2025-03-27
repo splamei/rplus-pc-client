@@ -41,6 +41,7 @@
             this.linkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyLinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.extensionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.getHelpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -94,6 +95,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileMenu,
             this.linkToolStripMenuItem,
+            this.extensionsToolStripMenuItem,
             this.HelpMenu});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -144,16 +146,23 @@
             // goToToolStripMenuItem
             // 
             this.goToToolStripMenuItem.Name = "goToToolStripMenuItem";
-            this.goToToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.goToToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.goToToolStripMenuItem.Text = "To Link";
             this.goToToolStripMenuItem.Click += new System.EventHandler(this.goToToolStripMenuItem_Click);
             // 
             // copyLinkToolStripMenuItem
             // 
             this.copyLinkToolStripMenuItem.Name = "copyLinkToolStripMenuItem";
-            this.copyLinkToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.copyLinkToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.copyLinkToolStripMenuItem.Text = "Copy Link";
             this.copyLinkToolStripMenuItem.Click += new System.EventHandler(this.copyLinkToolStripMenuItem_Click);
+            // 
+            // extensionsToolStripMenuItem
+            // 
+            this.extensionsToolStripMenuItem.Name = "extensionsToolStripMenuItem";
+            this.extensionsToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
+            this.extensionsToolStripMenuItem.Text = "Extensions";
+            this.extensionsToolStripMenuItem.Click += new System.EventHandler(this.extensionsToolStripMenuItem_Click);
             // 
             // HelpMenu
             // 
@@ -323,6 +332,7 @@
         private System.Windows.Forms.ToolStripMenuItem linkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem goToToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyLinkToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem extensionsToolStripMenuItem;
     }
 }
 

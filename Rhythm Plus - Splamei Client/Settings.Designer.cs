@@ -42,6 +42,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,7 +61,7 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(8, 259);
+            this.checkBox1.Location = new System.Drawing.Point(12, 288);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(222, 24);
             this.checkBox1.TabIndex = 1;
@@ -73,7 +74,7 @@
             this.checkBox2.AutoSize = true;
             this.checkBox2.Checked = true;
             this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Location = new System.Drawing.Point(8, 291);
+            this.checkBox2.Location = new System.Drawing.Point(12, 318);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(291, 24);
             this.checkBox2.TabIndex = 2;
@@ -84,7 +85,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(5, 167);
+            this.label2.Location = new System.Drawing.Point(5, 194);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(218, 30);
             this.label2.TabIndex = 3;
@@ -93,7 +94,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 206);
+            this.label3.Location = new System.Drawing.Point(7, 233);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(289, 40);
             this.label3.TabIndex = 4;
@@ -102,7 +103,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 516);
+            this.label4.Location = new System.Drawing.Point(8, 543);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(293, 20);
             this.label4.TabIndex = 5;
@@ -112,7 +113,7 @@
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(8, 323);
+            this.checkBox3.Location = new System.Drawing.Point(12, 348);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(286, 44);
             this.checkBox3.TabIndex = 6;
@@ -122,7 +123,7 @@
             // trackBar1
             // 
             this.trackBar1.LargeChange = 1;
-            this.trackBar1.Location = new System.Drawing.Point(7, 407);
+            this.trackBar1.Location = new System.Drawing.Point(7, 434);
             this.trackBar1.Minimum = 1;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(254, 45);
@@ -133,7 +134,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(8, 383);
+            this.label5.Location = new System.Drawing.Point(8, 410);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(199, 20);
             this.label5.TabIndex = 8;
@@ -143,7 +144,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(8, 446);
+            this.label6.Location = new System.Drawing.Point(8, 473);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(303, 39);
             this.label6.TabIndex = 9;
@@ -186,11 +187,24 @@
             this.checkBox5.UseVisualStyleBackColor = true;
             this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
             // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Cursor = System.Windows.Forms.Cursors.Default;
+            this.checkBox6.Location = new System.Drawing.Point(10, 158);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(146, 24);
+            this.checkBox6.TabIndex = 13;
+            this.checkBox6.Text = "Enable extensions";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(320, 548);
+            this.ClientSize = new System.Drawing.Size(320, 572);
+            this.Controls.Add(this.checkBox6);
             this.Controls.Add(this.checkBox5);
             this.Controls.Add(this.checkBox4);
             this.Controls.Add(this.label7);
@@ -238,5 +252,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBox6;
     }
 }

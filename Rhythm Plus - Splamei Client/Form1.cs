@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Windows.Input;
+using System.Linq;
 using System.Net;
 using DiscordRPC;
 using DiscordRPC.Logging;
 using DiscordRPC.Message;
+using System.Collections.Generic;
 
 namespace Rhythm_Plus___Splamei_Client
 {
@@ -45,6 +47,9 @@ namespace Rhythm_Plus___Splamei_Client
         public string prevDataRP = "";
 
         public static ToolStripMenuItem discordRPstate;
+
+        public bool failedToRemoveExtension = false;
+        public bool enabledExtensions = false;
 
         public Form1()
         {
@@ -325,6 +330,22 @@ namespace Rhythm_Plus___Splamei_Client
                 File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/directLinkRP.dat", "0");
             }
 
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enableExtensions.dat"))
+            {
+                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enableExtensions.dat", "0");
+            }
+
+            if (File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enableExtensions.dat") == "1")
+            {
+                enabledExtensions = true;
+
+                notifyIcon1.BalloonTipIcon = ToolTipIcon.Warning;
+                notifyIcon1.BalloonTipText = "Extensions on the client are enabled. Turn them off if you experience any issues";
+                notifyIcon1.BalloonTipTitle = "Extensions enabled";
+
+                notifyIcon1.ShowBalloonTip(2);
+            }
+
             if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/discordRpRefresh.dat"))
             {
                 try
@@ -349,6 +370,11 @@ namespace Rhythm_Plus___Splamei_Client
                 File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/discordRpRefresh.dat", "5");
             }
 
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Extensions"))
+            {
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Extensions");
+            }
+
             if (enabledRP)
             {
                 setUpRP();
@@ -356,7 +382,14 @@ namespace Rhythm_Plus___Splamei_Client
 
             try
             {
-                var webView2Environment = await CoreWebView2Environment.CreateAsync(null, Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client");
+                var options = new CoreWebView2EnvironmentOptions
+                {
+                    AreBrowserExtensionsEnabled = enabledExtensions,
+                    ScrollBarStyle = CoreWebView2ScrollbarStyle.FluentOverlay,
+                };
+
+
+                var webView2Environment = await CoreWebView2Environment.CreateAsync(null, Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client", options);
 
                 this.Hide();
 
@@ -364,7 +397,7 @@ namespace Rhythm_Plus___Splamei_Client
 
                 this.Hide();
 
-                webView21.Source = new Uri("https://veemo.uk/test"); //new Uri("https://rhythm-plus.com");
+                webView21.Source = new Uri("https://rhythm-plus.com");
 
                 webView21.CoreWebView2.DocumentTitleChanged += titleChanged;
                 //webView21.Source = new Uri("https://google.com");
@@ -800,6 +833,101 @@ namespace Rhythm_Plus___Splamei_Client
             notifyIcon1.BalloonTipTitle = "Copied";
             notifyIcon1.BalloonTipText = "The URL has been copied to the clipboard";
             notifyIcon1.ShowBalloonTip(500);
+        }
+
+        private async void extensionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enableExtensions.dat") == "1")
+            {
+                Extentions ext = new Extentions();
+
+                var coreWebView2 = webView21.CoreWebView2;
+
+                var browserExtensions = await coreWebView2.Profile.GetBrowserExtensionsAsync();
+
+                List<string> names = new List<string>();
+                List<string> ids = new List<string>();
+                List<bool> enabled = new List<bool>();
+
+                foreach (var extension in browserExtensions)
+                {
+                    //if (extension.Name != "Microsoft Clipboard Extension" && extension.Name != "Microsoft Edge PDF Viewer")
+                    //{
+                    names.Add(extension.Name);
+                    ids.Add(extension.Id);
+                    enabled.Add(extension.IsEnabled);
+                    //}
+                }
+
+                failedToRemoveExtension = false;
+
+                ext.loadExtentions(names, ids, enabled);
+                ext.form = this;
+                ext.Show();
+            }
+            else
+            {
+                MessageBox.Show("Extensions are disabled in settings. Enable them to add, view and remove extensions", "Extensions disabled", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        public bool addExtention(string path)
+        {
+            try
+            {
+                if (Directory.Exists(path))
+                {
+                    webView21.CoreWebView2.Profile.AddBrowserExtensionAsync(path);
+                    return true;
+                }
+                else { return false; }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+
+                return false;
+            }
+        }
+
+        public async void removeExtention(string id)
+        {
+            try
+            {
+                var coreWebView2 = webView21.CoreWebView2;
+
+                // Get the browser extensions asynchronously
+                var browserExtensions = await coreWebView2.Profile.GetBrowserExtensionsAsync();
+
+                // Specify the extension ID you want to remove
+                string extensionIdToRemove = id; // Replace with the actual extension ID
+
+                // Find the extension to remove
+                var extensionToRemove = browserExtensions.FirstOrDefault(ext => ext.Id == extensionIdToRemove);
+
+                if (extensionToRemove != null)
+                {
+                    // Remove the browser extension asynchronously
+                    await extensionToRemove.RemoveAsync();
+                    Console.WriteLine($"Extension {extensionToRemove.Name} has been removed successfully.");
+                }
+                else
+                {
+                    Console.WriteLine("Extension not found.");
+                    failedToRemoveExtension = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+
+                failedToRemoveExtension = true;
+            }
+        }
+
+        public void refreshWebView()
+        {
+            webView21.CoreWebView2.Reload();
         }
     }
 }

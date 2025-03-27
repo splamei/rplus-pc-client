@@ -33,6 +33,8 @@ namespace Rhythm_Plus___Splamei_Client
 
             trackBar1.Value = form.discordRpRefresh;
 
+            checkBox6.Checked = form.enabledExtensions;
+
             label5.Text = $"Discord RP Refresh Time ({trackBar1.Value}s)";
 
             starting = false;
@@ -88,6 +90,21 @@ namespace Rhythm_Plus___Splamei_Client
         private void Settings_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Dispose();
+        }
+
+        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!starting)
+            {
+                if (checkBox6.Checked)
+                {
+                    File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enableExtensions.dat", "1");
+
+                    MessageBox.Show("By adding extensions to the client, you may allow the extension developer to access your Rhythm Plus account or game. Please be carefull with what extensions you add\n\nYou'll need to restart the client to apply this change", "Extensions warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enableExtensions.dat", "0"); }
+            }
         }
     }
 }
