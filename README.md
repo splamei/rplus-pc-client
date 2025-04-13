@@ -73,7 +73,7 @@ SplameiPlay is an indie store app for Windows allowing easy project (game / app)
 ### Q) Can older Windows versions run the client
 Possibly. But the .NET Framework (4.7.2) needs to be installed and the Windows install needs to be able to run WebView2 which is likley not supported by Microsoft.
 ### Q) Can it run on ARM64 devices
-Yes, as long as the .NET Framework 4.7.2 and WebView2 is installed, the client should run on ARM64 Devices
+No. No build for ARM64 has and, right now, will be made meaning you cannot play on ARM based CPUs
 ### Q) I want to make my own client. Can I do that?
 Yes! Just make sure you follow everything stated in the 'Making your own Client' section
 ### Q) Is this client official?
