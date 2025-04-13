@@ -29,9 +29,14 @@ namespace Rhythm_Plus___Splamei_Client
 
         private async void HelpBox_Load(object sender, EventArgs e)
         {
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Help Webview"))
+            {
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Help Webview");
+            }
+
             try
             {
-                var webView2Environment2 = await CoreWebView2Environment.CreateAsync(null, Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client");
+                var webView2Environment2 = await CoreWebView2Environment.CreateAsync(null, Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Help Webview");
 
                 await webView21.EnsureCoreWebView2Async(webView2Environment2);
 

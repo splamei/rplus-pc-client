@@ -385,7 +385,7 @@ namespace Rhythm_Plus___Splamei_Client
                 var options = new CoreWebView2EnvironmentOptions
                 {
                     AreBrowserExtensionsEnabled = enabledExtensions,
-                    ScrollBarStyle = CoreWebView2ScrollbarStyle.FluentOverlay,
+                    ScrollBarStyle = CoreWebView2ScrollbarStyle.FluentOverlay
                 };
 
 
