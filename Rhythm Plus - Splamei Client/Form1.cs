@@ -400,6 +400,14 @@ namespace Rhythm_Plus___Splamei_Client
                 webView21.Source = new Uri("https://rhythm-plus.com");
 
                 webView21.CoreWebView2.DocumentTitleChanged += titleChanged;
+                webView21.CoreWebView2.ContextMenuRequested += webView2ContextMenuRequested;
+
+                webView21.CoreWebView2.Settings.AreDevToolsEnabled = false;
+                webView21.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
+                webView21.CoreWebView2.Settings.IsBuiltInErrorPageEnabled = false;
+                webView21.CoreWebView2.Settings.IsGeneralAutofillEnabled = false;
+                webView21.CoreWebView2.Settings.IsPasswordAutosaveEnabled = false;
+                webView21.CoreWebView2.Settings.IsStatusBarEnabled = true;
                 //webView21.Source = new Uri("https://google.com");
 
                 webView21.CoreWebView2.Profile.PreferredColorScheme = CoreWebView2PreferredColorScheme.Auto;
@@ -460,6 +468,13 @@ namespace Rhythm_Plus___Splamei_Client
                     errorD.ShowDialog();
                 }
             }
+        }
+
+        private void webView2ContextMenuRequested(object sender, CoreWebView2ContextMenuRequestedEventArgs e)
+        {
+            e.Handled = true;
+            
+            //contextMenuStrip2.Show(this, System.Windows.Forms.Cursor.Position);
         }
 
         private void webView21_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
