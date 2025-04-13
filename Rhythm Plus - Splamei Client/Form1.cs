@@ -339,11 +339,11 @@ namespace Rhythm_Plus___Splamei_Client
             {
                 enabledExtensions = true;
 
-                notifyIcon1.BalloonTipIcon = ToolTipIcon.Warning;
-                notifyIcon1.BalloonTipText = "Extensions on the client are enabled. Turn them off if you experience any issues";
-                notifyIcon1.BalloonTipTitle = "Extensions enabled";
+                //notifyIcon1.BalloonTipIcon = ToolTipIcon.Warning;
+                //notifyIcon1.BalloonTipText = "Extensions on the client are enabled. Turn them off if you experience any issues";
+                //notifyIcon1.BalloonTipTitle = "Extensions enabled";
 
-                notifyIcon1.ShowBalloonTip(2);
+                //notifyIcon1.ShowBalloonTip(2);
             }
 
             if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/discordRpRefresh.dat"))
