@@ -32,7 +32,7 @@ namespace Rhythm_Plus___Splamei_Client
 
         public DiscordRPC.Button playButton = new DiscordRPC.Button();
 
-        public DateTime start;
+        public DateTime startRP;
 
         public bool enabledRP = true;
         public bool showTitleOfMaps = true;
@@ -89,7 +89,7 @@ namespace Rhythm_Plus___Splamei_Client
             //Connect to the RPC
             client.Initialize();
 
-            start = DateTime.Now;
+            startRP = DateTime.UtcNow;
 
             playButton = new DiscordRPC.Button();
             playButton.Label = "Play Rhythm Plus";
@@ -166,7 +166,7 @@ namespace Rhythm_Plus___Splamei_Client
                             //State = "Playing",
                             Timestamps = new Timestamps()
                             {
-                                Start = start
+                                Start = startRP
                             },
                             Assets = new Assets()
                             {
@@ -177,7 +177,7 @@ namespace Rhythm_Plus___Splamei_Client
                             },
                             Buttons = new DiscordRPC.Button[]
                             {
-                            playButton
+                                playButton
                             }
                         });
 
