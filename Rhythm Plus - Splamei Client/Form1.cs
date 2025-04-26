@@ -407,7 +407,7 @@ namespace Rhythm_Plus___Splamei_Client
                 webView21.CoreWebView2.Settings.IsBuiltInErrorPageEnabled = false;
                 webView21.CoreWebView2.Settings.IsGeneralAutofillEnabled = false;
                 webView21.CoreWebView2.Settings.IsPasswordAutosaveEnabled = false;
-                webView21.CoreWebView2.Settings.IsStatusBarEnabled = true;
+                webView21.CoreWebView2.Settings.IsStatusBarEnabled = false;
                 //webView21.Source = new Uri("https://google.com");
 
                 webView21.CoreWebView2.Profile.PreferredColorScheme = CoreWebView2PreferredColorScheme.Auto;
