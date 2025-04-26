@@ -16,6 +16,8 @@ namespace Rhythm_Plus___Splamei_Client
 
         public static Label status;
 
+        private Action canceledAction = null;
+
         public WaitDialog()
         {
             InitializeComponent();
@@ -40,6 +42,23 @@ namespace Rhythm_Plus___Splamei_Client
         public void updateText(string text)
         {
             updateStatus(text);
+        }
+
+        private void WaitDialog_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        public void allowCanceling(Action action, bool canCancel)
+        {
+            button1.Enabled = canCancel;
+
+            canceledAction = action;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (canceledAction != null) { canceledAction(); this.Close(); }
         }
     }
 }

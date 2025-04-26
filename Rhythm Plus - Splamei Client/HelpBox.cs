@@ -90,7 +90,6 @@ namespace Rhythm_Plus___Splamei_Client
             if (waitDialog != null)
             {
                 waitDialog.Close();
-                waitDialog.Dispose();
             }
         }
 
@@ -98,12 +97,20 @@ namespace Rhythm_Plus___Splamei_Client
         {
             waitDialog = new WaitDialog();
             waitDialog.updateText("Please wait while the help page loads");
+            waitDialog.allowCanceling(cancelLoading, true);
             waitDialog.ShowDialog();
         }
 
         private void HelpBox_FormClosing(object sender, FormClosingEventArgs e)
         {
             webView21.Dispose();
+            waitDialog.Dispose();
+        }
+
+        private void cancelLoading()
+        {
+            webView21.Stop();
+            this.Close();
         }
     }
 }
