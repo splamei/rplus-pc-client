@@ -51,7 +51,7 @@ namespace Rhythm_Plus___Splamei_Client
             {
                 if (openFileDialog1.FileName != "" && openFileDialog1.FileName.EndsWith("manifest.json"))
                 {
-                    if (MessageBox.Show("Do you want to continue to install the extension? By installing it, you allow the extension to modify and see data about Rhythm Plus which could get you banned or hacked. When installing, the unpacked folder will be moved to the extension directory.\n\nDo you wish to continue?", "Add extension", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    if (MessageBox.Show("Do you want to continue to install the extension? By installing it, you allow the extension to modify and see data about Rhythm Plus which could get you banned or hacked. When installing, the unpacked folder will be moved to the extension directory.\n\nDo you wish to continue? Rhythm Plus will be reloaded to allow ther extention to be added.", "Add extension", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
                         string dirName = Directory.GetParent(openFileDialog1.FileName).Name;
                         if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Extensions/" + dirName))

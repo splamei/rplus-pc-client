@@ -904,6 +904,7 @@ namespace Rhythm_Plus___Splamei_Client
                 if (Directory.Exists(path))
                 {
                     webView21.CoreWebView2.Profile.AddBrowserExtensionAsync(path);
+                    webView21.CoreWebView2.Reload();
                     return true;
                 }
                 else { return false; }
