@@ -122,7 +122,7 @@ namespace Rhythm_Plus___Splamei_Client
                     }
                     else if (uri.Equals("https://rhythm-plus.com/studio/") || uri.StartsWith("https://rhythm-plus.com/editor/"))
                     {
-                        point = "Creating a map";
+                        point = "Creating a chart";
                     }
                     else if (uri.Equals("https://rhythm-plus.com/account/"))
                     {
@@ -138,7 +138,7 @@ namespace Rhythm_Plus___Splamei_Client
                     }
                     else if (uri.StartsWith("https://rhythm-plus.com/game-over/"))
                     {
-                        point = "Failed a map";
+                        point = "Failed a chart";
                     }
                     else if (uri.StartsWith("https://rhythm-plus.com/game/"))
                     {

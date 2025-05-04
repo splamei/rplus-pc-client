@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Rhythm Plus - Splamei Client")]
-[assembly: AssemblyDescription("Play the Rythm Plus Web Game in a custom clientfor Windows")]
+[assembly: AssemblyDescription("Play the Rythm Plus Web Game in a custom client for Windows")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Splamei")]
 [assembly: AssemblyProduct("Rhythm Plus - Splamei Client")]
@@ -30,6 +30,6 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.4.0.0")]
-[assembly: AssemblyFileVersion("1.4.0.0")]
+[assembly: AssemblyVersion("1.4.1.0")]
+[assembly: AssemblyFileVersion("1.4.1.0")]
 [assembly: NeutralResourcesLanguage("en")]
