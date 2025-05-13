@@ -26,7 +26,7 @@ namespace Rhythm_Plus___Splamei_Client
         private bool showingError = false;
         private Settings settingsBox;
 
-        public int myVerCode = 1004;
+        public int myVerCode = 1005;
 
         public DiscordRpcClient client;
 
