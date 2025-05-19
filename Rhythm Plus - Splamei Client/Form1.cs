@@ -507,53 +507,60 @@ namespace Rhythm_Plus___Splamei_Client
         {
             var task = MakeAsyncRequest("https://www.veemo.uk/net/r-plus/pc/ver", "text/html");
 
-            if (!task.IsFaulted)
+            try
             {
-
-                if (Int32.Parse(task.Result) > myVerCode)
+                if (!task.IsFaulted)
                 {
-                    Console.WriteLine("New update!");
-                    if (File.Exists("C:/Splamei/SplameiPlay/Launcher/Updater-data/location.dat"))
+
+                    if (Int32.Parse(task.Result) > myVerCode)
                     {
-                        if (MessageBox.Show("Theres a new update to the client! Press 'Yes' to close close the client and open SplameiPlay to get the new update installed.\n\nIf you already launched the client through SplameiPlay today, you'll need to wait until tomorrow before the update will be installed. Sorry!", "New Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                        Console.WriteLine("New update!");
+                        if (File.Exists("C:/Splamei/SplameiPlay/Launcher/Updater-data/location.dat"))
                         {
-                            string location = File.ReadAllText("C:/Splamei/SplameiPlay/Launcher/Updater-data/location.dat");
-                            if (location.StartsWith(@"C:\Splamei\SplameiPlay\"))
+                            if (MessageBox.Show("Theres a new update to the client! Press 'Yes' to close close the client and open SplameiPlay to get the new update installed.\n\nIf you already launched the client through SplameiPlay today, you'll need to wait until tomorrow before the update will be installed. Sorry!", "New Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                             {
-                                Process.Start(location);
+                                string location = File.ReadAllText("C:/Splamei/SplameiPlay/Launcher/Updater-data/location.dat");
+                                if (location.StartsWith(@"C:\Splamei\SplameiPlay\"))
+                                {
+                                    Process.Start(location);
+                                    Application.Exit();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("We failed to launch SplameiPlay. Please check your installation and try again. You may need to reinstall the app.", "Rhythm Plus - Splamei Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                            else
+                            {
+                                checkNotices();
+                            }
+                        }
+                        else
+                        {
+                            if (MessageBox.Show("Theres a new update to the client! Press 'Yes' to close close the client and open the GitHub page to install the new update.\n\nYou don't neet to do this if your using SplameiPlay so just press 'No' and wait for it to realise the update exists", "New Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                            {
+                                Process.Start("https://github.com/splamei/rplus-pc-client/releases");
                                 Application.Exit();
                             }
                             else
                             {
-                                MessageBox.Show("We failed to launch SplameiPlay. Please check your installation and try again. You may need to reinstall the app.", "Rhythm Plus - Splamei Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                checkNotices();
                             }
-                        }
-                        else
-                        {
-                            checkNotices();
                         }
                     }
                     else
                     {
-                        if (MessageBox.Show("Theres a new update to the client! Press 'Yes' to close close the client and open the GitHub page to install the new update.\n\nYou don't neet to do this if your using SplameiPlay so just press 'No' and wait for it to realise the update exists", "New Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                        {
-                            Process.Start("https://github.com/splamei/rplus-pc-client/releases");
-                            Application.Exit();
-                        }
-                        else
-                        {
-                            checkNotices();
-                        }
+                        checkNotices();
                     }
                 }
                 else
                 {
-                    checkNotices();
+                    Debug.WriteLine("Error getting ver");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Debug.WriteLine("Error getting ver");
+                Debug.WriteLine("Exception getting version - " + ex);
             }
         }
 
