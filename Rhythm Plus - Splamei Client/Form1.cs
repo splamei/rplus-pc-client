@@ -706,13 +706,12 @@ namespace Rhythm_Plus___Splamei_Client
         private void timer2_Tick(object sender, EventArgs e)
         {
             timer2.Stop();
-            if (this.Location.X > 0 && this.Location.Y > 0)
-            {
-                Console.WriteLine("Location changed!");
-                System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationX.dat", this.Location.X.ToString());
-                System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationY.dat", this.Location.Y.ToString());
-            }
-            else { Console.WriteLine("Not saving location since off screen"); }
+            Console.WriteLine(this.Location.X);
+            Console.WriteLine(this.Location.Y);
+
+            Console.WriteLine("Location changed!");
+            System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationX.dat", this.Location.X.ToString());
+            System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationY.dat", this.Location.Y.ToString());
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
