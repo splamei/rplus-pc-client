@@ -68,22 +68,22 @@ namespace Rhythm_Plus___Splamei_Client
             //Subscribe to events
             client.OnReady += (sender, e) =>
             {
-                Console.WriteLine("Received Ready from user {0}", e.User.Username);
+                Logging.logString("Received Ready from user " + e.User.Username);
             };
 
             client.OnPresenceUpdate += (sender, e) =>
             {
-                Console.WriteLine("Received Update! {0}", e.Presence);
+                Logging.logString("Received Update! " + e.Presence.Details);
             };
 
             client.OnConnectionFailed += (sender, e) =>
             {
-                Console.WriteLine("Failed to connect to discord - " + e.Type);
+                Logging.logString("Failed to connect to discord - " + e.Type);
             };
 
             client.OnClose += (sender, e) =>
             {
-                Console.WriteLine("Connection closed to discord - " + e.Reason);
+                Logging.logString("Connection closed to discord - " + e.Reason);
             };
 
             //Connect to the RPC
@@ -187,7 +187,7 @@ namespace Rhythm_Plus___Splamei_Client
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error! - " + ex.ToString());
+                Logging.logString("Error! - " + ex.ToString());
             }
         }
 
@@ -195,7 +195,7 @@ namespace Rhythm_Plus___Splamei_Client
         {
             enabledRP = false;
 
-            Console.WriteLine("Error with RP! - " + args);
+            Logging.logString("Error with RP! - " + args);
 
             client.Dispose();
         }
@@ -206,6 +206,26 @@ namespace Rhythm_Plus___Splamei_Client
 
             splash = new Splash();
             splash.Show();
+
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/"))
+            {
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/");
+            }
+
+            File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Client.log", "(i) This log file is for debugging the client and should only really be used by programmers. You can still try to understand it if you want!\n\n--\n\n");
+
+            Logging.logString("Rhythm Plus - Splamei Client");
+            Logging.logString("Version " + Application.ProductVersion + "\n");
+
+            Logging.logString("Processor Count: " + Environment.ProcessorCount);
+            Logging.logString($"Mapped Memory: {Environment.WorkingSet} bytes");
+            Logging.logString("System Page Size: " + Environment.SystemPageSize + " bytes");
+            Logging.logString("Is x64: " + Environment.Is64BitOperatingSystem);
+            Logging.logString("OS Version: " + Environment.OSVersion + "\n");
+
+            Logging.logString("--\n");
+
+            Logging.addStarter = true;
 
             if (!System.IO.Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client"))
             {
@@ -276,7 +296,7 @@ namespace Rhythm_Plus___Splamei_Client
                     {
                         this.WindowState = FormWindowState.Maximized;
                         this.Location = new System.Drawing.Point(0, 0);
-                        Console.WriteLine(ex);
+                        Logging.logString(ex.ToString());
 
                         Error errorD = new Error();
                         errorD.errorDebug = ex.ToString();
@@ -355,7 +375,7 @@ namespace Rhythm_Plus___Splamei_Client
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Error! " + ex);
+                    Logging.logString("Error! " + ex);
                     discordRpRefresh = 5;
                     File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/discordRpRefresh.dat", "5");
 
@@ -449,7 +469,7 @@ namespace Rhythm_Plus___Splamei_Client
                         }
                         else
                         {
-                            Console.WriteLine("[Net Client] Last got ver and notices in the last 2 days. Not checking so returning the last saved value");
+                            Logging.logString("Last got ver and notices in the last 2 days. Not checking so returning the last saved value");
                         }
                     }
                     else
@@ -461,7 +481,7 @@ namespace Rhythm_Plus___Splamei_Client
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Error getting notices or ver! - " + ex);
+                    Logging.logString("Error getting notices or ver! - " + ex);
 
                     Error errorD = new Error();
                     errorD.errorDebug = ex.ToString();
@@ -495,7 +515,7 @@ namespace Rhythm_Plus___Splamei_Client
             {
                 showingError = true;
 
-                Console.WriteLine("Error! " + e.WebErrorStatus);
+                Logging.logString("Error! " + e.WebErrorStatus);
 
                 Error errorD = new Error();
                 errorD.errorDebug = "WebView2 error status code - " + e.WebErrorStatus.ToString();
@@ -514,7 +534,7 @@ namespace Rhythm_Plus___Splamei_Client
 
                     if (Int32.Parse(task.Result) > myVerCode)
                     {
-                        Console.WriteLine("New update!");
+                        Logging.logString("New update!");
                         if (File.Exists("C:/Splamei/SplameiPlay/Launcher/Updater-data/location.dat"))
                         {
                             if (MessageBox.Show("Theres a new update to the client! Press 'Yes' to close close the client and open SplameiPlay to get the new update installed.\n\nIf you already launched the client through SplameiPlay today, you'll need to wait until tomorrow before the update will be installed. Sorry!", "New Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
@@ -580,7 +600,7 @@ namespace Rhythm_Plus___Splamei_Client
                         {
                             System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/notice.dat", notices[3]);
 
-                            Console.WriteLine("New notice!");
+                            Logging.logString("New notice!");
 
                             if (notices[2].Contains("NONE"))
                             {
@@ -599,7 +619,7 @@ namespace Rhythm_Plus___Splamei_Client
                     {
                         System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/notice.dat", notices[3]);
 
-                        Console.WriteLine("New notice!");
+                        Logging.logString("New notice!");
 
                         if (notices[2].Contains("NONE"))
                         {
@@ -616,7 +636,7 @@ namespace Rhythm_Plus___Splamei_Client
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Error decoding notices - " + ex);
+                    Logging.logString("Error decoding notices - " + ex);
 
                     Error errorD = new Error();
                     errorD.errorDebug = ex.ToString();
@@ -687,13 +707,13 @@ namespace Rhythm_Plus___Splamei_Client
             timer1.Stop();
             if (this.Size.Height > 200 && this.Size.Width > 200)
             {
-                Console.WriteLine("Size changed!");
+                Logging.logString("Size changed!");
                 System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeWidth.dat", this.Size.Width.ToString());
                 System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeHeight.dat", this.Size.Height.ToString());
             }
             else
             {
-                Console.WriteLine("Not saving size since too small");
+                Logging.logString("Not saving size since too small");
             }
         }
 
@@ -706,10 +726,8 @@ namespace Rhythm_Plus___Splamei_Client
         private void timer2_Tick(object sender, EventArgs e)
         {
             timer2.Stop();
-            Console.WriteLine(this.Location.X);
-            Console.WriteLine(this.Location.Y);
 
-            Console.WriteLine("Location changed!");
+            Logging.logString("Location changed!");
             System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationX.dat", this.Location.X.ToString());
             System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationY.dat", this.Location.Y.ToString());
         }
@@ -965,11 +983,11 @@ namespace Rhythm_Plus___Splamei_Client
                 {
                     // Remove the browser extension asynchronously
                     await extensionToRemove.RemoveAsync();
-                    Console.WriteLine($"Extension {extensionToRemove.Name} has been removed successfully.");
+                    Logging.logString($"Extension {extensionToRemove.Name} has been removed successfully.");
                 }
                 else
                 {
-                    Console.WriteLine("Extension not found.");
+                    Logging.logString("Extension not found.");
                     failedToRemoveExtension = true;
                 }
             }

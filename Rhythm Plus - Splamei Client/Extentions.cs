@@ -28,15 +28,15 @@ namespace Rhythm_Plus___Splamei_Client
 
         public void loadExtentions(List<string> names, List<string> ids, List<bool> enabled)
         {
-            Console.WriteLine(names[0]);
+            Logging.logString(names[0]);
 
             for (int i = 0; i < names.Count; i++)
             {
                 checkedListBox1.Items.Add($"{names[i]} (ID: {ids[i]})", false);
-                //Console.WriteLine(names[i]);
+                //Logging.logString(names[i]);
             }
 
-            //Console.WriteLine(checkedListBox1.Items[0].ToString());
+            //Logging.logString(checkedListBox1.Items[0].ToString());
             checkedListBox1.Refresh();
         }
 
@@ -79,7 +79,7 @@ namespace Rhythm_Plus___Splamei_Client
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Logging.logString(ex.ToString());
 
                 MessageBox.Show($"An error occured while adding the extension. We are sorry for the issue\n\nError: {ex.Message}", "Error adding extension", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -151,7 +151,7 @@ namespace Rhythm_Plus___Splamei_Client
 
                         extension.Add(id1[0]);
 
-                        Console.WriteLine($"Removing extension with ID: {id2[0]}");
+                        Logging.logString($"Removing extension with ID: {id2[0]}");
 
                         form.removeExtention(id2[0]);
                     }
@@ -166,7 +166,7 @@ namespace Rhythm_Plus___Splamei_Client
                         {
                             if (fileData.Contains($"\"name\": \"{extensionName}\","))
                             {
-                                //Console.WriteLine("AAAAAAA " + directory);
+                                //Logging.logString("AAAAAAA " + directory);
                                 Directory.Delete(directory, true);
                             }
                         }
