@@ -204,7 +204,7 @@
             // timer4
             // 
             this.timer4.Enabled = true;
-            this.timer4.Interval = 50;
+            this.timer4.Interval = 10;
             this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
             // 
             // notifyIcon1
@@ -293,6 +293,7 @@
             this.Text = "Rhythm Plus - Splamei Client";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.LocationChanged += new System.EventHandler(this.Form1_LocationChanged);
             this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).EndInit();

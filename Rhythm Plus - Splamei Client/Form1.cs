@@ -17,10 +17,7 @@ namespace Rhythm_Plus___Splamei_Client
 {
     public partial class Form1 : Form
     {
-
         public Splash splash;
-
-        FormState formState = new FormState();
 
         private bool closeSplash = false;
 
@@ -43,6 +40,8 @@ namespace Rhythm_Plus___Splamei_Client
         public bool retainWinSize = true;
         public bool fullscreen = false;
 
+        public string showMenu = "Only in settings";
+
         public bool debugMode = false;
 
         public string prevDataRP = "";
@@ -51,6 +50,12 @@ namespace Rhythm_Plus___Splamei_Client
 
         public bool failedToRemoveExtension = false;
         public bool enabledExtensions = false;
+
+        // Fullscreen stuff
+        public bool f11Pressed = false;
+        public Rectangle originalBounds;
+        public FormWindowState originalWindowState;
+
 
         public Form1()
         {
@@ -282,15 +287,8 @@ namespace Rhythm_Plus___Splamei_Client
                     this.WindowState = FormWindowState.Normal;
                     try
                     {
-                        if (fullscreen)
-                        {
-                            toggleFullscreen(true);
-                        }
-                        else if (retainWinSize)
-                        {
-                            this.Size = new System.Drawing.Size(int.Parse(System.IO.File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeWidth.dat")), int.Parse(System.IO.File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeHeight.dat")));
-                            this.Location = new System.Drawing.Point(int.Parse(System.IO.File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationX.dat")), int.Parse(System.IO.File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationY.dat")));
-                        }
+                        this.Size = new System.Drawing.Size(int.Parse(System.IO.File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeWidth.dat")), int.Parse(System.IO.File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeHeight.dat")));
+                        this.Location = new System.Drawing.Point(int.Parse(System.IO.File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationX.dat")), int.Parse(System.IO.File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationY.dat")));
                     }
                     catch (Exception ex)
                     {
@@ -390,6 +388,29 @@ namespace Rhythm_Plus___Splamei_Client
                 File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/discordRpRefresh.dat", "5");
             }
 
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showMenuAt.dat"))
+            {
+                try
+                {
+                    showMenu = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showMenuIn.dat");
+                }
+                catch (Exception ex)
+                {
+                    Logging.logString("Error! " + ex);
+                    discordRpRefresh = 5;
+                    File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showMenuIn.dat", "Only in settings");
+
+                    Error errorD = new Error();
+                    errorD.errorDebug = ex.ToString();
+                    errorD.shouldClose = false;
+                    errorD.ShowDialog();
+                }
+            }
+            else
+            {
+                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showMenuIn.dat", "Only in settings");
+            }
+
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Extensions"))
             {
                 Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Extensions");
@@ -434,6 +455,11 @@ namespace Rhythm_Plus___Splamei_Client
                 webView21.CoreWebView2.Profile.DefaultDownloadFolderPath = $"C:/Users/{Environment.UserName}/Downloads/";
                 webView21.CoreWebView2.Profile.IsGeneralAutofillEnabled = false;
                 webView21.CoreWebView2.Profile.IsPasswordAutosaveEnabled = false;
+
+                webView21.CoreWebView2.ContainsFullScreenElementChanged += (obj, args) =>
+                {
+                    toggleFullscreen(!fullscreen);
+                };
 
                 this.Hide();
 
@@ -646,11 +672,6 @@ namespace Rhythm_Plus___Splamei_Client
             else { Debug.WriteLine("Error getting notices"); }
         }
 
-        private void Maximise_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         // Define other methods and classes here
         public static Task<string> MakeAsyncRequest(string url, string contentType)
         {
@@ -707,8 +728,6 @@ namespace Rhythm_Plus___Splamei_Client
             timer1.Stop();
             if (this.Size.Height > 200 && this.Size.Width > 200)
             {
-                formState.Save(this);
-
                 Logging.logString("Size changed!");
                 System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeWidth.dat", this.Size.Width.ToString());
                 System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeHeight.dat", this.Size.Height.ToString());
@@ -728,8 +747,6 @@ namespace Rhythm_Plus___Splamei_Client
         private void timer2_Tick(object sender, EventArgs e)
         {
             timer2.Stop();
-
-            formState.Save(this);
 
             Logging.logString("Location changed!");
             System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationX.dat", this.Location.X.ToString());
@@ -846,33 +863,67 @@ namespace Rhythm_Plus___Splamei_Client
                 this.Text = webView21.CoreWebView2.DocumentTitle.Replace("Rhythm+ Music Game", "Rhythm Plus - Splamei Client");
             }
 
-            if (webView21.CoreWebView2.DocumentTitle.Contains("Settings"))
+            if (showMenu == "Only in settings")
             {
-                menuStrip1.Visible = true;
+                if (webView21.CoreWebView2.DocumentTitle != null)
+                {
+                    if (webView21.CoreWebView2.DocumentTitle.Contains("Settings"))
+                    {
+                        menuStrip1.Visible = true;
+                    }
+                    else
+                    {
+                        menuStrip1.Visible = false;
+                    }
+                }
+            }
+            else if (showMenu == "Not in game")
+            {
+                if (webView21.Source != null)
+                {
+                    if (webView21.Source.ToString().Contains("rhythm-plus.com/game/"))
+                    {
+                        menuStrip1.Visible = false;
+                    }
+                    else
+                    {
+                        menuStrip1.Visible = true;
+                    }
+                }
             }
             else
             {
-                menuStrip1.Visible = false;
+                menuStrip1.Visible = true;
             }
         }
 
         private void timer4_Tick(object sender, EventArgs e)
         {
-            if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.S))
-            {
-                if (settingsBox == null)
-                {
-                    settingsBox = new Settings();
-                    settingsBox.form = this;
+            //if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.S))
+            //{
+            //    if (settingsBox == null)
+            //    {
+            //        settingsBox = new Settings();
+            //        settingsBox.form = this;
+            //
+            //        settingsBox.ShowDialog();
+            //    }
+            //    else if (settingsBox.IsDisposed)
+            //    {
+            //        settingsBox = new Settings();
+            //        settingsBox.form = this;
+            //        settingsBox.ShowDialog();
+            //    }
+            //}
 
-                    settingsBox.ShowDialog();
-                }
-                else if (settingsBox.IsDisposed)
-                {
-                    settingsBox = new Settings();
-                    settingsBox.form = this;
-                    settingsBox.ShowDialog();
-                }
+            if (Keyboard.IsKeyDown(Key.F11) && !f11Pressed && Form.ActiveForm != null)
+            {
+                f11Pressed = true;
+                toggleFullscreen(!fullscreen);
+            }
+            else if (f11Pressed && Keyboard.IsKeyUp(Key.F11) && Form.ActiveForm != null)
+            {
+                f11Pressed = false;
             }
         }
 
@@ -1023,11 +1074,30 @@ namespace Rhythm_Plus___Splamei_Client
 
             if (fullscreen)
             {
-                formState.Maximize(this);
+                originalBounds = this.Bounds;
+                originalWindowState = this.WindowState;
+
+                this.FormBorderStyle = FormBorderStyle.None;
+                this.WindowState = FormWindowState.Normal;
+                this.WindowState = FormWindowState.Maximized;
             }
             else
             {
-                formState.Restore(this);
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+                this.WindowState = FormWindowState.Normal;
+                this.Bounds = originalBounds;
+                this.WindowState = originalWindowState;
+
+                this.Invalidate();
+                this.Refresh();
+            }
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            if (fullscreen)
+            {
+                toggleFullscreen(true);
             }
         }
     }

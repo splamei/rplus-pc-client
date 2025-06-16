@@ -153,7 +153,6 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutNew";
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AboutNew_FormClosed);

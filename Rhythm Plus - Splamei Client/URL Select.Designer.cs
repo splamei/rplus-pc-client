@@ -118,7 +118,6 @@
             this.MinimizeBox = false;
             this.Name = "URL_Select";
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Location Switcher - Splamei Client";
             this.Load += new System.EventHandler(this.URL_Select_Load);

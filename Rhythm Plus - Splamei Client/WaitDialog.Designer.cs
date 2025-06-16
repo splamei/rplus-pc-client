@@ -72,6 +72,7 @@
             this.button1.TabIndex = 2;
             this.button1.Text = "Cancel";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseWaitCursor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // WaitDialog
@@ -90,7 +91,6 @@
             this.MinimizeBox = false;
             this.Name = "WaitDialog";
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Rhythm Plus - Splamei Client";
             this.TopMost = true;

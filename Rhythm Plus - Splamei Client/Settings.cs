@@ -35,6 +35,19 @@ namespace Rhythm_Plus___Splamei_Client
 
             checkBox6.Checked = form.enabledExtensions;
 
+            if (form.showMenu == "Not in game")
+            {
+                comboBox1.SelectedIndex = 1;
+            }
+            else if (form.showMenu == "Always")
+            {
+                comboBox1.SelectedIndex = 2;
+            }
+            else
+            {
+                comboBox1.SelectedIndex = 0;
+            }
+
             label5.Text = $"Discord RP Refresh Time ({trackBar1.Value}s)";
 
             starting = false;
@@ -53,6 +66,19 @@ namespace Rhythm_Plus___Splamei_Client
             { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/playFullScreen.dat", "0"); }
 
             File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/discordRpRefresh.dat", trackBar1.Value.ToString());
+
+            if (comboBox1.SelectedIndex == 1)
+            {
+                form.showMenu = "Not in game";
+            }
+            else if (comboBox1.SelectedIndex == 2)
+            {
+                form.showMenu = "Always";
+            }
+            else
+            {
+                form.showMenu = "Only in settings";
+            }
 
             form.setSettings(checkBox1.Checked, checkBox2.Checked, checkBox3.Checked, checkBox4.Checked, trackBar1.Value);
         }
@@ -81,7 +107,7 @@ namespace Rhythm_Plus___Splamei_Client
                 //    checkBox5.Checked = false;
                 //}
             }
-            else if (starting)
+            else if (!starting)
             {
                 form.toggleFullscreen(false);
             }

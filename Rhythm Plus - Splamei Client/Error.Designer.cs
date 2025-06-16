@@ -131,7 +131,6 @@
             this.MinimizeBox = false;
             this.Name = "Error";
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Error";
             this.TopMost = true;
