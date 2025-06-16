@@ -41,9 +41,6 @@ namespace Rhythm_Plus___Splamei_Client
         }
     }
 
-    /// <summary>
-    /// Class used to preserve / restore / maximize state of the form
-    /// </summary>
     public class FormState
     {
         private FormWindowState winState;

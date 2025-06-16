@@ -75,10 +75,15 @@ namespace Rhythm_Plus___Splamei_Client
         {
             if (checkBox5.Checked && !starting)
             {
-                if (MessageBox.Show($"If you put the client in full screen, you'll need to press 'Left Control + S' at the same time for at least a seccond to open settings and change settings and to go out of full screen.\n\nDo you still want to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
-                {
-                    checkBox5.Checked = false;
-                }
+                form.toggleFullscreen(true);
+                //if (MessageBox.Show($"If you put the client in full screen, you'll need to press 'Left Control + S' at the same time for at least a seccond to open settings and change settings and to go out of full screen.\n\nDo you still want to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                //{
+                //    checkBox5.Checked = false;
+                //}
+            }
+            else if (starting)
+            {
+                form.toggleFullscreen(false);
             }
         }
 

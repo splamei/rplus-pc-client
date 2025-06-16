@@ -11,6 +11,7 @@ using DiscordRPC;
 using DiscordRPC.Logging;
 using DiscordRPC.Message;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace Rhythm_Plus___Splamei_Client
 {
@@ -204,6 +205,8 @@ namespace Rhythm_Plus___Splamei_Client
         {
             this.Hide();
 
+            menuStrip1.Visible = false;
+
             splash = new Splash();
             splash.Show();
 
@@ -281,10 +284,7 @@ namespace Rhythm_Plus___Splamei_Client
                     {
                         if (fullscreen)
                         {
-                            formState.Maximize(this);
-                            menuStrip1.Visible = false;
-                            webView21.Dock = DockStyle.Fill;
-                            timer4.Enabled = true;
+                            toggleFullscreen(true);
                         }
                         else if (retainWinSize)
                         {
@@ -707,6 +707,8 @@ namespace Rhythm_Plus___Splamei_Client
             timer1.Stop();
             if (this.Size.Height > 200 && this.Size.Width > 200)
             {
+                formState.Save(this);
+
                 Logging.logString("Size changed!");
                 System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeWidth.dat", this.Size.Width.ToString());
                 System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeHeight.dat", this.Size.Height.ToString());
@@ -726,6 +728,8 @@ namespace Rhythm_Plus___Splamei_Client
         private void timer2_Tick(object sender, EventArgs e)
         {
             timer2.Stop();
+
+            formState.Save(this);
 
             Logging.logString("Location changed!");
             System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationX.dat", this.Location.X.ToString());
@@ -840,6 +844,15 @@ namespace Rhythm_Plus___Splamei_Client
             else
             {
                 this.Text = webView21.CoreWebView2.DocumentTitle.Replace("Rhythm+ Music Game", "Rhythm Plus - Splamei Client");
+            }
+
+            if (webView21.CoreWebView2.DocumentTitle.Contains("Settings"))
+            {
+                menuStrip1.Visible = true;
+            }
+            else
+            {
+                menuStrip1.Visible = false;
             }
         }
 
@@ -1002,6 +1015,20 @@ namespace Rhythm_Plus___Splamei_Client
         public void refreshWebView()
         {
             webView21.CoreWebView2.Reload();
+        }
+
+        public void toggleFullscreen(bool toggle)
+        {
+            fullscreen = toggle;
+
+            if (fullscreen)
+            {
+                formState.Maximize(this);
+            }
+            else
+            {
+                formState.Restore(this);
+            }
         }
     }
 }
