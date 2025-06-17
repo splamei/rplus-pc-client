@@ -48,6 +48,9 @@ namespace Rhythm_Plus___Splamei_Client
                 comboBox1.SelectedIndex = 0;
             }
 
+            trackBar2.Value = int.Parse(Math.Round(form.webView2.ZoomFactor * 10).ToString());
+            label9.Text = $"Current Zoom ({Math.Round((trackBar2.Value / 10f) * 100)}%)";
+
             label5.Text = $"Discord RP Refresh Time ({trackBar1.Value}s)";
 
             starting = false;
@@ -79,6 +82,7 @@ namespace Rhythm_Plus___Splamei_Client
             {
                 form.showMenu = "Only in settings";
             }
+            File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showMenuIn.dat", form.showMenu);
 
             form.setSettings(checkBox1.Checked, checkBox2.Checked, checkBox3.Checked, checkBox4.Checked, trackBar1.Value);
         }
@@ -135,6 +139,19 @@ namespace Rhythm_Plus___Splamei_Client
                 }
                 else
                 { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enableExtensions.dat", "0"); }
+            }
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            try
+            {
+                form.webView2.ZoomFactor = trackBar2.Value / 10f;
+                label9.Text = $"Current Zoom ({Math.Round((trackBar2.Value / 10f) * 100)}%)";
+            }
+            catch (Exception ex)
+            {
+                Logging.logString($"Failed to set webView zoom of {trackBar2.Value / 10f}! - " + ex);
             }
         }
     }

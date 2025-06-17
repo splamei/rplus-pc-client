@@ -12,6 +12,7 @@ using DiscordRPC.Logging;
 using DiscordRPC.Message;
 using System.Collections.Generic;
 using System.Drawing;
+using Microsoft.Web.WebView2.WinForms;
 
 namespace Rhythm_Plus___Splamei_Client
 {
@@ -19,6 +20,7 @@ namespace Rhythm_Plus___Splamei_Client
     {
         public Splash splash;
         public Welcome welcome;
+        public WebView2 webView2;
 
         private bool closeSplash = false;
 
@@ -51,6 +53,7 @@ namespace Rhythm_Plus___Splamei_Client
 
         public bool failedToRemoveExtension = false;
         public bool enabledExtensions = false;
+        public float zoom = 1;
 
         // Fullscreen stuff
         public bool f11Pressed = false;
@@ -389,7 +392,30 @@ namespace Rhythm_Plus___Splamei_Client
                 File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/discordRpRefresh.dat", "5");
             }
 
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showMenuAt.dat"))
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/viewZoom.dat"))
+            {
+                try
+                {
+                    zoom = float.Parse(File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/viewZoom.dat"));
+                }
+                catch (Exception ex)
+                {
+                    Logging.logString("Error! " + ex);
+                    discordRpRefresh = 5;
+                    File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/viewZoom.dat", "1");
+
+                    Error errorD = new Error();
+                    errorD.errorDebug = ex.ToString();
+                    errorD.shouldClose = false;
+                    errorD.ShowDialog();
+                }
+            }
+            else
+            {
+                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/viewZoom.dat", "1");
+            }
+
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showMenuIn.dat"))
             {
                 try
                 {
@@ -450,6 +476,7 @@ namespace Rhythm_Plus___Splamei_Client
                 webView21.CoreWebView2.Settings.IsGeneralAutofillEnabled = false;
                 webView21.CoreWebView2.Settings.IsPasswordAutosaveEnabled = false;
                 webView21.CoreWebView2.Settings.IsStatusBarEnabled = false;
+                webView21.CoreWebView2.Settings.IsZoomControlEnabled = true;
                 //webView21.Source = new Uri("https://google.com");
 
                 webView21.CoreWebView2.Profile.PreferredColorScheme = CoreWebView2PreferredColorScheme.Auto;
@@ -461,6 +488,9 @@ namespace Rhythm_Plus___Splamei_Client
                 {
                     toggleFullscreen(!fullscreen);
                 };
+
+                webView21.ZoomFactor = zoom;
+                webView2 = webView21;
 
                 this.Hide();
 
@@ -763,6 +793,16 @@ namespace Rhythm_Plus___Splamei_Client
             if (client != null)
             {
                 client.Dispose();
+            }
+
+            try
+            {
+                System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/viewZoom.dat", webView21.ZoomFactor.ToString());
+                Logging.logString("Saved zoom");
+            }
+            catch (Exception ex)
+            {
+                Logging.logString("Failed to save zoom! - " + ex);
             }
 
             webView21.Dispose();
