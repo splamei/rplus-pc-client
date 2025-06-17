@@ -154,5 +154,12 @@ namespace Rhythm_Plus___Splamei_Client
                 Logging.logString($"Failed to set webView zoom of {trackBar2.Value / 10f}! - " + ex);
             }
         }
+
+        public void fullscreenChanged(bool state)
+        {
+            starting = true;
+            checkBox5.Checked = state;
+            starting = false;
+        }
     }
 }

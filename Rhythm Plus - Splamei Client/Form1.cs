@@ -855,10 +855,10 @@ namespace Rhythm_Plus___Splamei_Client
 
         private void settingsMenu_Click(object sender, EventArgs e)
         {
-            Settings settings = new Settings();
-            settings.form = this;
+            settingsBox = new Settings();
+            settingsBox.form = this;
 
-            settings.ShowDialog();
+            settingsBox.ShowDialog();
         }
 
         public void setSettings(bool LenableRP, bool LshowTitleMaps, bool LdirectLinkRP, bool LretainWinSize, int LdiscordRefesh)
@@ -1115,26 +1115,38 @@ namespace Rhythm_Plus___Splamei_Client
 
         public void toggleFullscreen(bool toggle)
         {
-            fullscreen = toggle;
-
-            if (fullscreen)
+            try
             {
-                originalBounds = this.Bounds;
-                originalWindowState = this.WindowState;
+                fullscreen = toggle;
 
-                this.FormBorderStyle = FormBorderStyle.None;
-                this.WindowState = FormWindowState.Normal;
-                this.WindowState = FormWindowState.Maximized;
+                if (fullscreen)
+                {
+                    originalBounds = this.Bounds;
+                    originalWindowState = this.WindowState;
+
+                    this.FormBorderStyle = FormBorderStyle.None;
+                    this.WindowState = FormWindowState.Normal;
+                    this.WindowState = FormWindowState.Maximized;
+                }
+                else
+                {
+                    this.FormBorderStyle = FormBorderStyle.Sizable;
+                    this.WindowState = FormWindowState.Normal;
+                    this.Bounds = originalBounds;
+                    this.WindowState = originalWindowState;
+
+                    this.Invalidate();
+                    this.Refresh();
+                }
+
+                if (settingsBox != null)
+                {
+                    settingsBox.fullscreenChanged(fullscreen);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                this.FormBorderStyle = FormBorderStyle.Sizable;
-                this.WindowState = FormWindowState.Normal;
-                this.Bounds = originalBounds;
-                this.WindowState = originalWindowState;
-
-                this.Invalidate();
-                this.Refresh();
+                Logging.logString("Failed to change fullscreen - " + ex);
             }
         }
 
