@@ -300,9 +300,11 @@ namespace Rhythm_Plus___Splamei_Client
                         this.Location = new System.Drawing.Point(0, 0);
                         Logging.logString(ex.ToString());
 
-                        Error errorD = new Error();
-                        errorD.errorDebug = ex.ToString();
-                        errorD.ShowDialog();
+                        using (Error errorD = new Error())
+                        {
+                            errorD.errorDebug = ex.ToString();
+                            errorD.ShowDialog();
+                        }
                     }
                 }
             }
@@ -381,10 +383,12 @@ namespace Rhythm_Plus___Splamei_Client
                     discordRpRefresh = 5;
                     File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/discordRpRefresh.dat", "5");
 
-                    Error errorD = new Error();
-                    errorD.errorDebug = ex.ToString();
-                    errorD.shouldClose = false;
-                    errorD.ShowDialog();
+                    using (Error errorD = new Error())
+                    {
+                        errorD.errorDebug = ex.ToString();
+                        errorD.shouldClose = false;
+                        errorD.ShowDialog();
+                    }
                 }
             }
             else
@@ -404,10 +408,12 @@ namespace Rhythm_Plus___Splamei_Client
                     discordRpRefresh = 5;
                     File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/viewZoom.dat", "1");
 
-                    Error errorD = new Error();
-                    errorD.errorDebug = ex.ToString();
-                    errorD.shouldClose = false;
-                    errorD.ShowDialog();
+                    using (Error errorD = new Error())
+                    {
+                        errorD.errorDebug = ex.ToString();
+                        errorD.shouldClose = false;
+                        errorD.ShowDialog();
+                    }
                 }
             }
             else
@@ -427,10 +433,12 @@ namespace Rhythm_Plus___Splamei_Client
                     discordRpRefresh = 5;
                     File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showMenuIn.dat", "Only in settings");
 
-                    Error errorD = new Error();
-                    errorD.errorDebug = ex.ToString();
-                    errorD.shouldClose = false;
-                    errorD.ShowDialog();
+                    using (Error errorD = new Error())
+                    {
+                        errorD.errorDebug = ex.ToString();
+                        errorD.shouldClose = false;
+                        errorD.ShowDialog();
+                    }
                 }
             }
             else
@@ -500,9 +508,11 @@ namespace Rhythm_Plus___Splamei_Client
             {
                 Logging.logString(ex.ToString());
 
-                Error errorD = new Error();
-                errorD.errorDebug = ex.ToString();
-                errorD.ShowDialog();
+                using (Error errorD = new Error())
+                {
+                    errorD.errorDebug = ex.ToString();
+                    errorD.ShowDialog();
+                }
             }
 
             if (!System.IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/played.dat"))
@@ -544,9 +554,11 @@ namespace Rhythm_Plus___Splamei_Client
                 {
                     Logging.logString("Error getting notices or ver! - " + ex);
 
-                    Error errorD = new Error();
-                    errorD.errorDebug = ex.ToString();
-                    errorD.ShowDialog();
+                    using (Error errorD = new Error())
+                    {
+                        errorD.errorDebug = ex.ToString();
+                        errorD.ShowDialog();
+                    }
                 }
             }
         }
@@ -578,9 +590,11 @@ namespace Rhythm_Plus___Splamei_Client
 
                 Logging.logString("Error! " + e.WebErrorStatus);
 
-                Error errorD = new Error();
-                errorD.errorDebug = "WebView2 error status code - " + e.WebErrorStatus.ToString();
-                errorD.ShowDialog();
+                using (Error errorD = new Error())
+                {
+                    errorD.errorDebug = "WebView2 error status code - " + e.WebErrorStatus.ToString();
+                    errorD.ShowDialog();
+                }
             }
         }
 
@@ -699,9 +713,11 @@ namespace Rhythm_Plus___Splamei_Client
                 {
                     Logging.logString("Error decoding notices - " + ex);
 
-                    Error errorD = new Error();
-                    errorD.errorDebug = ex.ToString();
-                    errorD.ShowDialog();
+                    using (Error errorD = new Error())
+                    {
+                        errorD.errorDebug = ex.ToString();
+                        errorD.ShowDialog();
+                    }
                 }
             }
             else { Debug.WriteLine("Error getting notices"); }
@@ -795,6 +811,11 @@ namespace Rhythm_Plus___Splamei_Client
                 client.Dispose();
             }
 
+            if (fileMenu != null)
+            {
+                fileMenu.Dispose();
+            }
+
             try
             {
                 System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/viewZoom.dat", webView21.ZoomFactor.ToString());
@@ -805,7 +826,10 @@ namespace Rhythm_Plus___Splamei_Client
                 Logging.logString("Failed to save zoom! - " + ex);
             }
 
-            webView21.Dispose();
+            if (webView21 != null)
+            {
+                webView21.Dispose();
+            }
         }
 
         private void timer3_Tick(object sender, EventArgs e)
@@ -839,8 +863,10 @@ namespace Rhythm_Plus___Splamei_Client
             //    }
             //}
 
-            HelpBox help = new HelpBox();
-            help.ShowDialog();
+            using (HelpBox help = new HelpBox())
+            {
+                help.ShowDialog();
+            }
         }
 
         private void aboutMenu_Click(object sender, EventArgs e)
@@ -848,17 +874,21 @@ namespace Rhythm_Plus___Splamei_Client
             //AboutBox1 about = new AboutBox1();
             //about.ShowDialog();
 
-            AboutNew aboutNew = new AboutNew();
-            aboutNew.form = this;
-            aboutNew.ShowDialog();
+            using (AboutNew aboutNew = new AboutNew())
+            {
+                aboutNew.form = this;
+                aboutNew.ShowDialog();
+            }
         }
 
         private void settingsMenu_Click(object sender, EventArgs e)
         {
-            settingsBox = new Settings();
-            settingsBox.form = this;
+            using (settingsBox = new Settings())
+            {
+                settingsBox.form = this;
 
-            settingsBox.ShowDialog();
+                settingsBox.ShowDialog();
+            }
         }
 
         public void setSettings(bool LenableRP, bool LshowTitleMaps, bool LdirectLinkRP, bool LretainWinSize, int LdiscordRefesh)
@@ -976,9 +1006,11 @@ namespace Rhythm_Plus___Splamei_Client
         {
             if (webView21.Source == new Uri(url))
             {
-                MsgBox msgBox = new MsgBox();
-                msgBox.setData(null, "Unable to navigate", "We can't go to that URL since it's the current URL you're on\n\nIf you really want to go to this URL, go to a different page then try\nagain", "Unable to navigate - Splamei Client", "OK", "");
-                msgBox.ShowDialog();
+                using (MsgBox msgBox = new MsgBox())
+                {
+                    msgBox.setData(null, "Unable to navigate", "We can't go to that URL since it's the current URL you're on\n\nIf you really want to go to this URL, go to a different page then try\nagain", "Unable to navigate - Splamei Client", "OK", "");
+                    msgBox.ShowDialog();
+                }
             }
             else
             {
@@ -998,9 +1030,11 @@ namespace Rhythm_Plus___Splamei_Client
 
         private void goToToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            URL_Select uRL_Select = new URL_Select();
-            uRL_Select.action = newUrlToGo;
-            uRL_Select.ShowDialog();
+            using (URL_Select uRL_Select = new URL_Select())
+            {
+                uRL_Select.action = newUrlToGo;
+                uRL_Select.ShowDialog();
+            }
         }
 
         private void copyLinkToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1121,6 +1155,8 @@ namespace Rhythm_Plus___Splamei_Client
 
                 if (fullscreen)
                 {
+                    File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/playFullScreen.dat", "1");
+
                     originalBounds = this.Bounds;
                     originalWindowState = this.WindowState;
 
@@ -1130,6 +1166,8 @@ namespace Rhythm_Plus___Splamei_Client
                 }
                 else
                 {
+                    File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/playFullScreen.dat", "0");
+
                     this.FormBorderStyle = FormBorderStyle.Sizable;
                     this.WindowState = FormWindowState.Normal;
                     this.Bounds = originalBounds;

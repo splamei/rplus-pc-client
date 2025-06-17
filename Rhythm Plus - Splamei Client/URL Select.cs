@@ -35,9 +35,11 @@ namespace Rhythm_Plus___Splamei_Client
             {
                 textBox1.Text = "https://rhythm-plus.com";
 
-                MsgBox msgBox = new MsgBox();
-                msgBox.setData(null, "Unable to navigate", "We can't go to that URL since it's not a Rhythm Plus URL\n\nPlease make sure the URL you're trying to go to starts with\nhttps://rhythm-plus.com then try again", "Unable to navigate - Splamei Client", "OK", "");
-                msgBox.ShowDialog();
+                using (MsgBox msgBox = new MsgBox())
+                {
+                    msgBox.setData(null, "Unable to navigate", "We can't go to that URL since it's not a Rhythm Plus URL\n\nPlease make sure the URL you're trying to go to starts with\nhttps://rhythm-plus.com then try again", "Unable to navigate - Splamei Client", "OK", "");
+                    msgBox.ShowDialog();
+                }
             }
         }
 

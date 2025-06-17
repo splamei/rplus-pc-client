@@ -63,11 +63,6 @@ namespace Rhythm_Plus___Splamei_Client
 
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (checkBox5.Checked)
-            { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/playFullScreen.dat", "1"); }
-            else
-            { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/playFullScreen.dat", "0"); }
-
             File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/discordRpRefresh.dat", trackBar1.Value.ToString());
 
             if (comboBox1.SelectedIndex == 1)

@@ -95,10 +95,12 @@ namespace Rhythm_Plus___Splamei_Client
 
         private void HelpBox_Shown(object sender, EventArgs e)
         {
-            waitDialog = new WaitDialog();
-            waitDialog.updateText("Please wait while the help page loads");
-            waitDialog.allowCanceling(cancelLoading, true);
-            waitDialog.ShowDialog();
+            using (waitDialog = new WaitDialog())
+            {
+                waitDialog.updateText("Please wait while the help page loads");
+                waitDialog.allowCanceling(cancelLoading, true);
+                waitDialog.ShowDialog();
+            }
         }
 
         private void HelpBox_FormClosing(object sender, FormClosingEventArgs e)

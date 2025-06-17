@@ -104,15 +104,19 @@ namespace Rhythm_Plus___Splamei_Client
 
             if (!showingEgg)
             {
-                Egg egg = new Egg();
-                egg.ShowDialog();
+                using (Egg egg = new Egg())
+                {
+                    egg.ShowDialog();
+                }
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Licences licences = new Licences();
-            licences.ShowDialog();
+            using (Licences licences = new Licences())
+            {
+                licences.ShowDialog();
+            }
         }
 
         private void label4_Click(object sender, EventArgs e)
