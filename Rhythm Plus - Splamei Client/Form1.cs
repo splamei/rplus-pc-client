@@ -18,6 +18,7 @@ namespace Rhythm_Plus___Splamei_Client
     public partial class Form1 : Form
     {
         public Splash splash;
+        public Welcome welcome;
 
         private bool closeSplash = false;
 
@@ -467,7 +468,7 @@ namespace Rhythm_Plus___Splamei_Client
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.ToString());
+                Logging.logString(ex.ToString());
 
                 Error errorD = new Error();
                 errorD.errorDebug = ex.ToString();
@@ -476,10 +477,14 @@ namespace Rhythm_Plus___Splamei_Client
 
             if (!System.IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/played.dat"))
             {
-                if (MessageBox.Show("Thank you for using the Splamei Client to play Rhythm Plus! It means alot to me and I hope you enjoy it!\r\n\r\nFeel free to join the SplameiPlay Discord for support on the client and use the GitHub repo to make your own client!\r\n\r\n\nIf you havn't, I would recommend you play the client through SplameiPlay for automatic update installs but you don't have to!", "Welcome to the new PC Rhythm Plus - Splamei Client!", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
-                {
-                    System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/played.dat", "Hello World!");
-                }
+                if (welcome != null) { welcome.Close(); welcome.Dispose(); }
+
+                welcome = new Welcome();
+                welcome.Show();
+                //if (MessageBox.Show("Thank you for using the Splamei Client to play Rhythm Plus! It means alot to me and I hope you enjoy it!\r\n\r\nFeel free to join the SplameiPlay Discord for support on the client and use the GitHub repo to make your own client!\r\n\r\n\nIf you havn't, I would recommend you play the client through SplameiPlay for automatic update installs but you don't have to!", "Welcome to the new PC Rhythm Plus - Splamei Client!", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
+                //{
+                //    System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/played.dat", "Hello World!");
+                //}
             }
             else
             {
