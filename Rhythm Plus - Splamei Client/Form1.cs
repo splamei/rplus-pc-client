@@ -617,8 +617,10 @@ namespace Rhythm_Plus___Splamei_Client
                                 string location = File.ReadAllText("C:/Splamei/SplameiPlay/Launcher/Updater-data/location.dat");
                                 if (location.StartsWith(@"C:\Splamei\SplameiPlay\"))
                                 {
-                                    Process.Start(location);
-                                    Application.Exit();
+                                    using (var process = Process.Start(location))
+                                    {
+                                        Application.Exit();
+                                    }
                                 }
                                 else
                                 {
@@ -634,8 +636,10 @@ namespace Rhythm_Plus___Splamei_Client
                         {
                             if (MessageBox.Show("Theres a new update to the client! Press 'Yes' to close close the client and open the GitHub page to install the new update.\n\nYou don't neet to do this if your using SplameiPlay so just press 'No' and wait for it to realise the update exists", "New Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                             {
-                                Process.Start("https://github.com/splamei/rplus-pc-client/releases");
-                                Application.Exit();
+                                using (var process = Process.Start("https://github.com/splamei/rplus-pc-client/releases"))
+                                {
+                                    Application.Exit();
+                                }
                             }
                             else
                             {
@@ -685,7 +689,10 @@ namespace Rhythm_Plus___Splamei_Client
                             {
                                 if (MessageBox.Show(notices[1] + "\n\n\nDo you want to open the URL added for the notice?", notices[0], MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                                 {
-                                    Process.Start(notices[2]);
+                                    using (var process = Process.Start(notices[2]))
+                                    {
+
+                                    }
                                 }
                             }
                         }
@@ -704,7 +711,10 @@ namespace Rhythm_Plus___Splamei_Client
                         {
                             if (MessageBox.Show(notices[1] + "\n\n\nDo you want to open the URL added for the notice?", notices[0], MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                             {
-                                Process.Start(notices[2]);
+                                using (var process = Process.Start(notices[2]))
+                                {
+
+                                }
                             }
                         }
                     }
