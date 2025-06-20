@@ -15,6 +15,7 @@ using System.Drawing;
 using Microsoft.Web.WebView2.WinForms;
 using Rhythm_Plus___Splamei_Client.Save_System;
 using System.Security.Policy;
+using System.Security.RightsManagement;
 
 namespace Rhythm_Plus___Splamei_Client
 {
@@ -46,6 +47,7 @@ namespace Rhythm_Plus___Splamei_Client
 
         public bool retainWinSize = true;
         public bool fullscreen = false;
+        public bool firstBoot = false;
 
         public string showMenu = "Only in settings";
 
@@ -90,20 +92,36 @@ namespace Rhythm_Plus___Splamei_Client
             client.OnConnectionFailed += (sender, e) =>
             {
                 Logging.logString("Failed to connect to discord - " + e.Type.ToString());
-                if (webView2 != null)
+                if (webView2 != null && !firstBoot)
                 {
                     if (!webView2.Source.ToString().StartsWith("https://rhythm-plus.com/game/") && !failedRpConnection)
                     {
                         failedRpConnection = true;
-                        enabledRP = false;
-                        if (MessageBox.Show("Something went wrong when connecting to Discord. This may be due to Discord not being installed or being unreachable. Discord Rich Precence has been disabled for the rest of this session.\n\nTo prevent further issues, do you want us to turn Discord Rich Precence off?", "Failed to connect to Discord", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                        DialogResult result = MessageBox.Show("Something went wrong when connecting to Discord. This may be because Discord is not installed/open or something is blocking the connection.\n\nYou can abort the connection and disable Rich Precence, Retry the connection or Ignore the issue and disable Rich Precence for this session.", "Failed to connect to Discord", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Warning);
+                        if (result == DialogResult.Abort)
                         {
                             saveManager.setString("enabledRP", "0");
                             saveManager.saveData();
+                            enabledRP = false;
 
                             client.Dispose();
                         }
+                        else if (result == DialogResult.Ignore)
+                        {
+                            enabledRP = false;
+                        }
+                        else { failedRpConnection = false; }
                     }
+                }
+                else if (firstBoot)
+                {
+                    saveManager.setString("enabledRP", "0");
+                    saveManager.saveData();
+                    enabledRP = false;
+
+                    client.Dispose();
+
+                    Logging.logString("Disabling RP since it's first boot");
                 }
             };
 
@@ -529,6 +547,7 @@ namespace Rhythm_Plus___Splamei_Client
             {
                 if (welcome != null) { welcome.Close(); welcome.Dispose(); }
 
+                firstBoot = true;
                 welcome = new Welcome();
                 welcome.Show();
                 saveManager.setString("played", "Hello World!");
