@@ -221,9 +221,6 @@ namespace Rhythm_Plus___Splamei_Client
             splash = new Splash();
             splash.Show();
 
-            saveManager.loadData();
-            saveManager.upgradeData();
-
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/"))
             {
                 Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/");
@@ -243,6 +240,9 @@ namespace Rhythm_Plus___Splamei_Client
             Logging.logString("--\n");
 
             Logging.addStarter = true;
+
+            saveManager.loadData();
+            saveManager.upgradeData();
 
             if (!System.IO.Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client"))
             {

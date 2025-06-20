@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Reflection;
+using System.Xml.Linq;
+using System.Configuration;
 
 namespace Rhythm_Plus___Splamei_Client.Save_System
 {
@@ -81,18 +83,25 @@ namespace Rhythm_Plus___Splamei_Client.Save_System
 
         public void upgradeData()
         {
-            Logging.logString("Upgraded data!");
-
-            foreach (string name in dataUpgradable)
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + $"/Splamei/Rhythm Plus - Splamei Client/checkCode.dat"))
             {
-                if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + $"/Splamei/Rhythm Plus - Splamei Client/{name}.dat"))
+                Logging.logString("Upgraded data!");
+
+                foreach (string name in dataUpgradable)
                 {
-                    string result = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + $"/Splamei/Rhythm Plus - Splamei Client/{name}.dat");
+                    if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + $"/Splamei/Rhythm Plus - Splamei Client/{name}.dat"))
+                    {
+                        string result = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + $"/Splamei/Rhythm Plus - Splamei Client/{name}.dat");
 
-                    setString(name, result);
+                        setString(name, result);
 
-                    File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + $"/Splamei/Rhythm Plus - Splamei Client/{name}.dat");
+                        File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + $"/Splamei/Rhythm Plus - Splamei Client/{name}.dat");
+                    }
                 }
+            }
+            else
+            {
+                Logging.logString("Not upgrading data");
             }
         }
 
