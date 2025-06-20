@@ -9,13 +9,10 @@ using System.Linq;
 using System.Net;
 using DiscordRPC;
 using DiscordRPC.Logging;
-using DiscordRPC.Message;
 using System.Collections.Generic;
 using System.Drawing;
 using Microsoft.Web.WebView2.WinForms;
 using Rhythm_Plus___Splamei_Client.Save_System;
-using System.Security.Policy;
-using System.Security.RightsManagement;
 
 namespace Rhythm_Plus___Splamei_Client
 {

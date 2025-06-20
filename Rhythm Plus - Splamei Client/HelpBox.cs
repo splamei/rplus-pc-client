@@ -1,20 +1,7 @@
 ﻿using Microsoft.Web.WebView2.Core;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Security.Policy;
 using System.Diagnostics;
-using System.Net;
-using System.Threading;
-using System.Runtime.InteropServices;
 
 namespace Rhythm_Plus___Splamei_Client
 {
