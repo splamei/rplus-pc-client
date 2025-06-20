@@ -1212,5 +1212,11 @@ namespace Rhythm_Plus___Splamei_Client
                 toggleFullscreen(true);
             }
         }
+
+        private void timer5_Tick(object sender, EventArgs e)
+        {
+            Logging.logString("Autosaving data");
+            saveManager.saveData();
+        }
     }
 }

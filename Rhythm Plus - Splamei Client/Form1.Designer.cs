@@ -58,6 +58,7 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer5 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -277,6 +278,12 @@
             this.toolStripMenuItem3.Text = "Quit";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
+            // timer5
+            // 
+            this.timer5.Enabled = true;
+            this.timer5.Interval = 10000;
+            this.timer5.Tick += new System.EventHandler(this.timer5_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -335,6 +342,7 @@
         private System.Windows.Forms.ToolStripMenuItem goToToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyLinkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem extensionsToolStripMenuItem;
+        private System.Windows.Forms.Timer timer5;
     }
 }
 
