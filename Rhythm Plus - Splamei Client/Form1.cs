@@ -72,8 +72,6 @@ namespace Rhythm_Plus___Splamei_Client
         {
             client = new DiscordRpcClient("1331684607199936552");
 
-            client.OnConnectionFailed += errorSettingRP;
-
             //Set the logger
             client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
 
@@ -85,12 +83,12 @@ namespace Rhythm_Plus___Splamei_Client
 
             client.OnPresenceUpdate += (sender, e) =>
             {
-                Logging.logString("Received Update! " + e.Presence.Details);
+                Logging.logString("Received Update - " + e.Presence.Details);
             };
 
             client.OnConnectionFailed += (sender, e) =>
             {
-                Logging.logString("Failed to connect to discord - " + e.Type);
+                Logging.logString("Failed to connect to discord - " + e.Type.ToString());
             };
 
             client.OnClose += (sender, e) =>
@@ -201,15 +199,6 @@ namespace Rhythm_Plus___Splamei_Client
             {
                 Logging.logString("Error! - " + ex.ToString());
             }
-        }
-
-        private void errorSettingRP(object sender, ConnectionFailedMessage args)
-        {
-            enabledRP = false;
-
-            Logging.logString("Error with RP! - " + args);
-
-            client.Dispose();
         }
 
         private async void Form1_Load(object sender, EventArgs e)
