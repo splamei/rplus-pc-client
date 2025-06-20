@@ -13,6 +13,7 @@ using DiscordRPC.Message;
 using System.Collections.Generic;
 using System.Drawing;
 using Microsoft.Web.WebView2.WinForms;
+using Rhythm_Plus___Splamei_Client.Save_System;
 
 namespace Rhythm_Plus___Splamei_Client
 {
@@ -21,6 +22,7 @@ namespace Rhythm_Plus___Splamei_Client
         public Splash splash;
         public Welcome welcome;
         public WebView2 webView2;
+        public SaveManager saveManager = new SaveManager();
 
         private bool closeSplash = false;
 
@@ -219,6 +221,9 @@ namespace Rhythm_Plus___Splamei_Client
             splash = new Splash();
             splash.Show();
 
+            saveManager.loadData();
+            saveManager.upgradeData();
+
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/"))
             {
                 Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/");
@@ -244,45 +249,45 @@ namespace Rhythm_Plus___Splamei_Client
                 System.IO.Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client");
             }
 
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/retainWindowSize.dat"))
+            if (saveManager.dataExist("retainWindowSize"))
             {
-                if (File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/retainWindowSize.dat") == "0")
+                if (saveManager.getString("retainWindowSize") == "0")
                 {
                     retainWinSize = false;
                 }
             }
             else
             {
-                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/retainWindowSize.dat", "1");
+                saveManager.setString("retainWindowSize", "1");
             }
 
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/debugMode.dat"))
+            if (saveManager.dataExist("debugMode"))
             {
-                if (File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/debugMode.dat") == "1")
+                if (saveManager.getString("debugMode") == "1")
                 {
                     debugMode = true;
                 }
             }
             else
             {
-                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/debugMode.dat", "0");
+                saveManager.setString("debugMode", "0");
             }
 
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/playFullScreen.dat"))
+            if (saveManager.dataExist("playFullScreen"))
             {
-                if (File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/playFullScreen.dat") == "1")
+                if (saveManager.getString("playFullScreen") == "1")
                 {
                     fullscreen = true;
                 }
             }
             else
             {
-                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/playFullScreen.dat", "0");
+                saveManager.setString("playFullScreen", "0");
             }
 
-            if (System.IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeState.dat"))
+            if (saveManager.dataExist("sizeState"))
             {
-                if (System.IO.File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeState.dat") == "Max")
+                if (saveManager.getString("sizeState") == "Max")
                 {
                     this.WindowState = FormWindowState.Maximized;
                 }
@@ -291,8 +296,8 @@ namespace Rhythm_Plus___Splamei_Client
                     this.WindowState = FormWindowState.Normal;
                     try
                     {
-                        this.Size = new System.Drawing.Size(int.Parse(System.IO.File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeWidth.dat")), int.Parse(System.IO.File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeHeight.dat")));
-                        this.Location = new System.Drawing.Point(int.Parse(System.IO.File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationX.dat")), int.Parse(System.IO.File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationY.dat")));
+                        this.Size = new System.Drawing.Size(int.Parse(saveManager.getString("sizeWidth")), int.Parse(saveManager.getString("sizeHeight")));
+                        this.Location = new System.Drawing.Point(int.Parse(saveManager.getString("locationX")), int.Parse(saveManager.getString("locationY")));
                     }
                     catch (Exception ex)
                     {
@@ -310,56 +315,56 @@ namespace Rhythm_Plus___Splamei_Client
             }
             else
             {
-                System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeState.dat", "Norm");
-                System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeWidth.dat", "1210");
-                System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeHeight.dat", "705");
-                System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationX.dat", "0");
-                System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationY.dat", "0");
+                saveManager.setString("sizeState", "Norm");
+                saveManager.setString("sizeWidth", "1210");
+                saveManager.setString("sizeHeight", "705");
+                saveManager.setString("locationX", "0");
+                saveManager.setString("locationY", "0");
                 this.WindowState = FormWindowState.Maximized;
             }
 
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enabledRP.dat"))
+            if (saveManager.dataExist("enabledRP"))
             {
-                if (File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enabledRP.dat") == "0")
+                if (saveManager.getString("enabledRP") == "0")
                 {
                     enabledRP = false;
                 }
             }
             else
             {
-                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enabledRP.dat", "1");
+                saveManager.setString("enabledRP", "1");
             }
 
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showTitleOfMapsRP.dat"))
+            if (saveManager.dataExist("showTitleOfMapsRP"))
             {
-                if (File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showTitleOfMapsRP.dat") == "0")
+                if (saveManager.getString("showTitleOfMapsRP") == "0")
                 {
                     showTitleOfMaps = false;
                 }
             }
             else
             {
-                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showTitleOfMapsRP.dat", "1");
+                saveManager.setString("showTitleOfMapsRP", "1");
             }
 
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/directLinkRP.dat"))
+            if (saveManager.dataExist("directLinkRP"))
             {
-                if (File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/directLinkRP.dat") == "1")
+                if (saveManager.getString("directLinkRP") == "1")
                 {
                     directLinkRP = true;
                 }
             }
             else
             {
-                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/directLinkRP.dat", "0");
+                saveManager.setString("directLinkRP", "0");
             }
 
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enableExtensions.dat"))
+            if (!saveManager.dataExist("enableExtensions"))
             {
-                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enableExtensions.dat", "0");
+                saveManager.setString("enableExtensions", "0");
             }
 
-            if (File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enableExtensions.dat") == "1")
+            if (saveManager.getString("enableExtensions") == "1")
             {
                 enabledExtensions = true;
 
@@ -370,18 +375,18 @@ namespace Rhythm_Plus___Splamei_Client
                 //notifyIcon1.ShowBalloonTip(2);
             }
 
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/discordRpRefresh.dat"))
+            if (saveManager.dataExist("discordRpRefresh"))
             {
                 try
                 {
-                    discordRpRefresh = int.Parse(File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/discordRpRefresh.dat"));
+                    discordRpRefresh = int.Parse(saveManager.getString("discordRpRefresh"));
                     timer3.Interval = discordRpRefresh * 1000;
                 }
                 catch (Exception ex)
                 {
                     Logging.logString("Error! " + ex);
                     discordRpRefresh = 5;
-                    File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/discordRpRefresh.dat", "5");
+                    saveManager.setString("discordRpRefresh", "5");
 
                     using (Error errorD = new Error())
                     {
@@ -393,20 +398,20 @@ namespace Rhythm_Plus___Splamei_Client
             }
             else
             {
-                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/discordRpRefresh.dat", "5");
+                saveManager.setString("discordRpRefresh", "5");
             }
 
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/viewZoom.dat"))
+            if (saveManager.dataExist("viewZoom"))
             {
                 try
                 {
-                    zoom = float.Parse(File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/viewZoom.dat"));
+                    zoom = float.Parse(saveManager.getString("viewZoom"));
                 }
                 catch (Exception ex)
                 {
                     Logging.logString("Error! " + ex);
                     discordRpRefresh = 5;
-                    File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/viewZoom.dat", "1");
+                    saveManager.setString("viewZoom", "1");
 
                     using (Error errorD = new Error())
                     {
@@ -418,20 +423,20 @@ namespace Rhythm_Plus___Splamei_Client
             }
             else
             {
-                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/viewZoom.dat", "1");
+                saveManager.setString("viewZoom", "1");
             }
 
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showMenuIn.dat"))
+            if (saveManager.dataExist("showMenuIn"))
             {
                 try
                 {
-                    showMenu = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showMenuIn.dat");
+                    showMenu = saveManager.getString("showMenuIn");
                 }
                 catch (Exception ex)
                 {
                     Logging.logString("Error! " + ex);
                     discordRpRefresh = 5;
-                    File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showMenuIn.dat", "Only in settings");
+                    saveManager.setString("showMenuIn", "Only in settings");
 
                     using (Error errorD = new Error())
                     {
@@ -443,7 +448,7 @@ namespace Rhythm_Plus___Splamei_Client
             }
             else
             {
-                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showMenuIn.dat", "Only in settings");
+                saveManager.setString("showMenuIn", "Only in settings");
             }
 
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Extensions"))
@@ -515,26 +520,27 @@ namespace Rhythm_Plus___Splamei_Client
                 }
             }
 
-            if (!System.IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/played.dat"))
+            if (!saveManager.dataExist("played"))
             {
                 if (welcome != null) { welcome.Close(); welcome.Dispose(); }
 
                 welcome = new Welcome();
                 welcome.Show();
+                saveManager.setString("played", "Hello World!");
                 //if (MessageBox.Show("Thank you for using the Splamei Client to play Rhythm Plus! It means alot to me and I hope you enjoy it!\r\n\r\nFeel free to join the SplameiPlay Discord for support on the client and use the GitHub repo to make your own client!\r\n\r\n\nIf you havn't, I would recommend you play the client through SplameiPlay for automatic update installs but you don't have to!", "Welcome to the new PC Rhythm Plus - Splamei Client!", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
                 //{
-                //    System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/played.dat", "Hello World!");
+                //    saveManager.setString("played", "Hello World!");
                 //}
             }
             else
             {
                 try
                 {
-                    if (System.IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/checkCode.dat"))
+                    if (saveManager.dataExist("checkCode"))
                     {
-                        if (Int32.Parse(System.IO.File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/checkCode.dat")) < Int32.Parse(DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString("D2") + DateTime.Now.Day.ToString("D2")))
+                        if (Int32.Parse(saveManager.getString("checkCode")) < Int32.Parse(DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString("D2") + DateTime.Now.Day.ToString("D2")))
                         {
-                            System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/checkCode.dat", DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString("D2") + DateTime.Now.Day.ToString("D2"));
+                            saveManager.setString("checkCode", DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString("D2") + DateTime.Now.Day.ToString("D2"));
 
                             checkVer();
                         }
@@ -545,7 +551,7 @@ namespace Rhythm_Plus___Splamei_Client
                     }
                     else
                     {
-                        System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/checkCode.dat", DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString("D2") + DateTime.Now.Day.ToString("D2"));
+                        saveManager.setString("checkCode", DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString("D2") + DateTime.Now.Day.ToString("D2"));
 
                         checkVer();
                     }
@@ -610,11 +616,11 @@ namespace Rhythm_Plus___Splamei_Client
                     if (Int32.Parse(task.Result) > myVerCode)
                     {
                         Logging.logString("New update!");
-                        if (File.Exists("C:/Splamei/SplameiPlay/Launcher/Updater-data/location.dat"))
+                        if (File.Exists("C:/Splamei/SplameiPlay/Launcher/Updater-data/location"))
                         {
                             if (MessageBox.Show("Theres a new update to the client! Press 'Yes' to close close the client and open SplameiPlay to get the new update installed.\n\nIf you already launched the client through SplameiPlay today, you'll need to wait until tomorrow before the update will be installed. Sorry!", "New Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                             {
-                                string location = File.ReadAllText("C:/Splamei/SplameiPlay/Launcher/Updater-data/location.dat");
+                                string location = File.ReadAllText("C:/Splamei/SplameiPlay/Launcher/Updater-data/location");
                                 if (location.StartsWith(@"C:\Splamei\SplameiPlay\"))
                                 {
                                     using (var process = Process.Start(location))
@@ -673,11 +679,11 @@ namespace Rhythm_Plus___Splamei_Client
                 {
                     string[] notices = task.Result.ToString().Split(';');
 
-                    if (System.IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/notice.dat"))
+                    if (saveManager.dataExist("notice"))
                     {
-                        if (notices[3] != System.IO.File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/notice.dat"))
+                        if (notices[3] != saveManager.getString("notice"))
                         {
-                            System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/notice.dat", notices[3]);
+                            saveManager.setString("notice", notices[3]);
 
                             Logging.logString("New notice!");
 
@@ -699,7 +705,7 @@ namespace Rhythm_Plus___Splamei_Client
                     }
                     else
                     {
-                        System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/notice.dat", notices[3]);
+                        saveManager.setString("notice", notices[3]);
 
                         Logging.logString("New notice!");
 
@@ -790,8 +796,8 @@ namespace Rhythm_Plus___Splamei_Client
             if (this.Size.Height > 200 && this.Size.Width > 200)
             {
                 Logging.logString("Size changed!");
-                System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeWidth.dat", this.Size.Width.ToString());
-                System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/sizeHeight.dat", this.Size.Height.ToString());
+                saveManager.setString("sizeWidth", this.Size.Width.ToString());
+                saveManager.setString("sizeHeight", this.Size.Height.ToString());
             }
             else
             {
@@ -810,8 +816,8 @@ namespace Rhythm_Plus___Splamei_Client
             timer2.Stop();
 
             Logging.logString("Location changed!");
-            System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationX.dat", this.Location.X.ToString());
-            System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/locationY.dat", this.Location.Y.ToString());
+            saveManager.setString("locationX", this.Location.X.ToString());
+            saveManager.setString("locationY", this.Location.Y.ToString());
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -828,8 +834,9 @@ namespace Rhythm_Plus___Splamei_Client
 
             try
             {
-                System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/viewZoom.dat", webView21.ZoomFactor.ToString());
-                Logging.logString("Saved zoom");
+                saveManager.setString("viewZoom", webView21.ZoomFactor.ToString());
+                saveManager.saveData();
+                Logging.logString("Saved zoom and data");
             }
             catch (Exception ex)
             {
@@ -912,24 +919,24 @@ namespace Rhythm_Plus___Splamei_Client
             discordRpRefresh = LdiscordRefesh;
 
             if (enabledRP)
-            { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enabledRP.dat", "1"); }
+            { saveManager.setString("enabledRP", "1"); }
             else
-            { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enabledRP.dat", "0"); }
+            { saveManager.setString("enabledRP", "0"); }
 
             if (showTitleOfMaps)
-            { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showTitleOfMapsRP.dat", "1"); }
+            { saveManager.setString("showTitleOfMapsRP", "1"); }
             else
-            { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showTitleOfMapsRP.dat", "0"); }
+            { saveManager.setString("showTitleOfMapsRP", "0"); }
 
             if (directLinkRP)
-            { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/directLinkRP.dat", "1"); }
+            { saveManager.setString("directLinkRP", "1"); }
             else
-            { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/directLinkRP.dat", "0"); }
+            { saveManager.setString("directLinkRP", "0"); }
 
             if (retainWinSize)
-            { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/retainWindowSize.dat", "1"); }
+            { saveManager.setString("retainWindowSize", "1"); }
             else
-            { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/retainWindowSize.dat", "0"); }
+            { saveManager.setString("retainWindowSize", "0"); }
 
             if (directLinkRP)
             {
@@ -1063,7 +1070,7 @@ namespace Rhythm_Plus___Splamei_Client
 
         private async void extensionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enableExtensions.dat") == "1")
+            if (saveManager.getString("enableExtensions") == "1")
             {
                 Extentions ext = new Extentions();
 
@@ -1165,7 +1172,7 @@ namespace Rhythm_Plus___Splamei_Client
 
                 if (fullscreen)
                 {
-                    File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/playFullScreen.dat", "1");
+                    saveManager.setString("playFullScreen", "1");
 
                     originalBounds = this.Bounds;
                     originalWindowState = this.WindowState;
@@ -1176,7 +1183,7 @@ namespace Rhythm_Plus___Splamei_Client
                 }
                 else
                 {
-                    File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/playFullScreen.dat", "0");
+                    saveManager.setString("playFullScreen", "0");
 
                     this.FormBorderStyle = FormBorderStyle.Sizable;
                     this.WindowState = FormWindowState.Normal;

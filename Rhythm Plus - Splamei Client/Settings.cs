@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using Rhythm_Plus___Splamei_Client.Save_System;
 
 namespace Rhythm_Plus___Splamei_Client
 {
     public partial class Settings : Form
     {
         public Form1 form;
+        public SaveManager saveManager = new SaveManager();
 
         public bool starting = true;
 
@@ -24,6 +26,8 @@ namespace Rhythm_Plus___Splamei_Client
 
         private void Settings_Load(object sender, EventArgs e)
         {
+            saveManager.loadData();
+
             checkBox1.Checked = form.enabledRP;
             checkBox2.Checked = form.showTitleOfMaps;
             checkBox3.Checked = form.directLinkRP;
@@ -63,7 +67,7 @@ namespace Rhythm_Plus___Splamei_Client
 
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)
         {
-            File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/discordRpRefresh.dat", trackBar1.Value.ToString());
+            saveManager.setString("discordRpRefresh", trackBar1.Value.ToString());
 
             if (comboBox1.SelectedIndex == 1)
             {
@@ -77,9 +81,10 @@ namespace Rhythm_Plus___Splamei_Client
             {
                 form.showMenu = "Only in settings";
             }
-            File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/showMenuIn.dat", form.showMenu);
+            saveManager.setString("showMenuIn", form.showMenu);
 
             form.setSettings(checkBox1.Checked, checkBox2.Checked, checkBox3.Checked, checkBox4.Checked, trackBar1.Value);
+            saveManager.saveData();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -128,12 +133,12 @@ namespace Rhythm_Plus___Splamei_Client
             {
                 if (checkBox6.Checked)
                 {
-                    File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enableExtensions.dat", "1");
+                    saveManager.setString("enableExtensions", "1");
 
                     MessageBox.Show("By adding extensions to the client, you may allow the extension developer to access your Rhythm Plus account or game. Please be carefull with what extensions you add\n\nYou'll need to restart the client to apply this change", "Extensions warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
-                { File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/enableExtensions.dat", "0"); }
+                { saveManager.setString("enableExtensions", "0"); }
             }
         }
 
