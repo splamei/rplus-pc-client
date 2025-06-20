@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Microsoft.Web.WebView2.WinForms;
 using Rhythm_Plus___Splamei_Client.Save_System;
+using System.Security.Policy;
 
 namespace Rhythm_Plus___Splamei_Client
 {
@@ -32,6 +33,7 @@ namespace Rhythm_Plus___Splamei_Client
         public int myVerCode = 1006;
 
         public DiscordRpcClient client;
+        public bool failedRpConnection = false;
 
         public DiscordRPC.Button playButton = new DiscordRPC.Button();
 
@@ -50,8 +52,6 @@ namespace Rhythm_Plus___Splamei_Client
         public bool debugMode = false;
 
         public string prevDataRP = "";
-
-        public static ToolStripMenuItem discordRPstate;
 
         public bool failedToRemoveExtension = false;
         public bool enabledExtensions = false;
@@ -79,6 +79,7 @@ namespace Rhythm_Plus___Splamei_Client
             client.OnReady += (sender, e) =>
             {
                 Logging.logString("Received Ready from user " + e.User.Username);
+                failedRpConnection = false;
             };
 
             client.OnPresenceUpdate += (sender, e) =>
@@ -89,6 +90,21 @@ namespace Rhythm_Plus___Splamei_Client
             client.OnConnectionFailed += (sender, e) =>
             {
                 Logging.logString("Failed to connect to discord - " + e.Type.ToString());
+                if (webView2 != null)
+                {
+                    if (!webView2.Source.ToString().StartsWith("https://rhythm-plus.com/game/") && !failedRpConnection)
+                    {
+                        failedRpConnection = true;
+                        enabledRP = false;
+                        if (MessageBox.Show("Something went wrong when connecting to Discord. This may be due to Discord not being installed or being unreachable. Discord Rich Precence has been disabled for the rest of this session.\n\nTo prevent further issues, do you want us to turn Discord Rich Precence off?", "Failed to connect to Discord", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                        {
+                            saveManager.setString("enabledRP", "0");
+                            saveManager.saveData();
+
+                            client.Dispose();
+                        }
+                    }
+                }
             };
 
             client.OnClose += (sender, e) =>
@@ -570,6 +586,7 @@ namespace Rhythm_Plus___Splamei_Client
             if (splash != null && e.IsSuccess && closeSplash)
             {
                 splash.Close();
+                splash.Dispose();
 
                 this.Opacity = 1f;
 
@@ -819,6 +836,16 @@ namespace Rhythm_Plus___Splamei_Client
             if (fileMenu != null)
             {
                 fileMenu.Dispose();
+            }
+
+            if (welcome != null)
+            {
+                welcome.Dispose();
+            }
+
+            if (splash != null)
+            {
+                splash.Dispose();
             }
 
             try
