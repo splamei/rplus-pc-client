@@ -14,8 +14,6 @@ using System.Drawing;
 using Microsoft.Web.WebView2.WinForms;
 using Rhythm_Plus___Splamei_Client.Save_System;
 using Newtonsoft.Json;
-using System.Windows.Controls;
-using System.Linq.Expressions;
 
 namespace Rhythm_Plus___Splamei_Client
 {
