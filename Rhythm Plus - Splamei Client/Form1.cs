@@ -13,6 +13,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using Microsoft.Web.WebView2.WinForms;
 using Rhythm_Plus___Splamei_Client.Save_System;
+using Newtonsoft.Json;
+using System.Windows.Controls;
+using System.Linq.Expressions;
 
 namespace Rhythm_Plus___Splamei_Client
 {
@@ -34,6 +37,9 @@ namespace Rhythm_Plus___Splamei_Client
         public bool failedRpConnection = false;
 
         public DiscordRPC.Button playButton = new DiscordRPC.Button();
+
+        public float currentAccuracy = 0.0f;
+        public string currentScore = "";
 
         public DateTime startRP;
 
@@ -152,6 +158,7 @@ namespace Rhythm_Plus___Splamei_Client
                 {
                     string point = "Playing Rhythm Plus";
                     string uri = webView21.Source.ToString();
+                    bool forceUpdate = true;
 
                     if (uri.Equals("https://rhythm-plus.com"))
                     {
@@ -172,6 +179,7 @@ namespace Rhythm_Plus___Splamei_Client
                     else if (uri.Equals("https://rhythm-plus.com/tutorial/"))
                     {
                         point = "Playing the tutorial";
+                        forceUpdate = true;
                     }
                     else if (uri.StartsWith("https://rhythm-plus.com/result/"))
                     {
@@ -191,6 +199,7 @@ namespace Rhythm_Plus___Splamei_Client
                         else
                         {
                             point = $"Playing '{songName}'";
+                            forceUpdate = true;
                         }
                     }
 
@@ -199,8 +208,42 @@ namespace Rhythm_Plus___Splamei_Client
                         playButton.Url = uri;
                     }
 
-                    if (prevDataRP != point)
+                    if (prevDataRP != point || forceUpdate)
                     {
+                        updateGameStatDetails();
+
+                        string rank = "F";
+                        string state = "";
+                        if (currentScore != "")
+                        {
+                            if (currentAccuracy == 0)
+                            {
+                                rank = "?";
+                            }
+                            else if (currentAccuracy >= 97f)
+                            {
+                                rank = "S";
+                            }
+                            else if (currentAccuracy >= 94f)
+                            {
+                                rank = "A";
+                            }
+                            else if (currentAccuracy >= 90f)
+                            {
+                                rank = "B";
+                            }
+                            else if (currentAccuracy >= 80f)
+                            {
+                                rank = "C";
+                            }
+                            else if (currentAccuracy >= 60f)
+                            {
+                                rank = "D";
+                            }
+
+                            state = $" - Score: {currentScore}  |  Accuracy: {currentAccuracy}%  |  Rank: ~{rank}";
+                        }
+
                         client.SetPresence(new RichPresence()
                         {
                             Details = point,
@@ -218,8 +261,9 @@ namespace Rhythm_Plus___Splamei_Client
                             },
                             Buttons = new DiscordRPC.Button[]
                             {
-                                playButton
-                            }
+                            playButton
+                            },
+                            State = state
                         });
 
                         prevDataRP = point;
@@ -1249,6 +1293,29 @@ namespace Rhythm_Plus___Splamei_Client
         {
             Logging.logString("Autosaving data");
             saveManager.saveData();
+        }
+
+        private async void updateGameStatDetails()
+        {
+            try
+            {
+                string script = "document.querySelector('.score span')?.innerText";
+                string result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                string value = JsonConvert.DeserializeObject<string>(result);
+                currentAccuracy = float.Parse(value);
+
+                script = "document.querySelector('.score > span')?.innerText";
+                result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                value = JsonConvert.DeserializeObject<string>(result);
+                currentScore = value;
+            }
+            catch
+            {
+                Debug.WriteLine("Failed to get Game Stats!");
+
+                currentScore = "";
+                currentAccuracy = 0f;
+            }
         }
     }
 }
