@@ -23,6 +23,7 @@ namespace Rhythm_Plus___Splamei_Client
             checkBox1.Checked = form.enabledRP;
             checkBox2.Checked = form.showTitleOfMaps;
             checkBox3.Checked = form.directLinkRP;
+            checkBox7.Checked = form.showStatsinRPC;
 
             checkBox4.Checked = form.retainWinSize;
             checkBox5.Checked = form.fullscreen;
@@ -83,6 +84,8 @@ namespace Rhythm_Plus___Splamei_Client
                 form.showMenu = "Only in settings";
             }
             saveManager.setString("showMenuIn", form.showMenu);
+
+            form.showStatsinRPC = checkBox7.Checked;
 
             form.setSettings(checkBox1.Checked, checkBox2.Checked, checkBox3.Checked, checkBox4.Checked, trackBar1.Value);
             saveManager.saveData();

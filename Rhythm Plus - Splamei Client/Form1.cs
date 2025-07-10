@@ -52,6 +52,7 @@ namespace Rhythm_Plus___Splamei_Client
 
         public bool enabledRP = true;
         public bool showTitleOfMaps = true;
+        public bool showStatsinRPC = true;
         public bool directLinkRP = false;
         public int discordRpRefresh = 5;
 
@@ -218,7 +219,7 @@ namespace Rhythm_Plus___Splamei_Client
                     if (prevDataRP != point || forceUpdate)
                     {
                         string state = "";
-                        if (uri.StartsWith("https://rhythm-plus.com/game/"))
+                        if (uri.StartsWith("https://rhythm-plus.com/game/") && showStatsinRPC)
                         {
                             updateGameStatDetails();
 
@@ -253,7 +254,7 @@ namespace Rhythm_Plus___Splamei_Client
                                 state = $" - Score: {currentScore} - Acc: {currentAccuracy}% - Rank: ~{rank} - Point: {currentTime}%";
                             }
                         }
-                        else if (uri.StartsWith("https://rhythm-plus.com/result/"))
+                        else if (uri.StartsWith("https://rhythm-plus.com/result/") && showStatsinRPC)
                         {
                             updateResultsDetails();
 
@@ -287,7 +288,7 @@ namespace Rhythm_Plus___Splamei_Client
                             },
                             Buttons = new DiscordRPC.Button[]
                             {
-                        playButton
+                                playButton
                             },
                             State = state
                         });
@@ -435,6 +436,18 @@ namespace Rhythm_Plus___Splamei_Client
             else
             {
                 saveManager.setString("showTitleOfMapsRP", "1");
+            }
+
+            if (saveManager.dataExist("dontShowStatsInRPC"))
+            {
+                if (saveManager.getString("dontShowStatsInRPC") == "1")
+                {
+                    showStatsinRPC = false;
+                }
+            }
+            else
+            {
+                saveManager.setString("dontShowStatsInRPC", "0");
             }
 
             if (saveManager.dataExist("directLinkRP"))
@@ -1042,6 +1055,11 @@ namespace Rhythm_Plus___Splamei_Client
             else
             { saveManager.setString("retainWindowSize", "0"); }
 
+            if (showStatsinRPC)
+            { saveManager.setString("dontShowStatsInRPC", "0"); }
+            else
+            { saveManager.setString("dontShowStatsInRPC", "1"); }
+
             if (directLinkRP)
             {
                 playButton.Label = "Play with me";
@@ -1053,6 +1071,10 @@ namespace Rhythm_Plus___Splamei_Client
             if (webView21.CoreWebView2.DocumentTitle == "Rhythm+ Music Game" || webView21.CoreWebView2.DocumentTitle == "Rhythm Plus - Online Rhythm Game - Play, Create and Share Your Favorite Songs")
             {
                 this.Text = "Rhythm Plus - Splamei Client";
+            }
+            else if (webView21.CoreWebView2.DocumentTitle == "Rhythm Plus Music Game - Game Offline")
+            {
+                this.Text = "Game Offline - Rhythm Plus - Splamei Client";
             }
             else
             {
