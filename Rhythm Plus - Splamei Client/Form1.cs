@@ -1087,7 +1087,18 @@ namespace Rhythm_Plus___Splamei_Client
                     }
                 }
             }
-            else if (showMenu != "Not in fullscreen")
+            else if (showMenu == "Not in fullscreen")
+            {
+                if (fullscreen)
+                {
+                    menuStrip1.Visible = false;
+                }
+                else
+                {
+                    menuStrip1.Visible = true;
+                }
+            }
+            else
             {
                 menuStrip1.Visible = true;
             }
