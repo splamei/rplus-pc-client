@@ -230,23 +230,27 @@ namespace Rhythm_Plus___Splamei_Client
                                 {
                                     rank = "?";
                                 }
-                                else if (currentAccuracy >= 97f)
+                                else if (currentAccuracy > 99f)
+                                {
+                                    rank = "S+";
+                                }
+                                else if (currentAccuracy > 97f)
                                 {
                                     rank = "S";
                                 }
-                                else if (currentAccuracy >= 94f)
+                                else if (currentAccuracy > 94f)
                                 {
                                     rank = "A";
                                 }
-                                else if (currentAccuracy >= 90f)
+                                else if (currentAccuracy > 90f)
                                 {
                                     rank = "B";
                                 }
-                                else if (currentAccuracy >= 80f)
+                                else if (currentAccuracy > 80f)
                                 {
                                     rank = "C";
                                 }
-                                else if (currentAccuracy >= 60f)
+                                else if (currentAccuracy > 60f)
                                 {
                                     rank = "D";
                                 }
@@ -951,6 +955,15 @@ namespace Rhythm_Plus___Splamei_Client
                 saveManager.setString("viewZoom", webView21.ZoomFactor.ToString());
                 saveManager.setInt("discordRpRefresh", discordRpRefresh);
                 saveManager.setString("showMenuIn", showMenu);
+
+                if (enabledExtensions)
+                {
+                    saveManager.setInt("enableExtensions", 1);
+                }
+                else
+                {
+                    saveManager.setInt("enableExtensions", 1);
+                }
 
                 saveManager.saveData();
                 Logging.logString("Saved zoom and data");

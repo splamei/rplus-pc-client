@@ -180,19 +180,19 @@
             // getHelpMenu
             // 
             this.getHelpMenu.Name = "getHelpMenu";
-            this.getHelpMenu.Size = new System.Drawing.Size(120, 22);
+            this.getHelpMenu.Size = new System.Drawing.Size(180, 22);
             this.getHelpMenu.Text = "Get Help";
             this.getHelpMenu.Click += new System.EventHandler(this.getHelpMenu_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(117, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // aboutMenu
             // 
             this.aboutMenu.Name = "aboutMenu";
-            this.aboutMenu.Size = new System.Drawing.Size(120, 22);
+            this.aboutMenu.Size = new System.Drawing.Size(180, 22);
             this.aboutMenu.Text = "About";
             this.aboutMenu.Click += new System.EventHandler(this.aboutMenu_Click);
             // 
