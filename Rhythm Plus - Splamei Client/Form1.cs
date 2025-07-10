@@ -14,6 +14,7 @@ using System.Drawing;
 using Microsoft.Web.WebView2.WinForms;
 using Rhythm_Plus___Splamei_Client.Save_System;
 using Newtonsoft.Json;
+using System.ComponentModel.Design;
 
 namespace Rhythm_Plus___Splamei_Client
 {
@@ -935,6 +936,9 @@ namespace Rhythm_Plus___Splamei_Client
             try
             {
                 saveManager.setString("viewZoom", webView21.ZoomFactor.ToString());
+                saveManager.setInt("discordRpRefresh", discordRpRefresh);
+                saveManager.setString("showMenuIn", showMenu);
+
                 saveManager.saveData();
                 Logging.logString("Saved zoom and data");
             }
@@ -1083,7 +1087,7 @@ namespace Rhythm_Plus___Splamei_Client
                     }
                 }
             }
-            else
+            else if (showMenu != "Not in fullscreen")
             {
                 menuStrip1.Visible = true;
             }
@@ -1280,6 +1284,11 @@ namespace Rhythm_Plus___Splamei_Client
                     this.FormBorderStyle = FormBorderStyle.None;
                     this.WindowState = FormWindowState.Normal;
                     this.WindowState = FormWindowState.Maximized;
+
+                    if (showMenu == "Not in fullscreen")
+                    {
+                        menuStrip1.Visible = false;
+                    }
                 }
                 else
                 {
@@ -1292,6 +1301,11 @@ namespace Rhythm_Plus___Splamei_Client
 
                     this.Invalidate();
                     this.Refresh();
+
+                    if (showMenu == "Not in fullscreen")
+                    {
+                        menuStrip1.Visible = true;
+                    }
                 }
 
                 if (settingsBox != null)

@@ -35,9 +35,13 @@ namespace Rhythm_Plus___Splamei_Client
             {
                 comboBox1.SelectedIndex = 1;
             }
-            else if (form.showMenu == "Always")
+            else if (form.showMenu == "Not in fullscreen")
             {
                 comboBox1.SelectedIndex = 2;
+            }
+            else if (form.showMenu == "Always")
+            {
+                comboBox1.SelectedIndex = 3;
             }
             else
             {
@@ -66,6 +70,11 @@ namespace Rhythm_Plus___Splamei_Client
                 form.showMenu = "Not in game";
             }
             else if (comboBox1.SelectedIndex == 2)
+            {
+                form.showMenu = "Not in fullscreen";
+                Console.WriteLine("not in full screen");
+            }
+            else if (comboBox1.SelectedIndex == 3)
             {
                 form.showMenu = "Always";
             }

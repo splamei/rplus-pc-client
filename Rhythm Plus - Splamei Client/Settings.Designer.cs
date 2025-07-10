@@ -210,6 +210,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "When in R+ Settings",
             "Always except when playing",
+            "Always except when fullscreen",
             "Always"});
             this.comboBox1.Location = new System.Drawing.Point(103, 188);
             this.comboBox1.Name = "comboBox1";
