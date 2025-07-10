@@ -472,7 +472,6 @@ namespace Rhythm_Plus___Splamei_Client
                 catch (Exception ex)
                 {
                     Logging.logString("Error! " + ex);
-                    discordRpRefresh = 5;
                     saveManager.setString("viewZoom", "1");
 
                     using (Error errorD = new Error())
@@ -497,7 +496,6 @@ namespace Rhythm_Plus___Splamei_Client
                 catch (Exception ex)
                 {
                     Logging.logString("Error! " + ex);
-                    discordRpRefresh = 5;
                     saveManager.setString("showMenuIn", "Only in settings");
 
                     using (Error errorD = new Error())
@@ -670,10 +668,10 @@ namespace Rhythm_Plus___Splamei_Client
 
         private void checkVer()
         {
-            var task = MakeAsyncRequest("https://www.veemo.uk/net/r-plus/pc/ver", "text/html");
-
             try
             {
+                var task = MakeAsyncRequest("https://www.veemo.uk/net/r-plus/pc/ver", "text/html");
+
                 if (!task.IsFaulted)
                 {
 
@@ -735,11 +733,12 @@ namespace Rhythm_Plus___Splamei_Client
 
         private void checkNotices()
         {
-            var task = MakeAsyncRequest("https://www.veemo.uk/net/r-plus/pc/client-notices", "text/html");
 
-            if (!task.IsFaulted)
+            try
             {
-                try
+                var task = MakeAsyncRequest("https://www.veemo.uk/net/r-plus/pc/client-notices", "text/html");
+
+                if (!task.IsFaulted)
                 {
                     string[] notices = task.Result.ToString().Split(';');
 
@@ -789,18 +788,18 @@ namespace Rhythm_Plus___Splamei_Client
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    Logging.logString("Error decoding notices - " + ex);
+                else { Debug.WriteLine("Error getting notices"); }
+            }
+            catch (Exception ex)
+            {
+                Logging.logString("Error decoding notices - " + ex);
 
-                    using (Error errorD = new Error())
-                    {
-                        errorD.errorDebug = ex.ToString();
-                        errorD.ShowDialog();
-                    }
+                using (Error errorD = new Error())
+                {
+                    errorD.errorDebug = ex.ToString();
+                    errorD.ShowDialog();
                 }
             }
-            else { Debug.WriteLine("Error getting notices"); }
         }
 
         // Define other methods and classes here
