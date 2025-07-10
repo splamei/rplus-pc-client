@@ -38,6 +38,14 @@ namespace Rhythm_Plus___Splamei_Client
 
         public float currentAccuracy = 0.0f;
         public string currentScore = "";
+        public double currentTime = 0.0f;
+
+        public string resultAccuracy = "";
+        public string resultRank = "";
+        public string resultMaxCombo = "";
+        public string resultScore = "";
+
+        public string resultFC = "";
 
         public DateTime startRP;
 
@@ -156,7 +164,7 @@ namespace Rhythm_Plus___Splamei_Client
                 {
                     string point = "Playing Rhythm Plus";
                     string uri = webView21.Source.ToString();
-                    bool forceUpdate = true;
+                    bool forceUpdate = false;
 
                     if (uri.Equals("https://rhythm-plus.com"))
                     {
@@ -177,11 +185,11 @@ namespace Rhythm_Plus___Splamei_Client
                     else if (uri.Equals("https://rhythm-plus.com/tutorial/"))
                     {
                         point = "Playing the tutorial";
-                        forceUpdate = true;
                     }
                     else if (uri.StartsWith("https://rhythm-plus.com/result/"))
                     {
                         point = "Looking at results";
+                        forceUpdate = true;
                     }
                     else if (uri.StartsWith("https://rhythm-plus.com/game-over/"))
                     {
@@ -208,38 +216,57 @@ namespace Rhythm_Plus___Splamei_Client
 
                     if (prevDataRP != point || forceUpdate)
                     {
-                        updateGameStatDetails();
-
-                        string rank = "F";
                         string state = "";
-                        if (currentScore != "")
+                        if (uri.StartsWith("https://rhythm-plus.com/game/"))
                         {
-                            if (currentAccuracy == 0)
-                            {
-                                rank = "?";
-                            }
-                            else if (currentAccuracy >= 97f)
-                            {
-                                rank = "S";
-                            }
-                            else if (currentAccuracy >= 94f)
-                            {
-                                rank = "A";
-                            }
-                            else if (currentAccuracy >= 90f)
-                            {
-                                rank = "B";
-                            }
-                            else if (currentAccuracy >= 80f)
-                            {
-                                rank = "C";
-                            }
-                            else if (currentAccuracy >= 60f)
-                            {
-                                rank = "D";
-                            }
+                            updateGameStatDetails();
 
-                            state = $" - Score: {currentScore}  |  Accuracy: {currentAccuracy}%  |  Rank: ~{rank}";
+                            if (currentScore != "")
+                            {
+                                string rank = "F";
+                                if (currentAccuracy == 0)
+                                {
+                                    rank = "?";
+                                }
+                                else if (currentAccuracy >= 97f)
+                                {
+                                    rank = "S";
+                                }
+                                else if (currentAccuracy >= 94f)
+                                {
+                                    rank = "A";
+                                }
+                                else if (currentAccuracy >= 90f)
+                                {
+                                    rank = "B";
+                                }
+                                else if (currentAccuracy >= 80f)
+                                {
+                                    rank = "C";
+                                }
+                                else if (currentAccuracy >= 60f)
+                                {
+                                    rank = "D";
+                                }
+
+                                state = $" - Score: {currentScore} - Acc: {currentAccuracy}% - Rank: ~{rank} - Point: {currentTime}%";
+                            }
+                        }
+                        else if (uri.StartsWith("https://rhythm-plus.com/result/"))
+                        {
+                            updateResultsDetails();
+
+                            if (resultScore != "")
+                            {
+                                if (resultFC == "Full Combo")
+                                {
+                                    state = $" - [FC] - Score: {resultScore} - Acc: {resultAccuracy}% - Rank: {resultRank} - Max Combo: {resultMaxCombo}";
+                                }
+                                else
+                                {
+                                    state = $" - Score: {resultScore} - Acc: {resultAccuracy}% - Rank: {resultRank} - Max Combo: {resultMaxCombo}";
+                                }
+                            }
                         }
 
                         client.SetPresence(new RichPresence()
@@ -259,7 +286,7 @@ namespace Rhythm_Plus___Splamei_Client
                             },
                             Buttons = new DiscordRPC.Button[]
                             {
-                            playButton
+                        playButton
                             },
                             State = state
                         });
@@ -1305,10 +1332,61 @@ namespace Rhythm_Plus___Splamei_Client
                 result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
                 value = JsonConvert.DeserializeObject<string>(result);
                 currentScore = value;
+
+                script = "document.querySelector('.top-progress')?.style.width || getComputedStyle(document.querySelector('.top-progress')).width;";
+                result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                value = JsonConvert.DeserializeObject<string>(result);
+                if (value.EndsWith("%"))
+                {
+                    value = value.TrimEnd('%');
+                }
+                currentTime = Math.Floor(float.Parse(value));
             }
             catch
             {
                 Debug.WriteLine("Failed to get Game Stats!");
+
+                currentScore = "";
+                currentAccuracy = 0f;
+            }
+        }
+
+        private async void updateResultsDetails()
+        {
+            try
+            {
+                string script = "document.querySelector('.score')?.innerText";
+                string result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                string value = JsonConvert.DeserializeObject<string>(result);
+                resultRank = value;
+
+                script = "document.querySelector('div:nth-child(3) > span')?.innerText";
+                result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                value = JsonConvert.DeserializeObject<string>(result);
+                resultAccuracy = value;
+
+                script = "document.querySelector('div.rightScore.flex-grow > div:nth-child(1) > span')?.innerText";
+                result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                value = JsonConvert.DeserializeObject<string>(result);
+                resultScore = value;
+
+                script = "document.querySelector('div.rightScore.flex-grow > div:nth-child(2) > span')?.innerText";
+                result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                value = JsonConvert.DeserializeObject<string>(result);
+                resultMaxCombo = value;
+
+                try
+                {
+                    script = "document.querySelector('div.rightScore.flex-grow > div:nth-child(2) > div')?.innerText";
+                    result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                    value = JsonConvert.DeserializeObject<string>(result);
+                    resultFC = value;
+                }
+                catch { resultFC = ""; }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to get results Stats! - " + ex);
 
                 currentScore = "";
                 currentAccuracy = 0f;
