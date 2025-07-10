@@ -45,8 +45,12 @@ namespace Rhythm_Plus___Splamei_Client
         public string resultRank = "";
         public string resultMaxCombo = "";
         public string resultScore = "";
-
         public string resultFC = "";
+
+        public string selectedSongName = "";
+        public string selectedSongAuthor = "";
+        public string selectedSongCharter = "";
+        public string selectedSongTitle = "";
 
         public DateTime startRP;
 
@@ -206,7 +210,15 @@ namespace Rhythm_Plus___Splamei_Client
                         }
                         else
                         {
-                            point = $"Playing '{songName}'";
+                            if (songName == selectedSongTitle)
+                            {
+                                point = $"Playing '{selectedSongName} -by- {selectedSongAuthor}' [{selectedSongCharter}]";
+                            }
+                            else
+                            {
+                                point = $"Playing '{songName}'";
+                            }
+
                             forceUpdate = true;
                         }
                     }
@@ -1450,6 +1462,45 @@ namespace Rhythm_Plus___Splamei_Client
 
                 currentScore = "";
                 currentAccuracy = 0f;
+            }
+        }
+
+        private async void timer6_Tick(object sender, EventArgs e)
+        {
+            if (webView21 != null)
+            {
+                if (webView21.CoreWebView2 != null)
+                {
+                    string script = "document.querySelector('div.detail.py-5 > div:nth-child(1)')?.innerText";
+                    string result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                    string value = JsonConvert.DeserializeObject<string>(result);
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        selectedSongName = value;
+
+                        script = "document.querySelector('div.detail.py-5 > div:nth-child(2)')?.innerText";
+                        result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                        value = JsonConvert.DeserializeObject<string>(result);
+                        selectedSongAuthor = value;
+
+                        script = "document.querySelector('div.pt-2.text-xs.text-white.text-opacity-25 > span:nth-child(3) > span')?.innerText";
+                        result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                        value = JsonConvert.DeserializeObject<string>(result);
+                        if (string.IsNullOrEmpty(value))
+                        {
+                            script = "document.querySelector('div.pt-2.text-xs.text-white.text-opacity-25 > span > span')?.innerText";
+                            result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                            value = JsonConvert.DeserializeObject<string>(result);
+                            selectedSongCharter = value;
+                        }
+                        else { selectedSongCharter = value; }
+
+                        script = "document.querySelector('div.detail.py-5 > div:nth-child(1)').childNodes[1].nodeValue.trim()\r\n";
+                        result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                        value = JsonConvert.DeserializeObject<string>(result);
+                        selectedSongTitle = value;
+                    }
+                }
             }
         }
     }

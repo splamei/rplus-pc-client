@@ -59,6 +59,7 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.timer5 = new System.Windows.Forms.Timer(this.components);
+            this.timer6 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -180,19 +181,19 @@
             // getHelpMenu
             // 
             this.getHelpMenu.Name = "getHelpMenu";
-            this.getHelpMenu.Size = new System.Drawing.Size(180, 22);
+            this.getHelpMenu.Size = new System.Drawing.Size(120, 22);
             this.getHelpMenu.Text = "Get Help";
             this.getHelpMenu.Click += new System.EventHandler(this.getHelpMenu_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(117, 6);
             // 
             // aboutMenu
             // 
             this.aboutMenu.Name = "aboutMenu";
-            this.aboutMenu.Size = new System.Drawing.Size(180, 22);
+            this.aboutMenu.Size = new System.Drawing.Size(120, 22);
             this.aboutMenu.Text = "About";
             this.aboutMenu.Click += new System.EventHandler(this.aboutMenu_Click);
             // 
@@ -284,6 +285,12 @@
             this.timer5.Interval = 180000;
             this.timer5.Tick += new System.EventHandler(this.timer5_Tick);
             // 
+            // timer6
+            // 
+            this.timer6.Enabled = true;
+            this.timer6.Interval = 300;
+            this.timer6.Tick += new System.EventHandler(this.timer6_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -343,6 +350,7 @@
         private System.Windows.Forms.ToolStripMenuItem copyLinkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem extensionsToolStripMenuItem;
         private System.Windows.Forms.Timer timer5;
+        private System.Windows.Forms.Timer timer6;
     }
 }
 
