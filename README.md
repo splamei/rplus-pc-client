@@ -78,6 +78,8 @@ No. No build for ARM64 and 32-bit has and, right now, will be made meaning you c
 Yes! Just make sure you follow everything stated in the 'Making your own Client' section
 ### Q) Is this client official?
 At the current moment, no
+### Q) Wasn't this repo around before?
+Yes, the repo has had to be remade several times for many issues. Don't worry! I think their all fixed now
 ## Socials
 [YouTube](https://youtube.com/@splamei)
 [Twitch](https://twitch.tv/splamei)
