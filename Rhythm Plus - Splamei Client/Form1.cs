@@ -243,7 +243,7 @@ namespace Rhythm_Plus___Splamei_Client
                         {
                             updateGameStatDetails();
 
-                            Debug.WriteLine($"Current Score: {currentScore} | Current Acc: {currentAccuracy}% | Current Time: {currentTime}%");
+                            Logging.logString($"Current Score: {currentScore} | Current Acc: {currentAccuracy}% | Current Time: {currentTime}%");
                             if (currentScore != "" && !isAutoplay)
                             {
                                 string rank = "F";
@@ -823,12 +823,12 @@ namespace Rhythm_Plus___Splamei_Client
                 }
                 else
                 {
-                    Debug.WriteLine("Error getting ver");
+                    Logging.logString("Error getting ver");
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Exception getting version - " + ex);
+                Logging.logString("Exception getting version - " + ex);
             }
         }
 
@@ -889,7 +889,7 @@ namespace Rhythm_Plus___Splamei_Client
                         }
                     }
                 }
-                else { Debug.WriteLine("Error getting notices"); }
+                else { Logging.logString("Error getting notices"); }
             }
             catch (Exception ex)
             {
@@ -1258,6 +1258,7 @@ namespace Rhythm_Plus___Splamei_Client
             }
             else
             {
+                loadedV2 = url.StartsWith("https://v2.rhythm-plus.com");
                 webView21.Source = new Uri(url);
             }
         }
@@ -1345,7 +1346,7 @@ namespace Rhythm_Plus___Splamei_Client
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                Logging.logString(ex);
 
                 return false;
             }
@@ -1380,7 +1381,7 @@ namespace Rhythm_Plus___Splamei_Client
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                Logging.logString(ex);
 
                 failedToRemoveExtension = true;
             }
@@ -1461,8 +1462,6 @@ namespace Rhythm_Plus___Splamei_Client
 
         private async void updateGameStatDetails()
         {
-            Debug.WriteLine("Updating game stats...");
-
             try
             {
                 if (loadedV2)
@@ -1531,7 +1530,7 @@ namespace Rhythm_Plus___Splamei_Client
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed to get Game Stats! - " + ex);
+                Logging.logString("Failed to get Game Stats! - " + ex);
 
                 currentScore = "";
                 currentAccuracy = 0f;
@@ -1607,7 +1606,7 @@ namespace Rhythm_Plus___Splamei_Client
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed to get results Stats! - " + ex);
+                Logging.logString("Failed to get results Stats! - " + ex);
 
                 currentScore = "";
                 currentAccuracy = 0f;
