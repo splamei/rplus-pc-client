@@ -24,7 +24,7 @@ It's best to play through SplameiPlay to have the client automatically updated w
 
 ### Recommended / Easy Method (SplameiPlay)
 
- 1. Download and install [SplameiPlay](https://www.veemo.uk/splameiplay-download) if not installed. (You must be using 4.0 Bloom or later to have the client in the store)
+ 1. Download and install [SplameiPlay](https://www.veemo.uk/splameiplay/download) if not installed. (You must be using 4.0 Bloom or later to have the client in the store)
  2. Once you have SplameiPlay open, navigate to the 'Store' page and find the client in the 'Splamei Official' section
  3. When on the project page, press 'Download' and the latest version will be downloaded and installed. After that, you can find the project on the 'Home' page. You can also press the 'Fav' button to have it show higher up
  4. Now, to play, just open SplameiPlay, open the project page and press 'Play'. Any new versions will be automatically installed
@@ -78,6 +78,8 @@ No. No build for ARM64 and 32-bit has and, right now, will be made meaning you c
 Yes! Just make sure you follow everything stated in the 'Making your own Client' section
 ### Q) Is this client official?
 At the current moment, no
+### Q) Wasn't this repo around before?
+Yes, the repo has had to be remade several times for many issues. Don't worry! I think their all fixed now
 ## Socials
 [YouTube](https://youtube.com/@splamei)
 [Twitch](https://twitch.tv/splamei)
