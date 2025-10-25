@@ -1346,7 +1346,7 @@ namespace Rhythm_Plus___Splamei_Client
             }
             catch (Exception ex)
             {
-                Logging.logString(ex);
+                Logging.logString(ex.ToString());
 
                 return false;
             }
@@ -1381,7 +1381,7 @@ namespace Rhythm_Plus___Splamei_Client
             }
             catch (Exception ex)
             {
-                Logging.logString(ex);
+                Logging.logString(ex.ToString());
 
                 failedToRemoveExtension = true;
             }
