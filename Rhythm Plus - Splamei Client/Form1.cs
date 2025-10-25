@@ -14,6 +14,7 @@ using System.Drawing;
 using Microsoft.Web.WebView2.WinForms;
 using Rhythm_Plus___Splamei_Client.Save_System;
 using Newtonsoft.Json;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Rhythm_Plus___Splamei_Client
 {
@@ -40,6 +41,7 @@ namespace Rhythm_Plus___Splamei_Client
         public float currentAccuracy = 0.0f;
         public string currentScore = "";
         public double currentTime = 0.0f;
+        public bool isAutoplay = false;
 
         public string resultAccuracy = "";
         public string resultRank = "";
@@ -73,6 +75,7 @@ namespace Rhythm_Plus___Splamei_Client
         public bool failedToRemoveExtension = false;
         public bool enabledExtensions = false;
         public float zoom = 1;
+        public bool loadedV2 = false;
 
         // Fullscreen stuff
         public bool f11Pressed = false;
@@ -109,7 +112,7 @@ namespace Rhythm_Plus___Splamei_Client
                 Logging.logString("Failed to connect to discord - " + e.Type.ToString());
                 if (webView2 != null && !firstBoot)
                 {
-                    if (!webView2.Source.ToString().StartsWith("https://rhythm-plus.com/game/") && !failedRpConnection)
+                    if ((!webView2.Source.ToString().StartsWith("https://rhythm-plus.com/game/") && !webView2.Source.ToString().StartsWith("https://v2.rhythm-plus.com/game/")) && !failedRpConnection)
                     {
                         failedRpConnection = true;
                         DialogResult result = MessageBox.Show("Something went wrong when connecting to Discord. This may be because Discord is not installed/open or something is blocking the connection.\n\nYou can abort the connection and disable Rich Precence, Retry the connection or Ignore the issue and disable Rich Precence for this session.", "Failed to connect to Discord", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Warning);
@@ -172,38 +175,43 @@ namespace Rhythm_Plus___Splamei_Client
                     string uri = webView21.Source.ToString();
                     bool forceUpdate = false;
 
-                    if (uri.Equals("https://rhythm-plus.com"))
+                    if (uri.Equals("https://rhythm-plus.com") || uri.Equals("https://v2.rhythm-plus.com"))
                     {
                         point = "On the into screen";
                     }
-                    else if (uri.StartsWith("https://rhythm-plus.com/menu/"))
+                    else if (uri.StartsWith("https://rhythm-plus.com/menu/") || uri.StartsWith("https://v2.rhythm-plus.com/menu/"))
                     {
                         point = "Looking at songs";
                     }
-                    else if (uri.Equals("https://rhythm-plus.com/studio/") || uri.StartsWith("https://rhythm-plus.com/editor/"))
+                    else if (uri.Equals("https://rhythm-plus.com/studio/") || uri.StartsWith("https://rhythm-plus.com/editor/") || uri.Equals("https://v2.rhythm-plus.com/studio/") || uri.StartsWith("https://v2.rhythm-plus.com/editor/"))
                     {
                         point = "Creating a chart";
                     }
-                    else if (uri.Equals("https://rhythm-plus.com/account/"))
+                    else if (uri.Equals("https://rhythm-plus.com/account/") || uri.Equals("https://v2.rhythm-plus.com/account/"))
                     {
                         point = "Changing settings";
                     }
-                    else if (uri.Equals("https://rhythm-plus.com/tutorial/"))
+                    else if (uri.Equals("https://rhythm-plus.com/tutorial/") || uri.Equals("https://v2.rhythm-plus.com/tutorial/"))
                     {
                         point = "Playing the tutorial";
                     }
-                    else if (uri.StartsWith("https://rhythm-plus.com/result/"))
+                    else if (uri.StartsWith("https://rhythm-plus.com/result/") || uri.StartsWith("https://v2.rhythm-plus.com/result/"))
                     {
                         point = "Looking at results";
                         forceUpdate = true;
                     }
-                    else if (uri.StartsWith("https://rhythm-plus.com/game-over/"))
+                    else if (uri.StartsWith("https://rhythm-plus.com/game-over/") || uri.StartsWith("https://v2.rhythm-plus.com/game-over/"))
                     {
                         point = "Failed a chart";
                     }
-                    else if (uri.StartsWith("https://rhythm-plus.com/game/"))
+                    else if (uri.StartsWith("https://rhythm-plus.com/game/") || uri.StartsWith("https://v2.rhythm-plus.com/game/"))
                     {
                         string songName = webView21.CoreWebView2.DocumentTitle.Split(new string[] { " - Rhythm+ Music" }, StringSplitOptions.None)[0];
+                        if (loadedV2)
+                        {
+                            songName = webView21.CoreWebView2.DocumentTitle.Split(new string[] { " - Rhythm Plus Music" }, StringSplitOptions.None)[0];
+                        }
+
                         if (songName == "Game")
                         {
                             point = "Loading a song";
@@ -231,11 +239,12 @@ namespace Rhythm_Plus___Splamei_Client
                     if (prevDataRP != point || forceUpdate)
                     {
                         string state = "";
-                        if (uri.StartsWith("https://rhythm-plus.com/game/") && showStatsinRPC)
+                        if ((uri.StartsWith("https://rhythm-plus.com/game/") || uri.StartsWith("https://v2.rhythm-plus.com/game/")) && showStatsinRPC)
                         {
                             updateGameStatDetails();
 
-                            if (currentScore != "")
+                            Debug.WriteLine($"Current Score: {currentScore} | Current Acc: {currentAccuracy}% | Current Time: {currentTime}%");
+                            if (currentScore != "" && !isAutoplay)
                             {
                                 string rank = "F";
                                 if (currentAccuracy == 0)
@@ -269,8 +278,12 @@ namespace Rhythm_Plus___Splamei_Client
 
                                 state = $" - Score: {currentScore} - Acc: {currentAccuracy}% - Rank: ~{rank} - Point: {currentTime}%";
                             }
+                            else if (isAutoplay)
+                            {
+                                state = $" - [Playing in Autoplay] - Score: {currentScore}";
+                            }
                         }
-                        else if (uri.StartsWith("https://rhythm-plus.com/result/") && showStatsinRPC)
+                        else if ((uri.StartsWith("https://rhythm-plus.com/result/") || uri.StartsWith("https://v2.rhythm-plus.com/result/")) && showStatsinRPC)
                         {
                             updateResultsDetails();
 
@@ -605,7 +618,28 @@ namespace Rhythm_Plus___Splamei_Client
 
                 this.Hide();
 
-                webView21.Source = new Uri("https://rhythm-plus.com");
+                if (!saveManager.dataExist("v2Page"))
+                {
+                    if (MessageBox.Show("The long awaited Rhythm Plus v2 has finally released! And you can now play it via the client!\n\nDo you want us to change the to use v2 instead of v1? (You can change this is settings)", "Rhythm Plus - Splamei Client", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    {
+                        saveManager.setInt("v2Page", 1);
+                    }
+                    else
+                    {
+                        saveManager.setInt("v2Page", 0);
+                    }
+                    saveManager.saveData();
+                }
+
+                if (saveManager.getInt("v2Page") == 1)
+                {
+                    webView21.Source = new Uri("https://v2.rhythm-plus.com");
+                    loadedV2 = true;
+                }
+                else
+                {
+                    webView21.Source = new Uri("https://rhythm-plus.com");
+                }
 
                 webView21.CoreWebView2.DocumentTitleChanged += titleChanged;
                 webView21.CoreWebView2.ContextMenuRequested += webView2ContextMenuRequested;
@@ -1427,30 +1461,77 @@ namespace Rhythm_Plus___Splamei_Client
 
         private async void updateGameStatDetails()
         {
+            Debug.WriteLine("Updating game stats...");
+
             try
             {
-                string script = "document.querySelector('.score span')?.innerText";
-                string result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
-                string value = JsonConvert.DeserializeObject<string>(result);
-                currentAccuracy = float.Parse(value);
-
-                script = "document.querySelector('.score > span')?.innerText";
-                result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
-                value = JsonConvert.DeserializeObject<string>(result);
-                currentScore = value;
-
-                script = "document.querySelector('.top-progress')?.style.width || getComputedStyle(document.querySelector('.top-progress')).width;";
-                result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
-                value = JsonConvert.DeserializeObject<string>(result);
-                if (value.EndsWith("%"))
+                if (loadedV2)
                 {
-                    value = value.TrimEnd('%');
+                    string script = "";
+                    string result = "";
+                    string value = "";
+
+                    try
+                    {
+                        script = "document.querySelector('div.score > div:nth-child(2)').innerText";
+                        result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                        value = JsonConvert.DeserializeObject<string>(result);
+                        if (value != null) { currentAccuracy = float.Parse(value.Replace("%", "")); }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.logString("Failed to get accuracy! - " + ex);
+                        currentAccuracy = 0f;
+                    }
+
+                    script = "document.querySelector('div.score > div.text-5xl')?.innerText";
+                    result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                    value = JsonConvert.DeserializeObject<string>(result);
+                    if (value != null) { currentScore = value; }
+
+                    script = "document.querySelector('.top-progress')?.style.width || getComputedStyle(document.querySelector('.top-progress')).width;";
+                    result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                    value = JsonConvert.DeserializeObject<string>(result);
+                    if (value != null)
+                    {
+                        if (value.EndsWith("%"))
+                        {
+                            value = value.TrimEnd('%');
+                        }
+                        currentTime = Math.Floor(float.Parse(value));
+                    }
+
+                    script = "document.querySelector('div.score > div > span')?.innerText";
+                    result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                    value = JsonConvert.DeserializeObject<string>(result);
+                    if (value != null) { isAutoplay = (value == "Autoplay"); } else { isAutoplay = false; }
+                    Console.WriteLine(value);
                 }
-                currentTime = Math.Floor(float.Parse(value));
+                else
+                {
+                    string script = "document.querySelector('.score span')?.innerText";
+                    string result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                    string value = JsonConvert.DeserializeObject<string>(result);
+                    currentAccuracy = float.Parse(value);
+
+                    script = "document.querySelector('.score > span')?.innerText";
+                    result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                    value = JsonConvert.DeserializeObject<string>(result);
+                    currentScore = value;
+
+                    script = "document.querySelector('.top-progress')?.style.width || getComputedStyle(document.querySelector('.top-progress')).width;";
+                    result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                    value = JsonConvert.DeserializeObject<string>(result);
+                    if (value.EndsWith("%"))
+                    {
+                        value = value.TrimEnd('%');
+                    }
+                    currentTime = Math.Floor(float.Parse(value));
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                Debug.WriteLine("Failed to get Game Stats!");
+                Debug.WriteLine("Failed to get Game Stats! - " + ex);
 
                 currentScore = "";
                 currentAccuracy = 0f;
@@ -1461,34 +1542,68 @@ namespace Rhythm_Plus___Splamei_Client
         {
             try
             {
-                string script = "document.querySelector('.score')?.innerText";
-                string result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
-                string value = JsonConvert.DeserializeObject<string>(result);
-                resultRank = value;
-
-                script = "document.querySelector('div:nth-child(3) > span')?.innerText";
-                result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
-                value = JsonConvert.DeserializeObject<string>(result);
-                resultAccuracy = value;
-
-                script = "document.querySelector('div.rightScore.flex-grow > div:nth-child(1) > span')?.innerText";
-                result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
-                value = JsonConvert.DeserializeObject<string>(result);
-                resultScore = value;
-
-                script = "document.querySelector('div.rightScore.flex-grow > div:nth-child(2) > span')?.innerText";
-                result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
-                value = JsonConvert.DeserializeObject<string>(result);
-                resultMaxCombo = value;
-
-                try
+                if (loadedV2)
                 {
-                    script = "document.querySelector('div.rightScore.flex-grow > div:nth-child(2) > div')?.innerText";
+                    string script = "document.querySelector('.score')?.innerText";
+                    string result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                    string value = JsonConvert.DeserializeObject<string>(result);
+                    resultRank = value;
+
+                    script = "document.querySelector('div.percentage-display > div')?.innerText";
                     result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
                     value = JsonConvert.DeserializeObject<string>(result);
-                    resultFC = value;
+                    resultAccuracy = value;
+
+                    script = "document.querySelector('div.score-title > div')?.innerText";
+                    result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                    value = JsonConvert.DeserializeObject<string>(result);
+                    resultScore = value;
+
+                    script = "document.querySelector('div.combo-container > div > div')?.innerText";
+                    result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                    value = JsonConvert.DeserializeObject<string>(result);
+                    resultMaxCombo = value;
+
+                    try
+                    {
+                        script = "document.querySelector('div.combo-container > div.mark-chip.achievement-chip.combo-chip')?.innerText";
+                        result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                        value = JsonConvert.DeserializeObject<string>(result);
+                        resultFC = value;
+                    }
+                    catch { resultFC = ""; }
                 }
-                catch { resultFC = ""; }
+                else
+                {
+                    string script = "document.querySelector('.score')?.innerText";
+                    string result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                    string value = JsonConvert.DeserializeObject<string>(result);
+                    resultRank = value;
+
+                    script = "document.querySelector('div:nth-child(3) > span')?.innerText";
+                    result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                    value = JsonConvert.DeserializeObject<string>(result);
+                    resultAccuracy = value;
+
+                    script = "document.querySelector('div.rightScore.flex-grow > div:nth-child(1) > span')?.innerText";
+                    result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                    value = JsonConvert.DeserializeObject<string>(result);
+                    resultScore = value;
+
+                    script = "document.querySelector('div.rightScore.flex-grow > div:nth-child(2) > span')?.innerText";
+                    result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                    value = JsonConvert.DeserializeObject<string>(result);
+                    resultMaxCombo = value;
+
+                    try
+                    {
+                        script = "document.querySelector('div.rightScore.flex-grow > div:nth-child(2) > div')?.innerText";
+                        result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                        value = JsonConvert.DeserializeObject<string>(result);
+                        resultFC = value;
+                    }
+                    catch { resultFC = ""; }
+                }
             }
             catch (Exception ex)
             {
@@ -1505,34 +1620,69 @@ namespace Rhythm_Plus___Splamei_Client
             {
                 if (webView21.CoreWebView2 != null)
                 {
-                    string script = "document.querySelector('div.detail.py-5 > div:nth-child(1)')?.innerText";
-                    string result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
-                    string value = JsonConvert.DeserializeObject<string>(result);
-                    if (!string.IsNullOrEmpty(value))
+                    if (loadedV2)
                     {
-                        selectedSongName = value;
-
-                        script = "document.querySelector('div.detail.py-5 > div:nth-child(2)')?.innerText";
-                        result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
-                        value = JsonConvert.DeserializeObject<string>(result);
-                        selectedSongAuthor = value;
-
-                        script = "document.querySelector('div.pt-2.text-xs.text-white.text-opacity-25 > span:nth-child(3) > span')?.innerText";
-                        result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
-                        value = JsonConvert.DeserializeObject<string>(result);
-                        if (string.IsNullOrEmpty(value))
+                        string script = "document.querySelector('div.flex-1 > div.mt-10 > div')?.innerText";
+                        string result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                        string value = JsonConvert.DeserializeObject<string>(result);
+                        if (!string.IsNullOrEmpty(value))
                         {
-                            script = "document.querySelector('div.pt-2.text-xs.text-white.text-opacity-25 > span > span')?.innerText";
+                            selectedSongName = value;
+
+                            script = "document.querySelector('div.flex-1.self-end > div.mt-10 > div.opacity-60')?.innerText";
                             result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
                             value = JsonConvert.DeserializeObject<string>(result);
-                            selectedSongCharter = value;
-                        }
-                        else { selectedSongCharter = value; }
+                            selectedSongAuthor = value;
 
-                        script = "document.querySelector('div.detail.py-5 > div:nth-child(1)').childNodes[1].nodeValue.trim()\r\n";
-                        result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
-                        value = JsonConvert.DeserializeObject<string>(result);
-                        selectedSongTitle = value;
+                            script = "document.querySelector('a > div > div > div.text-sm.leading-5 > div > div')?.innerText";
+                            result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                            value = JsonConvert.DeserializeObject<string>(result);
+                            //if (string.IsNullOrEmpty(value))
+                            //{
+                            //    script = "document.querySelector('div.pt-2.text-xs.text-white.text-opacity-25 > span > span')?.innerText";
+                            //    result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                            //    value = JsonConvert.DeserializeObject<string>(result);
+                                selectedSongCharter = value;
+                            //}
+                            //else { selectedSongCharter = value; }
+
+                            script = "document.querySelector('div.text-xl > span.w-fit')?.innerText";
+                            result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                            value = JsonConvert.DeserializeObject<string>(result);
+                            selectedSongTitle = value;
+                        }
+                    }
+                    else
+                    {
+                        string script = "document.querySelector('div.detail.py-5 > div:nth-child(1)')?.innerText";
+                        string result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                        string value = JsonConvert.DeserializeObject<string>(result);
+                        if (!string.IsNullOrEmpty(value))
+                        {
+                            selectedSongName = value;
+
+                            script = "document.querySelector('div.detail.py-5 > div:nth-child(2)')?.innerText";
+                            result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                            value = JsonConvert.DeserializeObject<string>(result);
+                            selectedSongAuthor = value;
+
+                            script = "document.querySelector('div.pt-2.text-xs.text-white.text-opacity-25 > span:nth-child(3) > span')?.innerText";
+                            result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                            value = JsonConvert.DeserializeObject<string>(result);
+                            if (string.IsNullOrEmpty(value))
+                            {
+                                script = "document.querySelector('div.pt-2.text-xs.text-white.text-opacity-25 > span > span')?.innerText";
+                                result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                                value = JsonConvert.DeserializeObject<string>(result);
+                                selectedSongCharter = value;
+                            }
+                            else { selectedSongCharter = value; }
+
+                            script = "document.querySelector('div.detail.py-5 > div:nth-child(1)').childNodes[1].nodeValue.trim()\r\n";
+                            result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
+                            value = JsonConvert.DeserializeObject<string>(result);
+                            selectedSongTitle = value;
+                        }
                     }
                 }
             }

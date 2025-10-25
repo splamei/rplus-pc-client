@@ -19,7 +19,7 @@ namespace Rhythm_Plus___Splamei_Client
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text.StartsWith("https://rhythm-plus.com"))
+            if (textBox1.Text.StartsWith("https://rhythm-plus.com") || textBox1.Text.StartsWith("https://v2.rhythm-plus.com"))
             {
                 action(textBox1.Text);
                 this.Close();

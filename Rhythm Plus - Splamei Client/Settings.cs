@@ -32,6 +32,8 @@ namespace Rhythm_Plus___Splamei_Client
 
             checkBox6.Checked = form.enabledExtensions;
 
+            checkBox8.Checked = saveManager.getInt("v2Page") == 1;
+
             if (form.showMenu == "Not in game")
             {
                 comboBox1.SelectedIndex = 1;
@@ -86,6 +88,15 @@ namespace Rhythm_Plus___Splamei_Client
             saveManager.setString("showMenuIn", form.showMenu);
 
             form.showStatsinRPC = checkBox7.Checked;
+
+            if (checkBox8.Checked)
+            {
+                saveManager.setString("v2Page", "1");
+            }
+            else
+            {
+                saveManager.setString("v2Page", "0");
+            }
 
             form.setSettings(checkBox1.Checked, checkBox2.Checked, checkBox3.Checked, checkBox4.Checked, trackBar1.Value);
             saveManager.saveData();
