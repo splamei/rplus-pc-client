@@ -14,7 +14,6 @@ using System.Drawing;
 using Microsoft.Web.WebView2.WinForms;
 using Rhythm_Plus___Splamei_Client.Save_System;
 using Newtonsoft.Json;
-using System.Diagnostics.Eventing.Reader;
 
 namespace Rhythm_Plus___Splamei_Client
 {
@@ -1358,18 +1357,12 @@ namespace Rhythm_Plus___Splamei_Client
             {
                 var coreWebView2 = webView21.CoreWebView2;
 
-                // Get the browser extensions asynchronously
                 var browserExtensions = await coreWebView2.Profile.GetBrowserExtensionsAsync();
 
-                // Specify the extension ID you want to remove
-                string extensionIdToRemove = id; // Replace with the actual extension ID
-
-                // Find the extension to remove
-                var extensionToRemove = browserExtensions.FirstOrDefault(ext => ext.Id == extensionIdToRemove);
+                var extensionToRemove = browserExtensions.FirstOrDefault(ext => ext.Id == id);
 
                 if (extensionToRemove != null)
                 {
-                    // Remove the browser extension asynchronously
                     await extensionToRemove.RemoveAsync();
                     Logging.logString($"Extension {extensionToRemove.Name} has been removed successfully.");
                 }
