@@ -83,9 +83,9 @@
             this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox2.Location = new System.Drawing.Point(10, 427);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(291, 24);
+            this.checkBox2.Size = new System.Drawing.Size(300, 24);
             this.checkBox2.TabIndex = 2;
-            this.checkBox2.Text = "Show the title of played maps within RP";
+            this.checkBox2.Text = "Show the title of played maps within RPC";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // label2
@@ -124,7 +124,7 @@
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(286, 44);
             this.checkBox3.TabIndex = 6;
-            this.checkBox3.Text = "Allow friends to go to the exact part of\r\nR+ your on via RP";
+            this.checkBox3.Text = "Allow friends to go to the exact part of\r\nR+ your on via RPC";
             this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // trackBar1
@@ -143,9 +143,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 534);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(199, 20);
+            this.label5.Size = new System.Drawing.Size(208, 20);
             this.label5.TabIndex = 8;
-            this.label5.Text = "Discord RP Refresh Time (5s)";
+            this.label5.Text = "Discord RPC Refresh Time (5s)";
             // 
             // label6
             // 
