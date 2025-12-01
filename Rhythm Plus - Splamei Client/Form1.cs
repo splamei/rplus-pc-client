@@ -30,7 +30,7 @@ namespace Rhythm_Plus___Splamei_Client
         private bool showingError = false;
         private Settings settingsBox;
 
-        public int myVerCode = 1008;
+        public int myVerCode = 1007;
 
         public DiscordRpcClient client;
         public bool failedRpConnection = false;
@@ -778,21 +778,13 @@ namespace Rhythm_Plus___Splamei_Client
                     if (Int32.Parse(task.Result) > myVerCode)
                     {
                         Logging.logString("New update!");
-                        if (File.Exists("C:/Splamei/SplameiPlay/Launcher/Updater-data/location"))
+                        if (File.Exists("C:/Splamei/SplameiPlay/Launcher/Updater-data/location.dat"))
                         {
                             if (MessageBox.Show("Theres a new update to the client! Press 'Yes' to close close the client and open SplameiPlay to get the new update installed.\n\nIf you already launched the client through SplameiPlay today, you'll need to wait until tomorrow before the update will be installed. Sorry!", "New Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                             {
-                                string location = File.ReadAllText("C:/Splamei/SplameiPlay/Launcher/Updater-data/location");
-                                if (location.StartsWith(@"C:\Splamei\SplameiPlay\"))
+                                using (var process = Process.Start("splameiplay://"))
                                 {
-                                    using (var process = Process.Start(location))
-                                    {
-                                        Application.Exit();
-                                    }
-                                }
-                                else
-                                {
-                                    MessageBox.Show("We failed to launch SplameiPlay. Please check your installation and try again. You may need to reinstall the app.", "Rhythm Plus - Splamei Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    Application.Exit();
                                 }
                             }
                             else
