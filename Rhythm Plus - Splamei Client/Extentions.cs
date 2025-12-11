@@ -154,6 +154,11 @@ namespace Rhythm_Plus___Splamei_Client
                         "Rhythm Plus - Splamei Client",
                         "Extensions");
 
+                    if (!PathHelper.isSafe(savePath))
+                    {
+                        throw new UnauthorizedAccessException("Attempted to access or read a path outside of the bounds of the client's save directorys");
+                    }
+
                     var selected = checkedListBox1.CheckedItems;
 
                     List<string> extension = new List<string>();

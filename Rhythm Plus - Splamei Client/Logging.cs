@@ -17,6 +17,11 @@ namespace Rhythm_Plus___Splamei_Client
                 "Rhythm Plus - Splamei Client",
                 "Client.log");
 
+            if (!PathHelper.isSafe(savePath))
+            {
+                throw new UnauthorizedAccessException("Attempted to access or read a path outside of the bounds of the client's save directorys");
+            }
+
             Debug.WriteLine(message);
 
             DateTime time = DateTime.Now;
