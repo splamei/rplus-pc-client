@@ -28,6 +28,11 @@ namespace Rhythm_Plus___Splamei_Client.Save_System
                 "Rhythm Plus - Splamei Client",
                 "data.sav");
 
+            if (!PathHelper.isSafe(savePath))
+            {
+                throw new UnauthorizedAccessException("Attempted to access or read a path outside of the bounds of the client's save directorys");
+            }
+
             if (File.Exists(savePath))
             {
                 string[] data = File.ReadAllLines(savePath);
@@ -99,6 +104,11 @@ namespace Rhythm_Plus___Splamei_Client.Save_System
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 "Splamei",
                 "Rhythm Plus - Splamei Client");
+
+            if (!PathHelper.isSafe(savePath))
+            {
+                throw new UnauthorizedAccessException("Attempted to access or read a path outside of the bounds of the client's save directorys");
+            }
 
             if (File.Exists(Path.Combine(savePath, "checkcode.dat")))
             {
