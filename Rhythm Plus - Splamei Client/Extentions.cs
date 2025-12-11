@@ -44,19 +44,25 @@ namespace Rhythm_Plus___Splamei_Client
         {
             try
             {
+                var savePath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    "Splamei",
+                    "Rhythm Plus - Splamei Client",
+                    "Extensions");
+
                 if (openFileDialog1.FileName != "" && openFileDialog1.FileName.EndsWith("manifest.json"))
                 {
                     if (MessageBox.Show("Do you want to continue to install the extension? By installing it, you allow the extension to modify and see data about Rhythm Plus which could get you banned or hacked. When installing, the unpacked folder will be moved to the extension directory.\n\nDo you wish to continue? Rhythm Plus will be reloaded to allow ther extention to be added.", "Add extension", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
                         string dirName = Directory.GetParent(openFileDialog1.FileName).Name;
-                        if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Extensions/" + dirName))
+                        if (Directory.Exists(savePath + dirName))
                         {
-                            Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Extensions/" + dirName, true);
+                            Directory.Delete(savePath + dirName, true);
                         }
 
-                        CopyDirectory(Directory.GetParent(openFileDialog1.FileName).ToString(), Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Extensions/" + dirName, true);
+                        CopyDirectory(Directory.GetParent(openFileDialog1.FileName).ToString(), savePath + dirName, true);
 
-                        if (form.addExtention(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Extensions/" + dirName))
+                        if (form.addExtention(savePath + dirName))
                         {
                             MessageBox.Show("The extension has been added. To remove it, go into the extensions page and select it when in 'remove' mode.", "Added extension", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -135,6 +141,12 @@ namespace Rhythm_Plus___Splamei_Client
             {
                 try
                 {
+                    var savePath = Path.Combine(
+                        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                        "Splamei",
+                        "Rhythm Plus - Splamei Client",
+                        "Extensions");
+
                     var selected = checkedListBox1.CheckedItems;
 
                     List<string> extension = new List<string>();
@@ -151,7 +163,7 @@ namespace Rhythm_Plus___Splamei_Client
                         form.removeExtention(id2[0]);
                     }
 
-                    string[] directorys = Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Extensions/");
+                    string[] directorys = Directory.GetDirectories(savePath);
 
                     foreach (string directory in directorys)
                     {

@@ -22,9 +22,15 @@ namespace Rhythm_Plus___Splamei_Client.Save_System
 
         public void loadData()
         {
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/data.sav"))
+            string savePath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "Splamei",
+                "Rhythm Plus - Splamei Client",
+                "data.sav");
+
+            if (File.Exists(savePath))
             {
-                string[] data = File.ReadAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/data.sav");
+                string[] data = File.ReadAllLines(savePath);
 
                 saveVersion = int.Parse(data[0]);
                 assemblyVersion = new Version(data[1]);
@@ -62,6 +68,12 @@ namespace Rhythm_Plus___Splamei_Client.Save_System
 
         public void saveData()
         {
+            string savePath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "Splamei",
+                "Rhythm Plus - Splamei Client",
+                "data.sav");
+
             List<string> data = new List<string>();
 
             data.Add(mySaveVer.ToString());
@@ -73,24 +85,29 @@ namespace Rhythm_Plus___Splamei_Client.Save_System
                 data.Add(dataValues[i]);
             }
 
-            File.WriteAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/data.sav", data);
+            File.WriteAllLines(savePath, data);
         }
 
         public void upgradeData()
         {
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + $"/Splamei/Rhythm Plus - Splamei Client/checkCode.dat"))
+            string savePath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "Splamei",
+                "Rhythm Plus - Splamei Client");
+
+            if (File.Exists(Path.Combine(savePath, "checkcode.dat")))
             {
                 Logging.logString("Upgraded data!");
 
                 foreach (string name in dataUpgradable)
                 {
-                    if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + $"/Splamei/Rhythm Plus - Splamei Client/{name}.dat"))
+                    if (File.Exists(Path.Combine(savePath, $"{name}.dat")))
                     {
-                        string result = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + $"/Splamei/Rhythm Plus - Splamei Client/{name}.dat");
+                        string result = File.ReadAllText(Path.Combine(savePath, $"{name}.dat"));
 
                         setString(name, result);
 
-                        File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + $"/Splamei/Rhythm Plus - Splamei Client/{name}.dat");
+                        File.Delete(Path.Combine(savePath, $"{name}.dat"));
                     }
                 }
             }

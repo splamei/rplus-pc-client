@@ -81,10 +81,17 @@ namespace Rhythm_Plus___Splamei_Client
         public Rectangle originalBounds;
         public FormWindowState originalWindowState;
 
+        private string savePath;
+
 
         public Form1()
         {
             InitializeComponent();
+
+            savePath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "Splamei",
+                "Rhythm Plus - Splamei Client");
         }
 
         public void setUpRP()
@@ -350,12 +357,12 @@ namespace Rhythm_Plus___Splamei_Client
                 return;
             }
 
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/"))
+            if (!Directory.Exists(savePath))
             {
-                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/");
+                Directory.CreateDirectory(savePath);
             }
 
-            File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Client.log", "(i) This log file is for debugging the client and should only really be used by programmers. You can still try to understand it if you want!\n\n--\n\n");
+            File.WriteAllText(Path.Combine(savePath, "Client.log"), "(i) This log file is for debugging the client and should only really be used by programmers. You can still try to understand it if you want!\n\n--\n\n");
 
             Logging.logString("Rhythm Plus - Splamei Client");
             Logging.logString("Version " + Application.ProductVersion + "\n");
@@ -373,9 +380,9 @@ namespace Rhythm_Plus___Splamei_Client
             saveManager.loadData();
             saveManager.upgradeData();
 
-            if (!System.IO.Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client"))
+            if (!System.IO.Directory.Exists(savePath))
             {
-                System.IO.Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client");
+                System.IO.Directory.CreateDirectory(savePath);
             }
 
             if (saveManager.dataExist("retainWindowSize"))
@@ -590,9 +597,9 @@ namespace Rhythm_Plus___Splamei_Client
                 saveManager.setString("showMenuIn", "Only in settings");
             }
 
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Extensions"))
+            if (!Directory.Exists(Path.Combine(savePath, "Extensions")))
             {
-                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Extensions");
+                Directory.CreateDirectory(Path.Combine(savePath, "Extensions"));
             }
 
             if (enabledRP)
@@ -609,7 +616,7 @@ namespace Rhythm_Plus___Splamei_Client
                 };
 
 
-                var webView2Environment = await CoreWebView2Environment.CreateAsync(null, Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client", options);
+                var webView2Environment = await CoreWebView2Environment.CreateAsync(null, savePath, options);
 
                 this.Hide();
 

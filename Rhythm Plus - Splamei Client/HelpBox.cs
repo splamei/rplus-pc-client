@@ -10,6 +10,8 @@ namespace Rhythm_Plus___Splamei_Client
     {
         private WaitDialog waitDialog;
 
+        private string webViewPath = "";
+
         public HelpBox()
         {
             InitializeComponent();
@@ -17,9 +19,15 @@ namespace Rhythm_Plus___Splamei_Client
 
         private async void HelpBox_Load(object sender, EventArgs e)
         {
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Help Webview"))
+            webViewPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "Splamei",
+                "Rhythm Plus - Splamei Client",
+                "Help Webview");
+
+            if (!Directory.Exists(webViewPath))
             {
-                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Help Webview");
+                Directory.CreateDirectory(webViewPath);
             }
 
             try
@@ -30,7 +38,7 @@ namespace Rhythm_Plus___Splamei_Client
                     ScrollBarStyle = CoreWebView2ScrollbarStyle.FluentOverlay
                 };
 
-                var webView2Environment2 = await CoreWebView2Environment.CreateAsync(null, Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Splamei/Rhythm Plus - Splamei Client/Help Webview", options);
+                var webView2Environment2 = await CoreWebView2Environment.CreateAsync(null, webViewPath, options);
 
                 await webView21.EnsureCoreWebView2Async(webView2Environment2);
 
