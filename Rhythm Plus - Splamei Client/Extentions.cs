@@ -55,14 +55,21 @@ namespace Rhythm_Plus___Splamei_Client
                     if (MessageBox.Show("Do you want to continue to install the extension? By installing it, you allow the extension to modify and see data about Rhythm Plus which could get you banned or hacked. When installing, the unpacked folder will be moved to the extension directory.\n\nDo you wish to continue? Rhythm Plus will be reloaded to allow ther extention to be added.", "Add extension", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
                         string dirName = Directory.GetParent(openFileDialog1.FileName).Name;
-                        if (Directory.Exists(savePath + dirName))
+                        string currentPath = Path.Combine(savePath, dirName);
+
+                        if (!PathHelper.isSafe(currentPath))
                         {
-                            Directory.Delete(savePath + dirName, true);
+                            throw new UnauthorizedAccessException("Attempted to access or read a path outside of the bounds of the client's save directorys");
                         }
 
-                        CopyDirectory(Directory.GetParent(openFileDialog1.FileName).ToString(), savePath + dirName, true);
+                        if (Directory.Exists(currentPath))
+                        {
+                            Directory.Delete(currentPath, true);
+                        }
 
-                        if (form.addExtention(savePath + dirName))
+                        CopyDirectory(Directory.GetParent(openFileDialog1.FileName).ToString(), currentPath, true);
+
+                        if (form.addExtention(currentPath))
                         {
                             MessageBox.Show("The extension has been added. To remove it, go into the extensions page and select it when in 'remove' mode.", "Added extension", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

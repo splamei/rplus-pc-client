@@ -25,6 +25,11 @@ namespace Rhythm_Plus___Splamei_Client
                 "Rhythm Plus - Splamei Client",
                 "Help Webview");
 
+            if (!PathHelper.isSafe(webViewPath))
+            {
+                throw new UnauthorizedAccessException("Attempted to access or read a path outside of the bounds of the client's save directorys");
+            }
+
             if (!Directory.Exists(webViewPath))
             {
                 Directory.CreateDirectory(webViewPath);
