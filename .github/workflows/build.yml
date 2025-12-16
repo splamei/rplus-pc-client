@@ -1,0 +1,36 @@
+name: Build Solution
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: windows-2022
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
+
+    - name: Clear NuGet cache
+      run: nuget locals all -clear
+
+    - name: Restore NuGet packages
+      run: nuget restore "Rhythm Plus - Splamei Client.sln"
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Build solution
+      run: |
+        msbuild "Rhythm Plus - Splamei Client.sln" `
+          /p:Configuration=Release `
+          /p:Platform="Any CPU" `
+          /p:RestorePackages=false `
+          /m `
+          /verbosity:minimal
