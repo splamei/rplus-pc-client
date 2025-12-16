@@ -1,3 +1,9 @@
+![Checks](https://img.shields.io/github/check-runs/splamei/rplus-pc-client/master)
+![Issues](https://img.shields.io/github/issues/splamei/rplus-pc-client)
+![License](https://img.shields.io/github/license/splamei/rplus-pc-client)
+![Release](https://img.shields.io/github/v/release/splamei/rplus-pc-client)
+![Commits since release](https://img.shields.io/github/commits-since/splamei/rplus-pc-client/latest)
+![Repo Size](https://img.shields.io/github/repo-size/splamei/rplus-pc-client)
 
 # Rhythm Plus - Splamei Client (PC)
 ## If your looking for the Android Client, find it [here](https://github.com/splamei/rplus-mobile-client)
