@@ -1166,7 +1166,7 @@ namespace Rhythm_Plus___Splamei_Client
             }
             else
             {
-                this.Text = webView21.CoreWebView2.DocumentTitle.Replace("Rhythm+ Music Game", "Rhythm Plus - Splamei Client");
+                this.Text = webView21.CoreWebView2.DocumentTitle.Replace("Rhythm+ Music Game", "Rhythm Plus - Splamei Client").Replace("Rhythm Plus Music Game", "Rhythm Plus - Splamei Client");
             }
 
             if (showMenu == "Only in settings")
