@@ -189,7 +189,7 @@ namespace Rhythm_Plus___Splamei_Client
                     {
                         point = "Looking at songs";
                     }
-                    else if (uri.Equals("https://rhythm-plus.com/studio/") || uri.StartsWith("https://rhythm-plus.com/editor/") || uri.Equals("https://v2.rhythm-plus.com/studio/") || uri.StartsWith("https://v2.rhythm-plus.com/editor/"))
+                    else if (uri.Equals("https://rhythm-plus.com/studio/") || uri.StartsWith("https://rhythm-plus.com/editor/") || uri.Equals("https://v2.rhythm-plus.com/studio") || uri.StartsWith("https://v2.rhythm-plus.com/editor"))
                     {
                         point = "Creating a chart";
                     }
