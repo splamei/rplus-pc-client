@@ -1023,8 +1023,8 @@ namespace Rhythm_Plus___Splamei_Client
                 webView21.Dispose();
             }
 
-            if (forceClose)
-            {
+            //if (forceClose)
+            //{
                 try
                 {
                     saveManager.setString("viewZoom", webView21.ZoomFactor.ToString());
@@ -1047,7 +1047,7 @@ namespace Rhythm_Plus___Splamei_Client
                 {
                     Logging.logString("Failed to save zoom! - " + ex);
                 }
-            }
+            //}
         }
 
         private void timer3_Tick(object sender, EventArgs e)
