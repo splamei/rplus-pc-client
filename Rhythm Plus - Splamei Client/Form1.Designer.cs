@@ -46,6 +46,7 @@
             this.getHelpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.starOnGitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.timer4 = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
@@ -60,7 +61,6 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.timer5 = new System.Windows.Forms.Timer(this.components);
             this.timer6 = new System.Windows.Forms.Timer(this.components);
-            this.starOnGitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -75,7 +75,7 @@
             this.webView21.ForeColor = System.Drawing.Color.White;
             this.webView21.Location = new System.Drawing.Point(0, 24);
             this.webView21.Name = "webView21";
-            this.webView21.Size = new System.Drawing.Size(1055, 616);
+            this.webView21.Size = new System.Drawing.Size(1055, 667);
             this.webView21.TabIndex = 0;
             this.webView21.ZoomFactor = 1D;
             this.webView21.NavigationCompleted += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs>(this.webView21_NavigationCompleted);
@@ -199,6 +199,15 @@
             this.aboutMenu.Text = "About";
             this.aboutMenu.Click += new System.EventHandler(this.aboutMenu_Click);
             // 
+            // starOnGitHubToolStripMenuItem
+            // 
+            this.starOnGitHubToolStripMenuItem.BackColor = System.Drawing.Color.Black;
+            this.starOnGitHubToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.starOnGitHubToolStripMenuItem.Name = "starOnGitHubToolStripMenuItem";
+            this.starOnGitHubToolStripMenuItem.Size = new System.Drawing.Size(97, 20);
+            this.starOnGitHubToolStripMenuItem.Text = "Star on GitHub";
+            this.starOnGitHubToolStripMenuItem.Click += new System.EventHandler(this.starOnGitHubToolStripMenuItem_Click);
+            // 
             // timer3
             // 
             this.timer3.Enabled = true;
@@ -293,26 +302,18 @@
             this.timer6.Interval = 300;
             this.timer6.Tick += new System.EventHandler(this.timer6_Tick);
             // 
-            // starOnGitHubToolStripMenuItem
-            // 
-            this.starOnGitHubToolStripMenuItem.BackColor = System.Drawing.Color.Black;
-            this.starOnGitHubToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.starOnGitHubToolStripMenuItem.Name = "starOnGitHubToolStripMenuItem";
-            this.starOnGitHubToolStripMenuItem.Size = new System.Drawing.Size(97, 20);
-            this.starOnGitHubToolStripMenuItem.Text = "Star on GitHub";
-            this.starOnGitHubToolStripMenuItem.Click += new System.EventHandler(this.starOnGitHubToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(1055, 640);
+            this.ClientSize = new System.Drawing.Size(1055, 691);
             this.Controls.Add(this.webView21);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(500, 730);
             this.Name = "Form1";
             this.Opacity = 0D;
             this.Text = "Rhythm Plus - Splamei Client";
