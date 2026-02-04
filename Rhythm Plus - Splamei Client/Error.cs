@@ -35,7 +35,7 @@ namespace Rhythm_Plus___Splamei_Client
         {
             if (shouldClose)
             {
-                Application.Exit();
+                Environment.Exit(1);
             }
         }
 
