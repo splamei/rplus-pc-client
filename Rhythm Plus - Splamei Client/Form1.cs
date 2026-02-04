@@ -763,11 +763,19 @@ namespace Rhythm_Plus___Splamei_Client
             {
                 showingError = true;
 
-                Logging.logString("Error! " + e.WebErrorStatus);
+                if ((e.HttpStatusCode < 200 || e.HttpStatusCode > 299) && e.HttpStatusCode != 0)
+                {
+                    if (MessageBox.Show($"Something went wrong while loading Rhythm Plus. Because of this, the client can't continue.\n\nThis may be because Rhythm Plus is down or you have a faulty internet connection.\n\nHTTP Status Code: {e.HttpStatusCode}", "Rhythm Plus - Splamei Client", MessageBoxButtons.OK, MessageBoxIcon.Stop) == DialogResult.OK)
+                    {
+                        Environment.Exit(1);
+                    }
+                }
+
+                Logging.logString("Error! " + e.HttpStatusCode);
 
                 using (Error errorD = new Error())
                 {
-                    errorD.errorDebug = "WebView2 error status code - " + e.WebErrorStatus.ToString();
+                    errorD.errorDebug = "WebView2 error status code - " + e.HttpStatusCode.ToString();
                     errorD.ShowDialog();
                 }
             }
