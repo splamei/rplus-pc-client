@@ -194,8 +194,7 @@
             // 
             // Licences
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(649, 639);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.linkLabel4);
