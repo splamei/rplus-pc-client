@@ -609,7 +609,7 @@ namespace Rhythm_Plus___Splamei_Client
 
             try
             {
-                var options = new CoreWebView2EnvironmentOptions("--disable-web-security")
+                var options = new CoreWebView2EnvironmentOptions
                 {
                     AreBrowserExtensionsEnabled = enabledExtensions,
                     ScrollBarStyle = CoreWebView2ScrollbarStyle.FluentOverlay
