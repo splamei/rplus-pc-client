@@ -710,6 +710,7 @@ namespace Rhythm_Plus___Splamei_Client
                         {
                             saveManager.setString("checkCode", DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString("D2") + DateTime.Now.Day.ToString("D2"));
 
+                            Logging.logString("Now getting the notices and versions");
                             checkVer();
                         }
                         else
