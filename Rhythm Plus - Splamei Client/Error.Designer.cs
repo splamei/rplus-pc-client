@@ -52,10 +52,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(31, 203);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 34F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(26, 203);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(253, 90);
+            this.label1.Size = new System.Drawing.Size(266, 92);
             this.label1.TabIndex = 1;
             this.label1.Text = "Something went\r\nwrong";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -63,7 +63,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(9, 303);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(294, 63);
@@ -74,6 +74,7 @@
             // 
             // button1
             // 
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(225, 429);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
@@ -84,6 +85,7 @@
             // 
             // button2
             // 
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.button2.Location = new System.Drawing.Point(39, 429);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
@@ -94,6 +96,7 @@
             // 
             // button3
             // 
+            this.button3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.button3.Location = new System.Drawing.Point(120, 429);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(99, 23);
@@ -105,9 +108,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(36, 411);
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(91, 409);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(186, 15);
+            this.label3.Size = new System.Drawing.Size(209, 17);
             this.label3.TabIndex = 6;
             this.label3.Text = "No error infomation was provided";
             this.label3.Visible = false;

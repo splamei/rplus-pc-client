@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A4A9FC17-ADF7-43BF-97D6-19D090285C34}</ProjectGuid>
+    <ProjectGuid>{1ACE0796-1944-4A45-56F2-90FD34E6C018}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Rhythm_Plus___Splamei_Client</RootNamespace>
     <AssemblyName>Rhythm Plus - Splamei Client</AssemblyName>

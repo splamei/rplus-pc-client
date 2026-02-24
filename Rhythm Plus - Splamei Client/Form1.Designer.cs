@@ -73,9 +73,9 @@
             this.webView21.DefaultBackgroundColor = System.Drawing.Color.Black;
             this.webView21.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webView21.ForeColor = System.Drawing.Color.White;
-            this.webView21.Location = new System.Drawing.Point(0, 24);
+            this.webView21.Location = new System.Drawing.Point(0, 25);
             this.webView21.Name = "webView21";
-            this.webView21.Size = new System.Drawing.Size(1055, 667);
+            this.webView21.Size = new System.Drawing.Size(1055, 666);
             this.webView21.TabIndex = 0;
             this.webView21.ZoomFactor = 1D;
             this.webView21.NavigationCompleted += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs>(this.webView21_NavigationCompleted);
@@ -93,6 +93,7 @@
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Desktop;
+            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileMenu,
             this.linkToolStripMenuItem,
@@ -101,7 +102,7 @@
             this.starOnGitHubToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1055, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1055, 25);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.TabStop = true;
             this.menuStrip1.Text = "menuStrip1";
@@ -115,25 +116,25 @@
             this.QuitMenu});
             this.fileMenu.ForeColor = System.Drawing.Color.White;
             this.fileMenu.Name = "fileMenu";
-            this.fileMenu.Size = new System.Drawing.Size(37, 20);
+            this.fileMenu.Size = new System.Drawing.Size(39, 21);
             this.fileMenu.Text = "File";
             // 
             // settingsMenu
             // 
             this.settingsMenu.Name = "settingsMenu";
-            this.settingsMenu.Size = new System.Drawing.Size(116, 22);
+            this.settingsMenu.Size = new System.Drawing.Size(122, 22);
             this.settingsMenu.Text = "Settings";
             this.settingsMenu.Click += new System.EventHandler(this.settingsMenu_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(113, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(119, 6);
             // 
             // QuitMenu
             // 
             this.QuitMenu.Name = "QuitMenu";
-            this.QuitMenu.Size = new System.Drawing.Size(116, 22);
+            this.QuitMenu.Size = new System.Drawing.Size(122, 22);
             this.QuitMenu.Text = "Quit";
             this.QuitMenu.Click += new System.EventHandler(this.QuitMenu_Click);
             // 
@@ -144,20 +145,20 @@
             this.copyLinkToolStripMenuItem});
             this.linkToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.linkToolStripMenuItem.Name = "linkToolStripMenuItem";
-            this.linkToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.linkToolStripMenuItem.Size = new System.Drawing.Size(47, 21);
             this.linkToolStripMenuItem.Text = "View";
             // 
             // goToToolStripMenuItem
             // 
             this.goToToolStripMenuItem.Name = "goToToolStripMenuItem";
-            this.goToToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.goToToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.goToToolStripMenuItem.Text = "To Link";
             this.goToToolStripMenuItem.Click += new System.EventHandler(this.goToToolStripMenuItem_Click);
             // 
             // copyLinkToolStripMenuItem
             // 
             this.copyLinkToolStripMenuItem.Name = "copyLinkToolStripMenuItem";
-            this.copyLinkToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.copyLinkToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.copyLinkToolStripMenuItem.Text = "Copy Link";
             this.copyLinkToolStripMenuItem.Click += new System.EventHandler(this.copyLinkToolStripMenuItem_Click);
             // 
@@ -165,7 +166,7 @@
             // 
             this.extensionsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.extensionsToolStripMenuItem.Name = "extensionsToolStripMenuItem";
-            this.extensionsToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
+            this.extensionsToolStripMenuItem.Size = new System.Drawing.Size(81, 21);
             this.extensionsToolStripMenuItem.Text = "Extensions";
             this.extensionsToolStripMenuItem.Click += new System.EventHandler(this.extensionsToolStripMenuItem_Click);
             // 
@@ -177,25 +178,25 @@
             this.aboutMenu});
             this.HelpMenu.ForeColor = System.Drawing.Color.White;
             this.HelpMenu.Name = "HelpMenu";
-            this.HelpMenu.Size = new System.Drawing.Size(44, 20);
+            this.HelpMenu.Size = new System.Drawing.Size(47, 21);
             this.HelpMenu.Text = "Help";
             // 
             // getHelpMenu
             // 
             this.getHelpMenu.Name = "getHelpMenu";
-            this.getHelpMenu.Size = new System.Drawing.Size(120, 22);
+            this.getHelpMenu.Size = new System.Drawing.Size(127, 22);
             this.getHelpMenu.Text = "Get Help";
             this.getHelpMenu.Click += new System.EventHandler(this.getHelpMenu_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(117, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(124, 6);
             // 
             // aboutMenu
             // 
             this.aboutMenu.Name = "aboutMenu";
-            this.aboutMenu.Size = new System.Drawing.Size(120, 22);
+            this.aboutMenu.Size = new System.Drawing.Size(127, 22);
             this.aboutMenu.Text = "About";
             this.aboutMenu.Click += new System.EventHandler(this.aboutMenu_Click);
             // 
@@ -204,7 +205,7 @@
             this.starOnGitHubToolStripMenuItem.BackColor = System.Drawing.Color.Black;
             this.starOnGitHubToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.starOnGitHubToolStripMenuItem.Name = "starOnGitHubToolStripMenuItem";
-            this.starOnGitHubToolStripMenuItem.Size = new System.Drawing.Size(97, 20);
+            this.starOnGitHubToolStripMenuItem.Size = new System.Drawing.Size(106, 21);
             this.starOnGitHubToolStripMenuItem.Text = "Star on GitHub";
             this.starOnGitHubToolStripMenuItem.Click += new System.EventHandler(this.starOnGitHubToolStripMenuItem_Click);
             // 
