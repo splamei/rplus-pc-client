@@ -5,6 +5,9 @@ on:
     branches: ["**"]
     tags: ["**"]
 
+permissions:
+  contents: read
+
 jobs:
   mirror:
     runs-on: ubuntu-latest
@@ -18,7 +21,8 @@ jobs:
       - name: Add mirror notice
         run: |
           if [ -f README.md ] && ! grep -q "Mirror Repository" README.md; then
-            printf "# 🚫 Heads up! This is a mirror repo 🚫\n\nThis repo is a mirror of the repo on GitHub. Please make issues and PRs there!\n\nGitHub: https://github.com/splamei/rplus-pc-client\n\n---\n\n" | cat - README.md > temp && mv temp README.md
+            REPO_NAME=$(basename $GITHUB_REPOSITORY)
+            printf "# Heads up! This is a mirror repo\n\nThis repo is a mirror of the repo on GitHub. Please make issues and PRs there!\n\nGitHub: https://github.com/splamei/$REPO_NAME\n\n---\n\n" | cat - README.md > temp && mv temp README.md
             
             git config user.name "Splamei Mirror Bot"
             git config user.email "DoNotReply@veemo.uk"
@@ -28,7 +32,8 @@ jobs:
 
       - name: Push to GitLab
         run: |
-          git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/Splamei/rplus-pc-client.git
+          REPO_NAME=$(basename $GITHUB_REPOSITORY)
+          git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/splamei/$REPO_NAME.git
       
           git for-each-ref --format='delete %(refname)' refs/remotes/origin | git update-ref --stdin
           git push --prune gitlab +refs/heads/*:refs/heads/* +refs/tags/*:refs/tags/*
