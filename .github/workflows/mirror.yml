@@ -1,0 +1,34 @@
+name: GitLab Mirror
+
+on:
+  push:
+    branches: ["**"]
+    tags: ["**"]
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Add mirror notice
+        run: |
+          if [ -f README.md ] && ! grep -q "Mirror Repository" README.md; then
+            printf "# 🚫 Heads up! This is a mirror repo 🚫\n\nThis repo is a mirror of the repo on GitHub. Please make issues and PRs there!\n\nGitHub: https://github.com/splamei/rplus-pc-client\n\n---\n\n" | cat - README.md > temp && mv temp README.md
+            
+            git config user.name "Splamei Mirror Bot"
+            git config user.email "DoNotReply@veemo.uk"
+            
+            git commit -am "mirror bot: Added README mirror notice"
+          fi
+
+      - name: Push to GitLab
+        run: |
+          git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/Splamei/rplus-pc-client.git
+      
+          git for-each-ref --format='delete %(refname)' refs/remotes/origin | git update-ref --stdin
+          git push --prune gitlab +refs/heads/*:refs/heads/* +refs/tags/*:refs/tags/*
