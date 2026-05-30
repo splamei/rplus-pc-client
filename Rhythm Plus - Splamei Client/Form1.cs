@@ -803,10 +803,10 @@ namespace Rhythm_Plus___Splamei_Client
                                     Application.Exit();
                                 }
                             }
-                            else
-                            {
-                                checkNotices();
-                            }
+                            //else
+                            //{
+                            //    checkNotices();
+                            //}
                         }
                         else
                         {
@@ -817,16 +817,16 @@ namespace Rhythm_Plus___Splamei_Client
                                     Application.Exit();
                                 }
                             }
-                            else
-                            {
-                                checkNotices();
-                            }
+                            //else
+                            //{
+                            //    checkNotices();
+                            //}
                         }
                     }
-                    else
-                    {
-                        checkNotices();
-                    }
+                    //else
+                    //{
+                    //    checkNotices();
+                    //}
                 }
                 else
                 {
@@ -839,7 +839,7 @@ namespace Rhythm_Plus___Splamei_Client
             }
         }
 
-        private void checkNotices()
+        /**private void checkNotices()
         {
 
             try
@@ -908,7 +908,7 @@ namespace Rhythm_Plus___Splamei_Client
                     errorD.ShowDialog();
                 }
             }
-        }
+        }**/
 
         // Define other methods and classes here
         public static Task<string> MakeAsyncRequest(string url, string contentType)
