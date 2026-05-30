@@ -11,6 +11,8 @@ namespace Rhythm_Plus___Splamei_Client
     {
         public Form1 form;
 
+        public List<string> requiredExtensionId = new List<string>() { "dgiklkfkllikcanfonkcabmbdfmgleag", "mhjfbmdgcfjbbpaeojofohoefgiehjai" };
+
         public Extentions()
         {
             InitializeComponent();
@@ -18,7 +20,7 @@ namespace Rhythm_Plus___Splamei_Client
 
         private void Extentions_Load(object sender, EventArgs e)
         {
-            //checkedListBox1.Items.Clear();
+            checkedListBox1.Items.Clear();
         }
 
         public void loadExtentions(List<string> names, List<string> ids, List<bool> enabled)
@@ -27,11 +29,12 @@ namespace Rhythm_Plus___Splamei_Client
 
             for (int i = 0; i < names.Count; i++)
             {
-                checkedListBox1.Items.Add($"{names[i]} (ID: {ids[i]})", false);
-                //Logging.logString(names[i]);
+                if (!requiredExtensionId.Contains(ids[i]))
+                {
+                    checkedListBox1.Items.Add($"{names[i]} (ID: {ids[i]})", false);
+                }
             }
 
-            //Logging.logString(checkedListBox1.Items[0].ToString());
             checkedListBox1.Refresh();
         }
 
@@ -100,27 +103,21 @@ namespace Rhythm_Plus___Splamei_Client
 
         static void CopyDirectory(string sourceDir, string destinationDir, bool recursive)
         {
-            // Get information about the source directory
             var dir = new DirectoryInfo(sourceDir);
 
-            // Check if the source directory exists
             if (!dir.Exists)
                 throw new DirectoryNotFoundException($"Source directory not found: {dir.FullName}");
 
-            // Cache directories before we start copying
             DirectoryInfo[] dirs = dir.GetDirectories();
 
-            // Create the destination directory
             Directory.CreateDirectory(destinationDir);
 
-            // Get the files in the source directory and copy to the destination directory
             foreach (FileInfo file in dir.GetFiles())
             {
                 string targetFilePath = Path.Combine(destinationDir, file.Name);
                 file.CopyTo(targetFilePath);
             }
 
-            // If recursive and copying subdirectories, recursively call this method
             if (recursive)
             {
                 foreach (DirectoryInfo subDir in dirs)
@@ -185,7 +182,6 @@ namespace Rhythm_Plus___Splamei_Client
                         {
                             if (fileData.Contains($"\"name\": \"{extensionName}\","))
                             {
-                                //Logging.logString("AAAAAAA " + directory);
                                 Directory.Delete(directory, true);
                             }
                         }
