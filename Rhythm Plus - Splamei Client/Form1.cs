@@ -224,15 +224,7 @@ namespace Rhythm_Plus___Splamei_Client
                         }
                         else
                         {
-                            if (songName == selectedSongTitle)
-                            {
-                                point = $"Playing '{selectedSongName} -by- {selectedSongAuthor}' [{selectedSongCharter}]";
-                            }
-                            else
-                            {
-                                point = $"Playing '{songName}'";
-                            }
-
+                            point = $"Playing '{selectedSongName} -by- {selectedSongAuthor}' [{selectedSongCharter}]";
                             forceUpdate = true;
                         }
                     }
@@ -1473,7 +1465,7 @@ namespace Rhythm_Plus___Splamei_Client
 
                     try
                     {
-                        script = "document.querySelector('div.score > div:nth-child(2)').innerText";
+                        script = "document.querySelector('.score-values > div:nth-child(1)').innerText";
                         result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
                         value = JsonConvert.DeserializeObject<string>(result);
                         if (value != null) { currentAccuracy = float.Parse(value.Replace("%", "")); }
@@ -1484,7 +1476,7 @@ namespace Rhythm_Plus___Splamei_Client
                         currentAccuracy = 0f;
                     }
 
-                    script = "document.querySelector('div.score > div.text-5xl')?.innerText";
+                    script = "document.querySelector('.text-5xl')?.innerText";
                     result = await webView21.CoreWebView2.ExecuteScriptAsync(script);
                     value = JsonConvert.DeserializeObject<string>(result);
                     if (value != null) { currentScore = value; }
