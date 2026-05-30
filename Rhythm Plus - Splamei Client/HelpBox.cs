@@ -50,6 +50,7 @@ namespace Rhythm_Plus___Splamei_Client
                 webView21.Source = new Uri("https://veemo.uk/help");
 
                 webView21.CoreWebView2.ContextMenuRequested += webView2ContextMenuRequested;
+                webView21.CoreWebView2.NewWindowRequested += webView2NewWindowRequested;
 
                 webView21.CoreWebView2.Settings.AreDevToolsEnabled = false;
                 webView21.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
@@ -80,6 +81,13 @@ namespace Rhythm_Plus___Splamei_Client
             e.Handled = true;
 
             //contextMenuStrip2.Show(this, System.Windows.Forms.Cursor.Position);
+        }
+
+        private void webView2NewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)
+        {
+            Process.Start(e.Uri);
+
+            e.Handled = true;
         }
 
         private void webView21_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
