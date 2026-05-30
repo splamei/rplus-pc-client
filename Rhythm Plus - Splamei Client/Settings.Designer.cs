@@ -71,7 +71,7 @@
             this.checkBox1.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.checkBox1.Location = new System.Drawing.Point(10, 397);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(235, 25);
+            this.checkBox1.Size = new System.Drawing.Size(232, 25);
             this.checkBox1.TabIndex = 1;
             this.checkBox1.Text = "Enable Discord Rich Presence";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -85,7 +85,7 @@
             this.checkBox2.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.checkBox2.Location = new System.Drawing.Point(10, 427);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(317, 25);
+            this.checkBox2.Size = new System.Drawing.Size(314, 25);
             this.checkBox2.TabIndex = 2;
             this.checkBox2.Text = "Show the title of played maps within RPC";
             this.checkBox2.UseVisualStyleBackColor = true;
@@ -119,7 +119,6 @@
             this.label4.Size = new System.Drawing.Size(304, 21);
             this.label4.TabIndex = 5;
             this.label4.Text = "Changes will take effect on the next reboot";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // checkBox3
             // 
@@ -127,7 +126,7 @@
             this.checkBox3.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.checkBox3.Location = new System.Drawing.Point(10, 487);
             this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(296, 46);
+            this.checkBox3.Size = new System.Drawing.Size(293, 46);
             this.checkBox3.TabIndex = 6;
             this.checkBox3.Text = "Allow friends to go to the exact part of\r\nR+ your on via RPC";
             this.checkBox3.UseVisualStyleBackColor = true;
@@ -138,7 +137,7 @@
             this.trackBar1.Location = new System.Drawing.Point(10, 557);
             this.trackBar1.Minimum = 1;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(254, 56);
+            this.trackBar1.Size = new System.Drawing.Size(254, 45);
             this.trackBar1.TabIndex = 7;
             this.trackBar1.Value = 5;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
@@ -184,7 +183,7 @@
             this.checkBox4.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.checkBox4.Location = new System.Drawing.Point(10, 97);
             this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(196, 25);
+            this.checkBox4.Size = new System.Drawing.Size(193, 25);
             this.checkBox4.TabIndex = 11;
             this.checkBox4.Text = "Retain the Window Size";
             this.checkBox4.UseVisualStyleBackColor = true;
@@ -196,7 +195,7 @@
             this.checkBox5.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.checkBox5.Location = new System.Drawing.Point(10, 128);
             this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(135, 25);
+            this.checkBox5.Size = new System.Drawing.Size(132, 25);
             this.checkBox5.TabIndex = 12;
             this.checkBox5.Text = "Play Fullscreen";
             this.checkBox5.UseVisualStyleBackColor = true;
@@ -209,7 +208,7 @@
             this.checkBox6.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.checkBox6.Location = new System.Drawing.Point(10, 158);
             this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(155, 25);
+            this.checkBox6.Size = new System.Drawing.Size(152, 25);
             this.checkBox6.TabIndex = 13;
             this.checkBox6.Text = "Enable extensions";
             this.checkBox6.UseVisualStyleBackColor = true;
@@ -256,7 +255,7 @@
             this.trackBar2.Maximum = 50;
             this.trackBar2.Minimum = 2;
             this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Size = new System.Drawing.Size(254, 56);
+            this.trackBar2.Size = new System.Drawing.Size(254, 45);
             this.trackBar2.TabIndex = 16;
             this.trackBar2.Value = 10;
             this.trackBar2.Scroll += new System.EventHandler(this.trackBar2_Scroll);
@@ -269,7 +268,7 @@
             this.checkBox7.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.checkBox7.Location = new System.Drawing.Point(10, 457);
             this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(304, 25);
+            this.checkBox7.Size = new System.Drawing.Size(301, 25);
             this.checkBox7.TabIndex = 18;
             this.checkBox7.Text = "Display your current game stats/results";
             this.checkBox7.UseVisualStyleBackColor = true;
@@ -281,7 +280,7 @@
             this.checkBox8.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.checkBox8.Location = new System.Drawing.Point(10, 188);
             this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(95, 25);
+            this.checkBox8.Size = new System.Drawing.Size(92, 25);
             this.checkBox8.TabIndex = 19;
             this.checkBox8.Text = "V2 Mode";
             this.checkBox8.UseVisualStyleBackColor = true;

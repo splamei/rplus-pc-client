@@ -19,11 +19,6 @@ namespace Rhythm_Plus___Splamei_Client
             InitializeComponent();
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void label5_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -55,21 +50,6 @@ namespace Rhythm_Plus___Splamei_Client
             times.Add(6);
             messages.Add("Why do you keep clicking? There's nothing special");
             times.Add(4);
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click_1(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -110,11 +90,6 @@ namespace Rhythm_Plus___Splamei_Client
             {
                 licences.ShowDialog();
             }
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void AboutNew_FormClosed(object sender, FormClosedEventArgs e)

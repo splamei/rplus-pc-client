@@ -47,10 +47,9 @@
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(118, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(137, 56);
+            this.label1.Size = new System.Drawing.Size(133, 50);
             this.label1.TabIndex = 0;
             this.label1.Text = "Rhythm Plus\r\nSplamei Client";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -62,7 +61,6 @@
             this.label2.Size = new System.Drawing.Size(118, 38);
             this.label2.TabIndex = 1;
             this.label2.Text = "By Splamei\r\nGame By format.z";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
@@ -74,7 +72,6 @@
             this.label3.Size = new System.Drawing.Size(264, 21);
             this.label3.TabIndex = 2;
             this.label3.Text = "(c) Splamei 2024-2025 - MIT Licence";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
@@ -86,7 +83,6 @@
             this.label4.Size = new System.Drawing.Size(141, 21);
             this.label4.TabIndex = 3;
             this.label4.Text = "Version - Loading...";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // button1
             // 
@@ -109,7 +105,6 @@
             this.label5.Size = new System.Drawing.Size(220, 42);
             this.label5.TabIndex = 6;
             this.label5.Text = "Thank you for using my client!\r\nIt means alot!";
-            this.label5.Click += new System.EventHandler(this.label5_Click_1);
             // 
             // button2
             // 

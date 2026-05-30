@@ -59,11 +59,6 @@ namespace Rhythm_Plus___Splamei_Client
             starting = false;
         }
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)
         {
             saveManager.setString("discordRpRefresh", trackBar1.Value.ToString());

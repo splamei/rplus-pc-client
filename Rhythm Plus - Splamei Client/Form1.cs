@@ -25,7 +25,6 @@ namespace Rhythm_Plus___Splamei_Client
         public SaveManager saveManager = new SaveManager();
 
         private bool closeSplash = false;
-        private bool forceClose = false;
 
         private bool showingError = false;
         private Settings settingsBox;

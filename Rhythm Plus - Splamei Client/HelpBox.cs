@@ -79,8 +79,6 @@ namespace Rhythm_Plus___Splamei_Client
         private void webView2ContextMenuRequested(object sender, CoreWebView2ContextMenuRequestedEventArgs e)
         {
             e.Handled = true;
-
-            //contextMenuStrip2.Show(this, System.Windows.Forms.Cursor.Position);
         }
 
         private void webView2NewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)
