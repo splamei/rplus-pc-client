@@ -1,4 +1,4 @@
-name: GitLab Mirror
+name: Repo Mirror
 
 on:
   push:
@@ -30,8 +30,10 @@ jobs:
             git commit -am "mirror bot: Added README mirror notice"
           fi
 
-      - name: Push to GitLab
+      - name: Mirror repo
         run: |
+          git config --global push.followTags false
+          
           REPO_NAME=$(basename $GITHUB_REPOSITORY)
           git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/splamei/$REPO_NAME.git
       
