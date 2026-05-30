@@ -343,7 +343,6 @@ namespace Rhythm_Plus___Splamei_Client
             {
                 MessageBox.Show("You seem to have the client already running in a seperate instance. To open a new instance, close the current instance first.", "Rhythm Plus - Splamei Client", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 
-                forceClose = true;
                 this.Close();
                 return;
             }
