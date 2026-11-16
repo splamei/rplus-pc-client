@@ -1,3 +1,6 @@
+> [!IMPORTANT]  
+> This client is getting deprecated and will be archived soon. Please use the newer, more feature-rich client instead. It can be found on SplameiPlay or [here on GitHub](https://github.com/splamei/rhythm-plus-pc-splamei-client).
+
 ![Checks](https://img.shields.io/github/check-runs/splamei/rplus-pc-client/master)
 ![Issues](https://img.shields.io/github/issues/splamei/rplus-pc-client)
 ![License](https://img.shields.io/github/license/splamei/rplus-pc-client)
